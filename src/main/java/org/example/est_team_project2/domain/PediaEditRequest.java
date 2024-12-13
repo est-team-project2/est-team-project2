@@ -9,8 +9,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PediaEditRequest {
 
     @Id
@@ -24,12 +31,22 @@ public class PediaEditRequest {
 
     @ManyToOne
     @JoinColumn(name = "responded_member_id")
+    @Setter
     private Member respondedMember;
 
     @ManyToOne
     @JoinColumn(name = "requested_member_id")
     private Member requestedMember;
 
+    @Setter
     private LocalDateTime closedAt;
-    private CommonStatus status;
+
+    @Setter
+    private RequestStatus status = RequestStatus.OPENED;
+
+    @Builder
+    public PediaEditRequest(PediaVersion pediaVersion, Member requestedMember) {
+        this.pediaVersion = pediaVersion;
+        this.requestedMember = requestedMember;
+    }
 }

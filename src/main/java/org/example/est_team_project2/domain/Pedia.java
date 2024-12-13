@@ -6,8 +6,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Pedia {
 
     @Id
@@ -16,8 +23,17 @@ public class Pedia {
     private Long id;
 
     private String title;
-    private String currentVersionCode;
 
-    private LocalDateTime createdAt;
+    @Setter
+    private String currentVersionCode = null;
+
+    private final LocalDateTime createdAt = LocalDateTime.now();
+
+    @Setter
     private LocalDateTime updatedAt;
+
+    @Builder
+    public Pedia(String title) {
+        this.title = title;
+    }
 }

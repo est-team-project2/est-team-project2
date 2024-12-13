@@ -9,8 +9,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
 public class PediaVersion {
 
     @Id
@@ -20,7 +24,7 @@ public class PediaVersion {
 
     @ManyToOne
     @JoinColumn(name = "pedia_id")
-    private Pedia pedia;
+    private final Pedia pedia;
 
     @OneToOne
     @JoinColumn(name = "pedia_content_id")
@@ -31,8 +35,17 @@ public class PediaVersion {
     private Member editor;
 
     @Column(unique = true)
+    @Setter
     private String pediaVersionCode;
-    
-    private LocalDateTime createdAt;
+
+    private final LocalDateTime createdAt = LocalDateTime.now();
+
     private CommonStatus status;
+
+    @Builder
+    public PediaVersion(Pedia pedia, PediaContent pediaContent, Member editor) {
+        this.pedia = pedia;
+        this.pediaContent = pediaContent;
+        this.editor = editor;
+    }
 }

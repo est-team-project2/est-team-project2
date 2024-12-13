@@ -7,8 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -26,7 +29,9 @@ public class Member {
     List<PediaVersion> editedPediaVersions;
 
     private String email;
+
     private String password;
+
     private String nickname;
 
     private CommonStatus status;

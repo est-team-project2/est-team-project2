@@ -5,8 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PediaContent {
 
     @Id
@@ -16,4 +23,12 @@ public class PediaContent {
 
     private String body;
     // 수정 예정
+
+    @Setter
+    private CommonStatus status = CommonStatus.ACTIVE;
+
+    @Builder
+    public PediaContent(String body) {
+        this.body = body;
+    }
 }
