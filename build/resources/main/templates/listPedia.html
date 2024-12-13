@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>백과 내용 목록</title>
+</head>
+<body>
+<h1>등록된 백과 내용 목록</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>이미지 식별자</th>
+        <th>견종</th>
+        <th>원산지</th>
+        <th>크기</th>
+        <th>세부 정보</th>
+        <th>유전 질환</th>
+        <th>특징</th>
+        <th>상태</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="pediaContent : ${pediaContentList}">
+        <td th:text="${pediaContent.imageNumber}"></td>
+        <td th:text="${pediaContent.breed}"></td>
+        <td th:text="${pediaContent.origin}"></td>
+        <td th:text="${pediaContent.size}"></td>
+        <td th:text="${pediaContent.detail}"></td>
+        <td th:text="${pediaContent.geneticDisease}"></td>
+        <td th:text="${pediaContent.feature}"></td>
+        <td th:text="${pediaContent.status}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/pediaContent/register">백과 내용 추가하기</a>
+<a href="/pedia/list">백과 목록으로 돌아가기</a>
+</body>
+</html>
