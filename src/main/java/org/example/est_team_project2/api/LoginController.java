@@ -1,6 +1,5 @@
 package org.example.est_team_project2.api;
 
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.domain.Member;
@@ -51,7 +50,4 @@ public class LoginController {
         }
     }
 
-
-
 }
-

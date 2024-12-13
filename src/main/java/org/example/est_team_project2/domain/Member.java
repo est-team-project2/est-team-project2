@@ -10,6 +10,7 @@ import org.example.est_team_project2.domain.eunm.MemberType;
 import org.example.est_team_project2.domain.eunm.SocialType;
 import org.example.est_team_project2.dto.MemberDto;
 
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -25,7 +26,9 @@ public class Member {
 
     private LocalDateTime createAt = LocalDateTime.now(); // 언제 만들어 졌는지
 
+
     private LocalDateTime updateAt; //언제 수정되었는지
+
 
     @Column(unique = true)
     private String email; //아이디 겸 이메일
@@ -40,14 +43,15 @@ public class Member {
 
     private String nickName; // 활동명
 
+
+
     @Builder
-    public Member(String nickName, String password, String email) {
-        this.nickName = nickName;
-        this.password = password;
+    public Member(String email, String password, SocialType socialType, MemberType role, String nickName) {
         this.email = email;
+        this.password = password;
+        this.socialType = socialType;
+        this.nickName = nickName;
 
     }
-
-
 
 }
