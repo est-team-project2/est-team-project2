@@ -144,7 +144,7 @@ bin/
 !**/src/test/**/bin/
 
 ### CUSTOM ###
-src/main/resources/*.yaml
+src/main/resources/application-local.yml
 
 ### IntelliJ IDEA ###
 .idea
