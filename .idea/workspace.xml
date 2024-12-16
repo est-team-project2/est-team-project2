@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7cba5d50-88c2-41e1-8442-e88f9fa28ddb" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/dao/MemberRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/dao/PediaContentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/dao/PediaVersionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/domain/Member.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/domain/PediaContent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/domain/PediaVersion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/registerPedia.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/EstTeamProject2Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/EstTeamProject2Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/api/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/api/PediaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/config/test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/dao/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/dao/PediaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/domain/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/domain/Pedia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/dto/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/dto/PediaDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/service/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/est_team_project2/service/PediaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2q665kUhSGboih6gPhaZJXHqfKr" />
+  <component name="ProjectViewState">
+    <option name="flattenModules" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Gradle.Build est-team-project2.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.EstTeamProject2ApplicationTests.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.EstTeamProject2ApplicationTests.executor&quot;: &quot;Debug&quot;,
+    &quot;JavaScript Debug.Jindo.HTML.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.listPedia.html.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.registerPedia.html.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;Spring Boot.EstTeamProject2Application.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/work/Project_2/est-team-project2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\work\Project_2\est-team-project2\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\work\Project_2\est-team-project2\src\main" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.EstTeamProject2Application">
+    <configuration name="EstTeamProject2ApplicationTests" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.example.est_team_project2.EstTeamProject2ApplicationTests&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="EstTeamProject2ApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="est_team_project2.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.est_team_project2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.est_team_project2" />
+      <option name="MAIN_CLASS_NAME" value="org.example.est_team_project2.EstTeamProject2ApplicationTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Jindo.HTML.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/est_team_project2/est_team_project2.main/Jindo.HTML.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="listPedia.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/est_team_project2/est_team_project2.main/templates/listPedia.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="registerPedia.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/est-team-project2/est_team_project2.main/templates/registerPedia.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="EstTeamProject2Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="est_team_project2.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.est_team_project2.EstTeamProject2Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.registerPedia.html" />
+        <item itemvalue="JUnit.EstTeamProject2ApplicationTests" />
+        <item itemvalue="Gradle.EstTeamProject2ApplicationTests" />
+        <item itemvalue="JavaScript Debug.listPedia.html" />
+        <item itemvalue="JavaScript Debug.Jindo.HTML.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7cba5d50-88c2-41e1-8442-e88f9fa28ddb" name="Changes" comment="" />
+      <created>1733970496893</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733970496893</updated>
+      <workItem from="1733970497907" duration="2235000" />
+      <workItem from="1733979575835" duration="2173000" />
+      <workItem from="1733981775188" duration="7236000" />
+      <workItem from="1734017226309" duration="4990000" />
+      <workItem from="1734048201857" duration="288000" />
+      <workItem from="1734048769616" duration="9539000" />
+      <workItem from="1734070010532" duration="10126000" />
+      <workItem from="1734146677990" duration="1065000" />
+      <workItem from="1734148322864" duration="6030000" />
+      <workItem from="1734155400760" duration="6000" />
+      <workItem from="1734195087947" duration="9000" />
+      <workItem from="1734195111363" duration="45000" />
+      <workItem from="1734195261612" duration="327000" />
+      <workItem from="1734230852434" duration="1144000" />
+      <workItem from="1734232010093" duration="1460000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
