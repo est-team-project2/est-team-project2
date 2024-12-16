@@ -21,7 +21,11 @@ public class PediaVersion {
     @Column(name = "pedia_version_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+  
+    private Long pediaVersionId;
+  
+    private Long pediaId;
+  
     @ManyToOne
     @JoinColumn(name = "pedia_id")
     private final Pedia pedia;
@@ -48,4 +52,6 @@ public class PediaVersion {
         this.pediaContent = pediaContent;
         this.editor = editor;
     }
+
 }
+

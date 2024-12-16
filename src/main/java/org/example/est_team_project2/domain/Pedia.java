@@ -5,6 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+
+import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,9 +21,21 @@ import lombok.Setter;
 public class Pedia {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long pediaId;
+  
+
+
+    @Id
     @Column(name = "pedia_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+  
+    private Long mediaId;
+  
+    private Long pediaCategoryId;
+  
+    private int pediaVersion;
 
     private String title;
 
@@ -34,6 +49,6 @@ public class Pedia {
 
     @Builder
     public Pedia(String title) {
-        this.title = title;
+       this.title = title;
     }
 }
