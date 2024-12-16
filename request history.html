@@ -1,0 +1,98 @@
+            <div class="modal-body">
+                <!-- View Mode Content -->
+                <div class="view-content">
+                    <div class="version-info">
+                        <span class="version-number">버전: v1.2</span>
+                        <span class="last-updated">최종 수정: 2024-03-15</span>
+                    </div>
+                    <div class="info-group">
+                        <label>견종명</label>
+                        <p id="viewBreedName"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>크기</label>
+                        <p id="viewSize"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>체중</label>
+                        <p id="viewWeight"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>성격</label>
+                        <p id="viewPersonality"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>특징</label>
+                        <p id="viewCharacteristics"></p>
+                    </div>
+                    <div class="version-history">
+                        <h4>수정 이력</h4>
+                        <ul id="versionList">
+                            <!-- 버전 히스토리는 JavaScript로 동적 추가 -->
+                        </ul>
+                    </div>
+                </div>
+                <!-- Edit Mode Content -->
+                <div class="edit-content">
+                    <div class="info-group">
+                        <label for="editBreedName">견종명</label>
+                        <input type="text" id="editBreedName">
+                    </div>
+                    <div class="info-group">
+                        <label for="editSize">크기</label>
+                        <input type="text" id="editSize">
+                    </div>
+                    <div class="info-group">
+                        <label for="editWeight">체중</label>
+                        <input type="text" id="editWeight">
+                    </div>
+                    <div class="info-group">
+                        <label for="editPersonality">성격</label>
+                        <textarea id="editPersonality"></textarea>
+                    </div>
+                    <div class="info-group">
+                        <label for="editCharacteristics">특징</label>
+                        <textarea id="editCharacteristics"></textarea>
+                    </div>
+                    <div class="info-group">
+                        <label for="editReason">수정 사유</label>
+                        <textarea id="editReason" placeholder="수정하시는 이유를 자세히 설명해 주세요."></textarea>
+                    </div>
+                </div>
+                <!-- Admin/Expert Review Mode -->
+                <div class="review-content">
+                    <h4>수정 요청 검토</h4>
+                    <div class="changes-comparison">
+                        <div class="original-content">
+                            <h5>기존 내용</h5>
+                            <!-- Original content here -->
+                        </div>
+                        <div class="proposed-content">
+                            <h5>수정 요청 내용</h5>
+                            <!-- Proposed changes here -->
+                        </div>
+                    </div>
+                    <div class="info-group">
+                        <label for="reviewComment">검토 의견</label>
+                        <textarea id="reviewComment" placeholder="승인/거절 사유를 입력해 주세요."></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!-- View Mode Buttons -->
+                <div class="view-content">
+                    <button class="btn-modal btn-edit" onclick="toggleEditMode(true)">수정 요청</button>
+                    <button class="btn-modal btn-cancel" onclick="closeModal()">닫기</button>
+                </div>
+                <!-- Edit Mode Buttons -->
+                <div class="edit-content">
+                    <button class="btn-modal btn-edit" onclick="submitEditRequest()">수정 요청 제출</button>
+                    <button class="btn-modal btn-cancel" onclick="toggleEditMode(false)">취소</button>
+                </div>
+                <!-- Admin/Expert Review Buttons -->
+                <div class="review-content">
+                    <button class="btn-modal btn-approve" onclick="approveEdit()">승인</button>
+                    <button class="btn-modal btn-reject" onclick="rejectEdit()">거절</button>
+                    <button class="btn-modal btn-cancel" onclick="closeReviewMode()">취소</button>
+                </div>
+            </div>
