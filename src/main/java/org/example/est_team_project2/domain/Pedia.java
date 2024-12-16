@@ -1,55 +1,54 @@
 package org.example.est_team_project2.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+
 import org.springframework.web.bind.annotation.GetMapping;
+import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Pedia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pediaId;
+  
+
+
+    @Id
+    @Column(name = "pedia_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+  
     private Long mediaId;
+  
     private Long pediaCategoryId;
+  
     private int pediaVersion;
 
-    public Pedia() {
-        // 기본 생성자
-    }
+    private String title;
 
-    public Long getPediaId() {
-        return pediaId;
-    }
+    @Setter
+    private String currentVersionCode = null;
 
-    public void setPediaId(Long pediaId) {
-        this.pediaId = pediaId;
-    }
+    private final LocalDateTime createdAt = LocalDateTime.now();
 
-    public Long getMediaId() {
-        return mediaId;
-    }
+    @Setter
+    private LocalDateTime updatedAt;
 
-    public void setMediaId(Long mediaId) {
-        this.mediaId = mediaId;
-    }
-
-    public Long getPediaCategoryId() {
-        return pediaCategoryId;
-    }
-
-    public void setPediaCategoryId(Long pediaCategoryId) {
-        this.pediaCategoryId = pediaCategoryId;
-    }
-
-    public int getPediaVersion() {
-        return pediaVersion;
-    }
-
-    public void setPediaVersion(int pediaVersion) {
-        this.pediaVersion = pediaVersion;
+    @Builder
+    public Pedia(String title) {
+       this.title = title;
     }
 }
-

@@ -1,89 +1,49 @@
 package org.example.est_team_project2.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PediaContent {
 
     @Id
+    @Column(name = "pedia_content_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long pediaContentId;
+    private Long id;
+  
     private int imageNumber;
+  
     private String breed;
+  
     private String origin;
+  
     private String size;
+  
     private String detail;
+  
     private String geneticDisease;
+  
     private String feature;
 
-    public PediaContent() {
-        // 기본 생성자
-    }
+    private String body;
+    // 수정 예정
 
-    public Long getPediaContentId() {
-        return pediaContentId;
-    }
+    @Setter
+    private CommonStatus status = CommonStatus.ACTIVE;
 
-    public void setPediaContentId(Long pediaContentId) {
-        this.pediaContentId = pediaContentId;
-    }
-
-    public int getImageNumber() {
-        return imageNumber;
-    }
-
-    public void setImageNumber(int imageNumber) {
-        this.imageNumber = imageNumber;
-    }
-
-    public String getBreed() {
-        return breed;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public String getGeneticDisease() {
-        return geneticDisease;
-    }
-
-    public void setGeneticDisease(String geneticDisease) {
-        this.geneticDisease = geneticDisease;
-    }
-
-    public String getFeature() {
-        return feature;
-    }
-
-    public void setFeature(String feature) {
-        this.feature = feature;
+    @Builder
+    public PediaContent(String body) {
+        this.body = body;
     }
 }
