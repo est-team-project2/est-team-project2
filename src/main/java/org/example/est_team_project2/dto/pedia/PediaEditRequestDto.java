@@ -1,13 +1,13 @@
-package org.example.est_team_project2.dto;
+package org.example.est_team_project2.dto.pedia;
 
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.est_team_project2.domain.Member;
-import org.example.est_team_project2.domain.PediaEditRequest;
-import org.example.est_team_project2.domain.PediaVersion;
-import org.example.est_team_project2.domain.RequestStatus;
+import org.example.est_team_project2.domain.member.Member;
+import org.example.est_team_project2.domain.pedia.PediaEditRequest;
+import org.example.est_team_project2.domain.pedia.PediaVersion;
+import org.example.est_team_project2.domain.pedia.requestEnums.RequestStatus;
 
 @Data
 @NoArgsConstructor
@@ -17,13 +17,15 @@ public class PediaEditRequestDto {
     private PediaVersion pediaVersion;
     private Member respondedMember;
     private Member requestedMember;
+    private String pediaEditRequestCode;
     private LocalDateTime closedAt;
     private RequestStatus status;
 
-    public PediaEditRequestDto from(PediaEditRequest pediaEditRequest) {
+    public static PediaEditRequestDto from(PediaEditRequest pediaEditRequest) {
         PediaEditRequestDto pediaEditRequestDto = new PediaEditRequestDto();
 
         pediaEditRequestDto.pediaVersion = pediaEditRequest.getPediaVersion();
+        pediaEditRequestDto.pediaEditRequestCode = pediaEditRequest.getPediaEditRequestCode();
         pediaEditRequestDto.respondedMember = pediaEditRequest.getRespondedMember();
         pediaEditRequestDto.requestedMember = pediaEditRequest.getRequestedMember();
         pediaEditRequestDto.closedAt = pediaEditRequest.getClosedAt();
