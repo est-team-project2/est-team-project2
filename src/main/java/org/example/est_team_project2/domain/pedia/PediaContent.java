@@ -1,7 +1,15 @@
 package org.example.est_team_project2.domain.pedia;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
 
 @Entity
@@ -13,19 +21,19 @@ public class PediaContent {
     @Column(name = "pedia_content_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-  
-    private int imageNumber;
-  
+
+    private String imageUri;
+
     private String breed;
-  
+
     private String origin;
-  
+
     private String size;
-  
+
     private String detail;
-  
+
     private String geneticDisease;
-  
+
     private String feature;
 
     private String body;
