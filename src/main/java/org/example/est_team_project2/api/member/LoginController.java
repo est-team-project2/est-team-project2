@@ -1,15 +1,15 @@
-package org.example.est_team_project2.api;
+package org.example.est_team_project2.api.member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.est_team_project2.domain.Member;
-import org.example.est_team_project2.dto.MemberDto;
-import org.example.est_team_project2.service.MemberService;
+import org.example.est_team_project2.dto.member.MemberDetails;
+import org.example.est_team_project2.dto.member.MemberDto;
+import org.example.est_team_project2.service.member.MemberService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Slf4j
@@ -35,6 +35,11 @@ public class LoginController {
         return "signup";
     }
 
+    @GetMapping("/signin")
+    public String signIn() {
+        return "signin";
+    }
+
     @PostMapping("/signup")
     public String processSignUp (MemberDto memberDto) {
         // 이메일이 있는지 없는지 일단 체크
@@ -50,4 +55,20 @@ public class LoginController {
         }
     }
 
+    //test
+    @GetMapping("/profile")
+    public String profile(Model model, Authentication authentication) {
+
+        MemberDetails memberDetails = (MemberDetails) authentication.getPrincipal();
+
+        log.info("memberDetails = {}", memberDetails);
+
+        model.addAttribute("nickname", memberDetails.getName());
+        model.addAttribute("email", memberDetails.getEmail());
+        model.addAttribute("socialType", memberDetails.getSocialType());
+        model.addAttribute("memberType", memberDetails.getMemberType());
+
+
+        return "profile";
+    }
 }
