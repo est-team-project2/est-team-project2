@@ -2,9 +2,10 @@ package org.example.est_team_project2.service.member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.example.est_team_project2.dao.member.MemberRepository;
 import org.example.est_team_project2.domain.member.Member;
-import org.example.est_team_project2.dto.member.MemberDto;
+import org.example.est_team_project2.dto.MemberDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
 
 @Slf4j
 @Service
@@ -24,12 +24,14 @@ public class MemberService implements UserDetailsService {
 
     public void save(MemberDto memberDto) {
         //객체 생성 해서 저장
+        log.info("memberDto = {}", memberDto);
         Member member = Member.builder()
                 .email(memberDto.getEmail())
-                .nickname(memberDto.getPassword())
+                .nickName(memberDto.getNickName())
                 .password(memberDto.getPassword())
                 .build();
-                memberRepository.save(member);
+
+        memberRepository.save(member);
     }
 
     // 필터 체인에서 테이블의 정보를 확인
@@ -40,16 +42,34 @@ public class MemberService implements UserDetailsService {
         return new MemberDto(member);
     }
 
-    public String emailCheck(MemberDto memberDto) {
+    public String checkDuplicateEmail(MemberDto memberDto) {
+
         Optional<Member> checkEmail = memberRepository.findByEmail(memberDto.getEmail());
 
         if (checkEmail.isPresent()) {
             // 조회 결과가 있다 사용불가
+            System.out.println("fail");
             return null;
+
         } else {
             // 조회 결과가 없다 사용가능
             return "ok";
         }
     }
 
+    public String checkDuplicateNickName(MemberDto memberDto) {
+
+        Optional<Member> checkEmail = memberRepository.findByNickName(memberDto.getNickName());
+
+        if (checkEmail.isPresent()) {
+            // 조회 결과가 있다 사용불가
+            System.out.println("fail");
+            return null;
+
+        } else {
+            // 조회 결과가 없다 사용가능
+            return "ok";
+        }
+    }
 }
+
