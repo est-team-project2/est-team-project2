@@ -3,6 +3,10 @@ package org.example.est_team_project2.domain.pedia;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
+import org.example.est_team_project2.dto.Pedia.PediaContentDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Entity
 @Getter
@@ -38,4 +42,6 @@ public class PediaContent {
     public PediaContent(String body) {
         this.body = body;
     }
+
+
 }

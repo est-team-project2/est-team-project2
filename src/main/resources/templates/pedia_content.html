@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedia Content 등록</title>
+</head>
+<body>
+<h1>Pedia Content 등록</h1>
+<form id="pediaForm">
+    <input type="text" name="breed" placeholder="품종" required>
+    <input type="text" name="origin" placeholder="원산지" required>
+    <input type="text" name="size" placeholder="크기" required>
+    <input type="text" name="detail" placeholder="상세 정보" required>
+    <input type="text" name="genetic_disease" placeholder="유전병" required>
+    <input type="text" name="feature" placeholder="특징" required>
+    <button type="submit">등록</button>
+</form>
+
+<h2>등록된 Pedia Content</h2>
+<div id="registeredContent"></div>
+
+<script>
+    document.getElementById('pediaForm').onsubmit = function(event) {
+        event.preventDefault();
+        fetch('/pediacontent/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                breed: document.querySelector('input[name="breed"]').value,
+                origin: document.querySelector('input[name="origin"]').value,
+                size: document.querySelector('input[name="size"]').value,
+                detail: document.querySelector('input[name="detail"]').value,
+                genetic_disease: document.querySelector('input[name="genetic_disease"]').value,
+                feature: document.querySelector('input[name="feature"]').value,
+            })
+        }).then(response => {
+            if (response.ok) {
+                return response.json(); // 등록된 내용을 JSON으로 반환
+            } else {
+                return response.json().then(err => {
+                    alert('등록에 실패했습니다: ' + err.message);
+                });
+            }
+        }).then(data => {
+            // 등록 성공 시 등록된 내용을 표시
+            const registeredContentDiv = document.getElementById('registeredContent');
+            registeredContentDiv.innerHTML += `<div>
+                품종: ${data.breed}, 원산지: ${data.origin}, 크기: ${data.size},
+                상세 정보: ${data.detail}, 유전병: ${data.geneticDisease}, 특징: ${data.feature}
+            </div>`;
+            document.getElementById('pediaForm').reset(); // 폼 초기화
+        });
+    };
+</script>
+</body>
+</html>

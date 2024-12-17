@@ -16,15 +16,13 @@ public class PediaService {
     @Autowired
     public PediaService(PediaRepository repository) {
         this.repository = repository;
-
-    }
-
-    public List<Pedia> findAll() {
-        return repository.findAll();
     }
 
     public Pedia save(Pedia pedia) {
         return repository.save(pedia);
     }
 
+    public List<Pedia> findAll() {
+        return repository.findAll();
+    }
 }

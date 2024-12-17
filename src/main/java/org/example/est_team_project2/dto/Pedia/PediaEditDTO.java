@@ -9,9 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PediaDTO {
-    private Long pediaId;
-    private Long memberId;
+public class PediaEditDTO {
+    private Long pediaEditRequestId;
     private Long pediaContentId;
-    private int pediaVersion; // 버전
+    private Long memberId;
+    private int pediaVersion;
+    private String status;
 }

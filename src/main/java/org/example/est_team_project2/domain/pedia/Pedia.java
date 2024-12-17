@@ -1,38 +1,39 @@
 package org.example.est_team_project2.domain.pedia;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
 public class Pedia {
-
     @Id
-    @Column(name = "pedia_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-  
-    private Long mediaId;
-  
-    private Long pediaCategoryId;
-  
-    private int pediaVersion;
+    private Long pediaId;
 
-    private String title;
+    private Long memberId; // 회원 ID
+    private Long pediaContentId; // PediaContent ID
+    private int pediaVersion; // 버전
 
-    @Setter
-    private String currentVersionCode = null;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    private final LocalDateTime createdAt = LocalDateTime.now();
+    @Column(nullable = false)
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
-    @Setter
-    private LocalDateTime updatedAt;
-
-    @Builder
-    public Pedia(String title) {
-       this.title = title;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now(); // 생성 시 updatedAt도 현재 시간으로 설정
     }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now(); // 업데이트 시 updatedAt을 현재 시간으로 설정
+    }
+
+
 }
