@@ -1,8 +1,8 @@
-package org.example.est_team_project2.service;
+package org.example.est_team_project2.service.member;
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.est_team_project2.domain.enums.SocialType;
-import org.example.est_team_project2.dto.MemberDetails;
+import org.example.est_team_project2.domain.member.memberEnums.SocialType;
+import org.example.est_team_project2.dto.member.MemberDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Map;

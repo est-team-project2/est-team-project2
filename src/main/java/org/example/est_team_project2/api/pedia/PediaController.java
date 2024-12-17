@@ -1,8 +1,8 @@
-package org.example.est_team_project2.api;
+package org.example.est_team_project2.api.pedia;
 
 
-import org.example.est_team_project2.domain.Pedia;
-import org.example.est_team_project2.service.PediaService;
+import org.example.est_team_project2.domain.pedia.Pedia;
+import org.example.est_team_project2.service.pedia.PediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +22,11 @@ public class PediaController {
         this.service = service;
     }
 
-    @GetMapping("/pedia/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("pedia", new Pedia());
-        return "registerPedia"; // 등록페이지
-    }
+//    @GetMapping("/pedia/register")
+//    public String showRegisterForm(Model model) {
+//        model.addAttribute("pedia", new Pedia());
+//        return "registerPedia"; // 등록페이지
+//    }
 
     @PostMapping("/pedia/register")
     public String registerPedia(@ModelAttribute Pedia pedia) {
