@@ -1,0 +1,89 @@
+<!-- templates/fragments/header.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<header th:fragment="header">
+    <div class="container header-content">
+        <!-- 로고 영역 -->
+        <a th:href="@{/}" class="logo-container">
+            <img th:src="@{/images/logo-text.png}" alt="Mungpedia" class="logo-text">
+            <img th:src="@{/images/logo-paw.png}" alt="Paw" class="logo-paw">
+        </a>
+
+        <!-- 네비게이션 영역 -->
+        <nav class="main-nav">
+            <!-- 메인 메뉴 -->
+            <div class="nav-links">
+                <a th:href="@{/}" 
+                   th:classappend="${#httpServletRequest.requestURI == '/' ? 'active' : ''}">홈</a>
+                <a th:href="@{/encyclopedia}" 
+                   th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/encyclopedia') ? 'active' : ''}">동물백과</a>
+                <a th:href="@{/community}" 
+                   th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/community') ? 'active' : ''}">커뮤니티</a>
+                <a th:href="@{/write}" 
+                   th:classappend="${#strings.startsWith(#httpServletRequest.requestURI, '/write') ? 'active' : ''}">백과 게시기</a>
+            </div>
+
+            <!-- 인증 버튼 영역 -->
+            <div class="auth-buttons">
+                <!-- 비로그인 상태 -->
+                <th:block sec:authorize="isAnonymous()">
+                    <button class="btn btn-login" 
+                            th:onclick="|location.href='@{/login}'|">로그인</button>
+                    <button class="btn btn-signup" 
+                            th:onclick="|location.href='@{/signup}'|">회원가입</button>
+                </th:block>
+
+                <!-- 로그인 상태 -->
+                <th:block sec:authorize="isAuthenticated()">
+                    <!-- 사용자 프로필 드롭다운 -->
+                    <div class="user-profile-container">
+                        <div class="user-profile" onclick="toggleUserMenu()">
+                            <span class="user-name" sec:authentication="name">사용자</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <!-- 드롭다운 메뉴 -->
+                        <div class="user-menu" id="userMenu">
+                            <a th:href="@{/profile}">프로필</a>
+                            <a th:href="@{/my-posts}">내 게시글</a>
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit" class="btn-logout">로그아웃</button>
+                            </form>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </nav>
+
+        <!-- 모바일 메뉴 토글 버튼 -->
+        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <!-- 모바일 메뉴 -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-nav">
+            <a th:href="@{/}" class="mobile-nav-item">홈</a>
+            <a th:href="@{/encyclopedia}" class="mobile-nav-item">동물백과</a>
+            <a th:href="@{/community}" class="mobile-nav-item">커뮤니티</a>
+            <a th:href="@{/write}" class="mobile-nav-item">백과 게시기</a>
+            
+            <th:block sec:authorize="isAnonymous()">
+                <a th:href="@{/login}" class="mobile-nav-item">로그인</a>
+                <a th:href="@{/signup}" class="mobile-nav-item">회원가입</a>
+            </th:block>
+            
+            <th:block sec:authorize="isAuthenticated()">
+                <a th:href="@{/profile}" class="mobile-nav-item">프로필</a>
+                <a th:href="@{/my-posts}" class="mobile-nav-item">내 게시글</a>
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="mobile-nav-item btn-logout">로그아웃</button>
+                </form>
+            </th:block>
+        </nav>
+    </div>
+</header>
+
+</html>

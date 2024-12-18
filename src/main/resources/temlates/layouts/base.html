@@ -1,0 +1,42 @@
+<!-- templates/layouts/base.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout(title, content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">멍피디아</title>
+
+    <!-- 글로벌 CSS -->
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- 동적 CSS 삽입 영역 -->
+    <th:block th:replace="${links}" />
+</head>
+<body>
+    <!-- 헤더 영역 -->
+    <th:block th:replace="fragments/header :: header"></th:block>
+
+    <!-- 메인 컨텐츠 영역 -->
+    <div id="main-content">
+        <th:block th:replace="${content}"></th:block>
+    </div>
+
+    <!-- 푸터 영역 -->
+    <th:block th:replace="fragments/footer :: footer"></th:block>
+
+    <!-- 공통 JavaScript -->
+    <script th:src="@{/js/global.js}"></script>
+
+    <!-- 동적 JavaScript 삽입 영역 -->
+    <th:block th:replace="${scripts}" />
+
+    <!-- CSRF 토큰 -->
+    <script th:inline="javascript">
+        const csrfToken = /*[[${_csrf.token}]]*/ '';
+        const csrfHeader = /*[[${_csrf.headerName}]]*/ '';
+    </script>
+</body>
+</html>
