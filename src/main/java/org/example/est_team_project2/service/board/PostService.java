@@ -21,8 +21,8 @@ public class PostService {
         this.memberRepository = memberRepository;
     }
 
-    public PostDto createPost(String email, String title, String contents) {
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Member not found"));
+    public PostDto createPost(Long member_id, String title, String contents) {
+        Member member = memberRepository.findById(member_id).orElseThrow(() -> new RuntimeException("Member not found"));
         Post post = Post.builder()
                 .member(member)
                 .title(title)
