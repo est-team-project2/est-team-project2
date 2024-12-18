@@ -1,5 +1,7 @@
 package org.example.est_team_project2.service.member;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dao.member.MemberRepository;
@@ -10,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 
 @Slf4j
@@ -25,11 +25,11 @@ public class MemberService implements UserDetailsService {
     public void save(MemberDto memberDto) {
         //객체 생성 해서 저장
         Member member = Member.builder()
-                .email(memberDto.getEmail())
-                .nickname(memberDto.getPassword())
-                .password(memberDto.getPassword())
-                .build();
-                memberRepository.save(member);
+            .email(memberDto.getEmail())
+            .nickname(memberDto.getPassword())
+            .password(memberDto.getPassword())
+            .build();
+        memberRepository.save(member);
     }
 
     // 필터 체인에서 테이블의 정보를 확인
@@ -52,4 +52,9 @@ public class MemberService implements UserDetailsService {
         }
     }
 
+    public Member getMemberByEmail(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(
+            () -> new NoSuchElementException("Member By Email Not Found")
+        );
+    }
 }

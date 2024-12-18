@@ -1,10 +1,10 @@
 package org.example.est_team_project2.service.pedia;
 
+import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dao.pedia.PediaVersionRepository;
 import org.example.est_team_project2.domain.pedia.PediaVersion;
-import org.example.est_team_project2.dto.pedia.PediaVersionDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,8 +16,13 @@ public class PediaVersionService {
 
     private final PediaVersionRepository pediaVersionRepository;
 
-    public PediaVersionDto save(PediaVersionDto pediaVersionDto) {
-        return PediaVersionDto.from(
-            pediaVersionRepository.save(PediaVersion.from(pediaVersionDto)));
+    public PediaVersion save(PediaVersion pediaVersion) {
+        return pediaVersionRepository.save(pediaVersion);
+    }
+
+    public PediaVersion getPediaVersionByCode(String code) {
+        return pediaVersionRepository.findByPediaVersionCode(code).orElseThrow(
+            () -> new NoSuchElementException("Pedia Version By Code Not Found")
+        );
     }
 }
