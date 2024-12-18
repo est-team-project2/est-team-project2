@@ -10,10 +10,10 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
-
 
     private final OauthService oauthService;
 

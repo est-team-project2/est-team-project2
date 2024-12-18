@@ -42,13 +42,13 @@ public class PediaVersion {
 
     @Column(unique = true)
     @Setter
-    private String pediaVersionCode;
+    private String pediaVersionCode = null;
 
     @Setter(AccessLevel.PRIVATE)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Setter
-    private CommonStatus status = CommonStatus.ACTIVE;
+    private CommonStatus status = CommonStatus.INACTIVE;
 
     @Builder
     public PediaVersion(Pedia pedia, PediaContent pediaContent, Member editor) {

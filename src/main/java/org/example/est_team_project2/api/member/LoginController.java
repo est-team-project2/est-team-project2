@@ -3,8 +3,6 @@ package org.example.est_team_project2.api.member;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-
 import org.example.est_team_project2.dto.member.MemberDto;
 import org.example.est_team_project2.service.member.MemberService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 
 
 @Slf4j
@@ -89,6 +86,5 @@ public class LoginController {
         return checkNickName;
 
     }
-
 
 }

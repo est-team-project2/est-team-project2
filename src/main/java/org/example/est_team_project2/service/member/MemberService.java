@@ -1,5 +1,7 @@
 package org.example.est_team_project2.service.member;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
 
 @Slf4j
 @Service
@@ -33,7 +36,6 @@ public class MemberService implements UserDetailsService {
                 .nickName(memberDto.getNickName())
                 .password(passwordEncoder.encode(memberDto.getPassword()))
                 .build();
-
         memberRepository.save(member);
     }
 
@@ -58,6 +60,13 @@ public class MemberService implements UserDetailsService {
             // 조회 결과가 없다 사용가능
             return "ok";
         }
+    }
+
+
+    public Member getMemberByEmail(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(
+            () -> new NoSuchElementException("Member By Email Not Found")
+        ); 
     }
 
     public String checkDuplicateNickName(MemberDto memberDto) {

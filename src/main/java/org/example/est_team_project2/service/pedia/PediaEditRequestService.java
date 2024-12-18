@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dao.pedia.PediaEditRequestRepository;
 import org.example.est_team_project2.domain.member.Member;
 import org.example.est_team_project2.domain.pedia.PediaEditRequest;
-import org.example.est_team_project2.dto.pedia.PediaEditRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,30 +17,20 @@ public class PediaEditRequestService {
 
     private final PediaEditRequestRepository pediaEditRequestRepository;
 
-    public PediaEditRequestDto save(PediaEditRequestDto pediaEditRequestDto) {
-        return PediaEditRequestDto.from(
-            pediaEditRequestRepository.save(PediaEditRequest.from(pediaEditRequestDto)));
+    public PediaEditRequest save(PediaEditRequest pediaEditRequest) {
+        return pediaEditRequestRepository.save(pediaEditRequest);
     }
 
-    public PediaEditRequestDto acceptEditRequest(String code, Member member) {
+    public PediaEditRequest closePediaEditRequest(String code, Member member) {
         PediaEditRequest findRequest = getPediaEditRequestByCode(code);
-        // 요청 승인 -> 버전 관리 로직 추가 필요
         findRequest.closeRequest(member);
 
-        return PediaEditRequestDto.from(findRequest);
+        return findRequest;
     }
 
-    public PediaEditRequestDto rejectEditRequest(String code, Member member) {
-        PediaEditRequest findRequest = getPediaEditRequestByCode(code);
-        // 요청 거절 -> 버전 관리 로직 추가 필요
-        findRequest.closeRequest(member);
-
-        return PediaEditRequestDto.from(findRequest);
-    }
-
-    private PediaEditRequest getPediaEditRequestByCode(String code) {
+    public PediaEditRequest getPediaEditRequestByCode(String code) {
         return pediaEditRequestRepository.findByPediaEditRequestCode(code).orElseThrow(
-            () -> new NoSuchElementException("")
+            () -> new NoSuchElementException("Pedia Edit Request By Code Not Found")
         );
     }
 }
