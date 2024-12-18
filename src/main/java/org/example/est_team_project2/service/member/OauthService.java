@@ -40,7 +40,7 @@ public class OauthService extends DefaultOAuth2UserService {
                             .email(memberDetails.getEmail())
                             .password(memberDetails.getPassword())
                             .socialType(memberDetails.getSocialType())
-                            .nickname(memberDetails.getNickname())
+                            .nickName(memberDetails.getNickname())
                             .build();
                     return memberRepository.save(member);
                 }
