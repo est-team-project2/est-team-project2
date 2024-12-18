@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.est_team_project2.domain.member.memberEnums.MemberType;
 import org.example.est_team_project2.domain.member.memberEnums.SocialType;
+import org.example.est_team_project2.domain.pedia.PediaEditRequest;
 
 
 @Getter
@@ -48,7 +49,7 @@ public class Member {
 
     @Builder
     public Member(String email, String password, SocialType socialType, MemberType role,
-        String nickname) {
+        String nickName) {
         this.email = email;
         this.nickName = nickName;
         this.password = password;
