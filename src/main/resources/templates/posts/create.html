@@ -6,7 +6,7 @@
 <body>
 <h1>새 게시글 작성</h1>
 <form action="/posts/new" method="post">
-    <input type="hidden" name="memberId" th:value="${member_id}" />
+    <input type="hidden" name="memberId" th:value="${email}" />
     <label for="title">제목</label>
     <input type="text" id="title" name="title" required>
     <br>
