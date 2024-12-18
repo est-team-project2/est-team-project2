@@ -5,4 +5,6 @@ public enum SocialType {
     KAKAO,
     NAVER,
     FORMBASED
+
+
 }
