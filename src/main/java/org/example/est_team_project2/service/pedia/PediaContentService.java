@@ -23,7 +23,7 @@ public class PediaContentService {
         return repository.save(pediaContent);
     }
 
-    public List<PediaContent> findByBreed(String breed) {
-        return repository.findByBreedContaining(breed);
+    public List<PediaContent> findAll() {
+        return repository.findAll();
     }
 }

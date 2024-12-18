@@ -7,12 +7,14 @@
 <body>
 <h1>Pedia Content 등록</h1>
 <form id="pediaForm">
+    <input type="text" name="image" placeholder="이미지 URI" required>
     <input type="text" name="breed" placeholder="품종" required>
     <input type="text" name="origin" placeholder="원산지" required>
     <input type="text" name="size" placeholder="크기" required>
     <input type="text" name="detail" placeholder="상세 정보" required>
-    <input type="text" name="genetic_disease" placeholder="유전병" required>
+    <input type="text" name="geneticDisease" placeholder="유전병" required>
     <input type="text" name="feature" placeholder="특징" required>
+    <input type="text" name="status" placeholder="상태" required>
     <button type="submit">등록</button>
 </form>
 
@@ -28,30 +30,25 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                image: document.querySelector('input[name="image"]').value,
                 breed: document.querySelector('input[name="breed"]').value,
                 origin: document.querySelector('input[name="origin"]').value,
                 size: document.querySelector('input[name="size"]').value,
                 detail: document.querySelector('input[name="detail"]').value,
-                genetic_disease: document.querySelector('input[name="genetic_disease"]').value,
+                geneticDisease: document.querySelector('input[name="geneticDisease"]').value,
                 feature: document.querySelector('input[name="feature"]').value,
+                status: document.querySelector('input[name="status"]').value
             })
-        }).then(response => {
-            if (response.ok) {
-                return response.json(); // 등록된 내용을 JSON으로 반환
-            } else {
-                return response.json().then(err => {
-                    alert('등록에 실패했습니다: ' + err.message);
-                });
-            }
-        }).then(data => {
-            // 등록 성공 시 등록된 내용을 표시
-            const registeredContentDiv = document.getElementById('registeredContent');
-            registeredContentDiv.innerHTML += `<div>
-                품종: ${data.breed}, 원산지: ${data.origin}, 크기: ${data.size},
-                상세 정보: ${data.detail}, 유전병: ${data.geneticDisease}, 특징: ${data.feature}
-            </div>`;
-            document.getElementById('pediaForm').reset(); // 폼 초기화
-        });
+        }).then(response => response.json())
+            .then(data => {
+                const registeredContentDiv = document.getElementById('registeredContent');
+                registeredContentDiv.innerHTML += `<div>
+                  <strong>품종:</strong> ${data.breed}, <strong>원산지:</strong> ${data.origin},
+                  <strong>크기:</strong> ${data.size}, <strong>상세 정보:</strong> ${data.detail},
+                  <strong>유전병:</strong> ${data.geneticDisease}, <strong>특징:</strong> ${data.feature}
+              </div>`;
+                document.getElementById('pediaForm').reset(); // 폼 초기화
+            });
     };
 </script>
 </body>

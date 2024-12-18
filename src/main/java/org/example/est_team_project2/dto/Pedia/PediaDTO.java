@@ -14,4 +14,5 @@ public class PediaDTO {
     private Long memberId;
     private Long pediaContentId;
     private int pediaVersion; // 버전
+
 }

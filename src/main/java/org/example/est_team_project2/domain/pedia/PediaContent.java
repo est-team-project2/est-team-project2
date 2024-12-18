@@ -1,47 +1,24 @@
 package org.example.est_team_project2.domain.pedia;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
-import org.example.est_team_project2.dto.Pedia.PediaContentDTO;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
 public class PediaContent {
-
     @Id
-    @Column(name = "pedia_content_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-  
-    private int imageNumber;
-  
+    @Column(name = "pedia_content_id")
+    private Long pediaContentId;
+    @Column(name = "image_uri")
+    public String imageUri;
     private String breed;
-  
     private String origin;
-  
     private String size;
-  
     private String detail;
-  
     private String geneticDisease;
-  
     private String feature;
-
-    private String body;
-    // 수정 예정
-
-    @Setter
-    private CommonStatus status = CommonStatus.ACTIVE;
-
-    @Builder
-    public PediaContent(String body) {
-        this.body = body;
-    }
-
-
+    private String status;
 }
