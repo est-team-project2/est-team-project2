@@ -1,7 +1,7 @@
 package org.example.est_team_project2.api.pedia;
 
 import org.example.est_team_project2.domain.pedia.Pedia;
-import org.example.est_team_project2.dto.Pedia.PediaDTO;
+import org.example.est_team_project2.dto.pedia.PediaDTO;
 import org.example.est_team_project2.service.pedia.PediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +24,8 @@ public class PediaController {
     public ResponseEntity<Pedia> registerPedia(@RequestBody PediaDTO pediaDTO) {
         Pedia pedia = new Pedia();
         pedia.setMemberId(pediaDTO.getMemberId());
-        pedia.setPediaContentId(pediaDTO.getPediaContentId());
-        pedia.setPediaVersion(pediaDTO.getPediaVersion());
+//        pedia.setPediaContentId(pediaDTO.getPediaContentId());
+//        pedia.setPediaVersion(pediaDTO.getPediaVersion());
         Pedia savedPedia = service.save(pedia);
         return ResponseEntity.ok(savedPedia);
     }

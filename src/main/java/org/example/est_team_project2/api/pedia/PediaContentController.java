@@ -3,7 +3,7 @@ package org.example.est_team_project2.api.pedia;
 import org.example.est_team_project2.domain.pedia.Pedia;
 import org.example.est_team_project2.domain.pedia.PediaContent;
 import org.example.est_team_project2.domain.pedia.PediaVersion;
-import org.example.est_team_project2.dto.Pedia.PediaContentDTO;
+import org.example.est_team_project2.dto.pedia.PediaContentDTO;
 import org.example.est_team_project2.service.pedia.PediaContentService;
 import org.example.est_team_project2.service.pedia.PediaService;
 import org.example.est_team_project2.service.pedia.PediaVersionService;
@@ -59,16 +59,16 @@ public class PediaContentController {
 
         Pedia savedPedia = pediaService.save(pedia);
 
-        // PediaVersion 저장
-        PediaVersion pediaVersion = new PediaVersion();
-        pediaVersion.setPedia(savedPedia);
-        pediaVersion.setPediaContent(savedContent);
-        pediaVersion.setMemberId(pediaContentDTO.getMemberId());
-        pediaVersion.setCreatedAt(LocalDateTime.now());
-        pediaVersion.setStatus("ACTIVE");
-        pediaVersion.setPediaVersionCode(1); // 버전 코드 설정
+//        // PediaVersion 저장
+//        PediaVersion pediaVersion = new PediaVersion();
+//        pediaVersion.setPedia(savedPedia);
+//        pediaVersion.setPediaContent(savedContent);
+//        pediaVersion.setMemberId(pediaContentDTO.getMemberId());
+//        pediaVersion.setCreatedAt(LocalDateTime.now());
+//        pediaVersion.setStatus("ACTIVE");
+//        pediaVersion.setPediaVersionCode(1); // 버전 코드 설정
 
-        pediaVersionService.save(pediaVersion);
+//        pediaVersionService.save(pediaVersion);
 
         return ResponseEntity.ok(savedContent);
     }

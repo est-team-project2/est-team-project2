@@ -34,11 +34,21 @@
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #f97316;
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             text-decoration: none;
+        }
+
+        .logo-text {
+            height: 35px;
+            width: auto;
+        }
+
+        .logo-paw {
+            height: 20px;
+            width: auto;
         }
 
         nav {
@@ -68,6 +78,34 @@
             color: white;
         }
 
+        .btn-logout {
+            background-color: #ef4444;
+            color: white;
+        }
+
+        .btn-logout:hover {
+            background-color: #dc2626;
+        }
+
+        .user-email {
+            color: #4b5563;
+            font-size: 0.875rem;
+            margin-right: 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(to bottom, #fff3e0, #fff);
+        }
+
+        .logo-mascot {
+            height: 100px;
+            width: auto;
+            margin: 0 auto;
+        }
+
         /* Search Bar */
         .search-container {
             padding: 1rem;
@@ -82,6 +120,37 @@
             border: 1px solid #e5e7eb;
         }
 
+        /* Section Header */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .add-breed-btn {
+            background-color: #f97316;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-breed-btn:hover {
+            background-color: #ea580c;
+        }
+
         /* Encyclopedia Grid */
         .grid {
             display: grid;
@@ -90,7 +159,6 @@
             padding: 1rem;
         }
 
-        /* Breed Card Hover & Modal Styles */
         .breed-card {
             background-color: #fff7ed;
             padding: 1rem;
@@ -105,6 +173,108 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
+        .breed-image {
+            width: 4rem;
+            height: 4rem;
+            background-color: #fed7aa;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .breed-name {
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .updated {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* Community Section */
+        .community-section {
+            margin-top: 3rem;
+        }
+
+        .posts-container {
+            margin: 0 1rem;
+        }
+
+        .post-card {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-image img {
+            width: 150px;
+            height: 150px;
+            border-radius: 0.5rem;
+            object-fit: cover;
+        }
+
+        .post-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .post-content h4 {
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-content p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: flex-start;
+            gap: 0.25rem;
+            margin: 2rem 1rem;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            color: #333;
+            font-size: 0.875rem;
+        }
+
+        .pagination a.disabled {
+            color: #999;
+            background-color: #f5f5f5;
+            pointer-events: none;
+        }
+
+        .pagination a:hover {
+            background-color: #f5f5f5;
+        }
+
+        .pagination a.active {
+            background-color: #fff;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -145,10 +315,6 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #666;
-        }
-
-        .modal-body {
-            margin-bottom: 1.5rem;
         }
 
         .info-group {
@@ -207,165 +373,54 @@
         .view-mode .edit-content {
             display: none;
         }
-
-        .breed-image {
-            width: 4rem;
-            height: 4rem;
-            background-color: #fed7aa;
-            border-radius: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .breed-name {
-            font-weight: bold;
-            font-size: 0.875rem;
-        }
-
-        .updated {
-            font-size: 0.75rem;
-            color: #6b7280;
-        }
-
-        /* Section Title */
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin: 1rem;
-            color: #333;
-        }
-
-        /* Posts Container */
-        .posts-container {
-            padding: 1rem;
-        }
-
-        .post-card {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            background-color: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .post-image {
-            width: 6rem;
-            height: 6rem;
-            border-radius: 0.5rem;
-            object-fit: cover;
-        }
-
-        .post-content h4 {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .post-content p {
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-
-        /* Pagination Styles */
-        .pagination {
-            display: flex;
-            justify-content: flex-start;
-            gap: 0.25rem;
-            margin: 2rem 1rem;
-        }
-
-        .pagination span, .pagination a {
-            display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border: 1px solid #ccc;
-            text-decoration: none;
-            color: #333;
-            font-size: 0.875rem;
-        }
-
-        .pagination span.disabled {
-            color: #999;
-            background-color: #f5f5f5;
-        }
-
-        .pagination a:hover {
-            background-color: #f5f5f5;
-        }
-
-        .pagination a.active {
-            background-color: #fff;
-            color: #333;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <a href="#" class="logo">manggedin</a>
-            <nav>
-                <a href="#">홈</a>
-                <a href="#">동물백과</a>
-                <a href="#">커뮤니티</a>
-                <a href="#">백과 게시기</a>
-                <button class="btn btn-login">로그인</button>
-                <button class="btn btn-signup">회원가입</button>
-            </nav>
-        </div>
-    </header>
-
-    <div class="search-container">
-        <input type="text" class="search-bar" placeholder="통합 검색">
+<header>
+    <div class="container header-content">
+        <a href="#" class="logo-container">
+            <img src="/api/images/1.png" alt="Mungpedia" class="logo-text">
+            <img src="/api/images/3.png" alt="Paw" class="logo-paw">
+        </a>
+        <nav>
+            <a href="#">홈</a>
+            <a href="#">동물백과</a>
+            <a href="#">커뮤니티</a>
+            <a href="#">백과사전</a>
+            <button class="btn btn-login">로그인</button>
+            <button class="btn btn-signup">회원가입</button>
+            </th:block>
+            <th:block th:if="${session.loginEmail != null}">
+                <span class="user-email" th:text="${session.loginEmail}"></span>
+                <button class="btn btn-logout" onclick="logout()">로그아웃</button>
+            </th:block>
+        </nav>
     </div>
+</header>
 
-    <main class="container">
-        <h2 class="section-title">백과 사전</h2>
-        <div class="grid">
-            <div class="breed-card" onclick="openModal(this)" data-breed="CORGI">
-                <div class="breed-image"></div>
-                <div class="breed-name">CORGI</div>
-                <div class="updated">Updated today</div>
-            </div>
-            <div class="breed-card">
-                <div class="breed-image"></div>
-                <div class="breed-name">GERMAN SHEPHERD</div>
-                <div class="updated">Updated today</div>
-            </div>
-            <div class="breed-card">
-                <div class="breed-image"></div>
-                <div class="breed-name">MALTIPOO</div>
-                <div class="updated">Updated today</div>
-            </div>
-            <div class="breed-card">
-                <div class="breed-image"></div>
-                <div class="breed-name">DOBERMAN</div>
-                <div class="updated">Updated today</div>
-            </div>
-            <div class="breed-card">
-                <div class="breed-image"></div>
-                <div class="breed-name">BORDER COLLIE</div>
-                <div class="updated">Updated today</div>
-            </div>
-            <div class="breed-card">
-                <div class="breed-image"></div>
-                <div class="breed-name">GOLDEN RETRIEVER</div>
-                <div class="updated">Updated today</div>
-            </div>
-            <div class="breed-card">
-                <div class="breed-image"></div>
-                <div class="breed-name">POODLE</div>
-                <div class="updated">Updated today</div>
-            </div>
-            <div class="breed-card">
-                <div class="breed-image"></div>
-                <div class="breed-name">CHIHUAHUA</div>
-                <div class="updated">Updated today</div>
-            </div>
+<div class="hero">
+    <img src="/api/images/2.png" alt="Mascot" class="logo-mascot">
+</div>
+
+<div class="search-container">
+    <input type="text" class="search-bar" placeholder="통합 검색">
+</div>
+
+<main class="container">
+    <section class="encyclopedia-section">
+        <div class="section-header">
+            <h2 class="section-title">백과 사전</h2>
+            <button class="add-breed-btn" onclick="showNewBreedModal()">
+                <span>견종 추가</span>
+                <span>+</span>
+            </button>
         </div>
-
+        <div class="grid" id="breedGrid">
+            <!-- JavaScript로 동적 생성되는 카드들 -->
+        </div>
         <div class="pagination">
-            <span class="disabled">&lt;&lt;</span>
-            <span class="disabled">&lt;</span>
+            <a href="#" class="disabled">&lt;&lt;</a>
+            <a href="#" class="disabled">&lt;</a>
             <a href="#" class="active">1</a>
             <a href="#">2</a>
             <a href="#">3</a>
@@ -374,18 +429,23 @@
             <a href="#">&gt;</a>
             <a href="#">&gt;&gt;</a>
         </div>
+    </section>
 
-        <h2 class="section-title">커뮤니티</h2>
+    <section class="community-section">
         <div class="posts-container">
             <div class="post-card">
-                <img src="/api/placeholder/150/150" alt="강아지" class="post-image">
+                <div class="post-image">
+                    <img src="/api/placeholder/150/150" alt="강아지">
+                </div>
                 <div class="post-content">
                     <h4>강아지 이름을 지어주세요</h4>
                     <p>오늘 새끼 강아지를 데려 왔는데요 저희 강아지 이름을 지어주세요</p>
                 </div>
             </div>
             <div class="post-card">
-                <img src="/api/placeholder/150/150" alt="강아지" class="post-image">
+                <div class="post-image">
+                    <img src="/api/placeholder/150/150" alt="강아지">
+                </div>
                 <div class="post-content">
                     <h4>안녕하세요 오늘 처음 가입했어요</h4>
                     <p>오늘 가입한 엄마의 일분이 아메에요 잘 부탁드려요</p>
@@ -394,8 +454,8 @@
         </div>
 
         <div class="pagination">
-            <span class="disabled">&lt;&lt;</span>
-            <span class="disabled">&lt;</span>
+            <a href="#" class="disabled">&lt;&lt;</a>
+            <a href="#" class="disabled">&lt;</a>
             <a href="#" class="active">1</a>
             <a href="#">2</a>
             <a href="#">3</a>
@@ -404,148 +464,308 @@
             <a href="#">&gt;</a>
             <a href="#">&gt;&gt;</a>
         </div>
-    </main>
+    </section>
+</main>
 
-    <!-- Modal -->
-    <div id="breedModal" class="modal">
-        <div class="modal-content view-mode">
-            <div class="modal-header">
-                <h3 class="modal-title">견종 상세 정보</h3>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <!-- View Mode Content -->
-                <div class="view-content">
-                    <div class="info-group">
-                        <label>견종명</label>
-                        <p id="viewBreedName"></p>
-                    </div>
-                    <div class="info-group">
-                        <label>크기</label>
-                        <p id="viewSize"></p>
-                    </div>
-                    <div class="info-group">
-                        <label>체중</label>
-                        <p id="viewWeight"></p>
-                    </div>
-                    <div class="info-group">
-                        <label>성격</label>
-                        <p id="viewPersonality"></p>
-                    </div>
-                    <div class="info-group">
-                        <label>특징</label>
-                        <p id="viewCharacteristics"></p>
-                    </div>
+<!-- 견종 상세 정보 모달 -->
+<div id="breedModal" class="modal">
+    <div class="modal-content view-mode">
+        <div class="modal-header">
+            <h3 class="modal-title">견종 상세 정보</h3>
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <!-- 뷰 모드 -->
+            <div class="view-content">
+                <div class="info-group">
+                    <label>견종명</label>
+                    <p id="viewBreedName"></p>
                 </div>
-                <!-- Edit Mode Content -->
-                <div class="edit-content">
-                    <div class="info-group">
-                        <label for="editBreedName">견종명</label>
-                        <input type="text" id="editBreedName">
-                    </div>
-                    <div class="info-group">
-                        <label for="editSize">크기</label>
-                        <input type="text" id="editSize">
-                    </div>
-                    <div class="info-group">
-                        <label for="editWeight">체중</label>
-                        <input type="text" id="editWeight">
-                    </div>
-                    <div class="info-group">
-                        <label for="editPersonality">성격</label>
-                        <textarea id="editPersonality"></textarea>
-                    </div>
-                    <div class="info-group">
-                        <label for="editCharacteristics">특징</label>
-                        <textarea id="editCharacteristics"></textarea>
-                    </div>
+                <div class="info-group">
+                    <label>크기</label>
+                    <p id="viewSize"></p>
+                </div>
+                <div class="info-group">
+                    <label>체중</label>
+                    <p id="viewWeight"></p>
+                </div>
+                <div class="info-group">
+                    <label>성격</label>
+                    <p id="viewPersonality"></p>
+                </div>
+                <div class="info-group">
+                    <label>특징</label>
+                    <p id="viewCharacteristics"></p>
                 </div>
             </div>
-            <div class="modal-footer">
-                <!-- View Mode Buttons -->
-                <div class="view-content">
-                    <button class="btn-modal btn-edit" onclick="toggleEditMode(true)">수정</button>
-                    <button class="btn-modal btn-cancel" onclick="closeModal()">닫기</button>
+            <!-- 수정 모드 -->
+            <div class="edit-content">
+                <div class="info-group">
+                    <label for="editBreedCode">견종 코드</label>
+                    <input type="text" id="editBreedCode" required placeholder="영문 대문자와 언더스코어만 사용 (예: WELSH_CORGI)">
                 </div>
-                <!-- Edit Mode Buttons -->
-                <div class="edit-content">
-                    <button class="btn-modal btn-edit" onclick="saveChanges()">저장</button>
-                    <button class="btn-modal btn-cancel" onclick="toggleEditMode(false)">취소</button>
+
+                <div class="info-group">
+                    <label for="editBreedName">견종명</label>
+                    <input type="text" id="editBreedName" required placeholder="예: 웰시 코기">
+                </div>
+                <div class="info-group">
+                    <label for="editSize">크기</label>
+                    <input type="text" id="editSize" required placeholder="예: 소형, 중형, 대형">
+                </div>
+                <div class="info-group">
+                    <label for="editWeight">체중</label>
+                    <input type="text" id="editWeight" required placeholder="예: 10-12kg">
+                </div>
+                <div class="info-group">
+                    <label for="editPersonality">성격</label>
+                    <textarea id="editPersonality" required placeholder="견종의 성격을 자세히 설명해주세요"></textarea>
+                </div>
+                <div class="info-group">
+                    <label for="editCharacteristics">특징</label>
+                    <textarea id="editCharacteristics" required placeholder="견종의 주요 특징을 자세히 설명해주세요"></textarea>
                 </div>
             </div>
         </div>
+        <div class="modal-footer">
+            <div class="view-content">
+                <button class="btn-modal btn-edit" onclick="toggleEditMode(true)">수정</button>
+                <button class="btn-modal btn-cancel" onclick="closeModal()">닫기</button>
+            </div>
+            <div class="edit-content">
+                <button class="btn-modal btn-edit" onclick="saveChanges()">저장</button>
+                <button class="btn-modal btn-cancel" onclick="toggleEditMode(false)">취소</button>
+            </div>
+        </div>
     </div>
+</div>
 
-    <script>
-        // 견종 데이터
-        const breedData = {
-            'CORGI': {
-                name: '웰시 코기',
-                size: '소형',
-                weight: '10-12kg',
-                personality: '영리하고 활발하며 충성심이 강합니다. 사교적이고 친근한 성격을 가지고 있습니다.',
-                characteristics: '짧은 다리와 긴 몸통이 특징적이며, 양치기 개로서의 본능을 가지고 있습니다. 운동량이 많이 필요하며 훈련 능력이 뛰어납니다.'
-            }
-            // 다른 견종 데이터 추가
+<script>
+    const breedData = {
+        'CORGI': {
+            name: '웰시 코기',
+            size: '소형',
+            weight: '10-12kg',
+            personality: '영리하고 활발하며 충성심이 강합니다. 사교적이고 친근한 성격을 가지고 있습니다.',
+            characteristics: '짧은 다리와 긴 몸통이 특징적이며, 양치기 개로서의 본능을 가지고 있습니다. 운동량이 많이 필요하며 훈련 능력이 뛰어납니다.'
+        },
+        'GERMAN_SHEPHERD': {
+            name: '저먼 셰퍼드',
+            size: '대형',
+            weight: '30-40kg',
+            personality: '충성심이 강하고 지능이 높으며, 용감하고 자신감이 있습니다.',
+            characteristics: '강인한 체격과 뛰어난 운동능력을 가지고 있으며, 경찰견이나 군용견으로 자주 활용됩니다.'
+        },
+        'MALTIPOO': {
+            name: '말티푸',
+            size: '소형',
+            weight: '3-6kg',
+            personality: '활발하고 애교가 많으며, 사교적이고 친근합니다.',
+            characteristics: '저자극성 털을 가지고 있어 알레르기가 있는 사람에게 적합하며, 똑똑하고 훈련이 잘 됩니다.'
+        },
+        'DOBERMAN': {
+            name: '도베르만',
+            size: '대형',
+            weight: '32-45kg',
+            personality: '충성심이 강하고 용감하며, 가족을 잘 보호합니다.',
+            characteristics: '근육질의 체격과 뛰어난 운동능력을 가지고 있으며, 경비견으로 우수한 능력을 보입니다.'
+        },
+        'BORDER_COLLIE': {
+            name: '보더 콜리',
+            size: '중형',
+            weight: '14-20kg',
+            personality: '지능이 매우 높고 활동적이며 훈련성이 뛰어납니다.',
+            characteristics: '뛰어난 지능과 운동신경을 가졌으며, 양치기 개로서 탁월한 능력을 보입니다.'
+        },
+        'GOLDEN_RETRIEVER': {
+            name: '골든 리트리버',
+            size: '대형',
+            weight: '25-34kg',
+            personality: '온순하고 친근하며 인내심이 많습니다.',
+            characteristics: '부드러운 금색 털과 온화한 성격으로 가족견으로 인기가 많습니다.'
+        },
+        'POODLE': {
+            name: '푸들',
+            size: '소형~대형',
+            weight: '3-30kg',
+            personality: '영리하고 우아하며 활발한 성격입니다.',
+            characteristics: '털이 빠지지 않고 알레르기 반응이 적으며, 다양한 크기로 존재합니다.'
+        },
+        'CHIHUAHUA': {
+            name: '치와와',
+            size: '초소형',
+            weight: '1.5-3kg',
+            personality: '용감하고 충성심이 강하며 활발합니다.',
+            characteristics: '세계에서 가장 작은 견종 중 하나이며, 긴 수명을 가지고 있습니다.'
+        }
+    };
+
+    let isNewBreed = false;
+
+    // 견종 카드 렌더링
+    function renderBreeds() {
+        const grid = document.getElementById('breedGrid');
+        Object.entries(breedData).forEach(([key, breed]) => {
+            const card = document.createElement('div');
+            card.className = 'breed-card';
+            card.setAttribute('data-breed', key);
+            card.onclick = () => openModal(card);
+
+            card.innerHTML = `
+                    <div class="breed-image"></div>
+                    <div class="breed-name">${breed.name}</div>
+                    <div class="updated">Updated today</div>
+                `;
+
+            grid.appendChild(card);
+        });
+    }
+
+    // 페이지 로드 시 견종 카드 렌더링
+    document.addEventListener('DOMContentLoaded', renderBreeds);
+
+    function openModal(card) {
+        isNewBreed = false;
+        const breed = card.dataset.breed;
+        const data = breedData[breed];
+
+        // 뷰 모드 데이터 설정
+        document.getElementById('viewBreedName').textContent = data.name;
+        document.getElementById('viewSize').textContent = data.size;
+        document.getElementById('viewWeight').textContent = data.weight;
+        document.getElementById('viewPersonality').textContent = data.personality;
+        document.getElementById('viewCharacteristics').textContent = data.characteristics;
+
+        // 수정 모드 데이터 설정
+        document.getElementById('editBreedCode').value = breed;
+        document.getElementById('editBreedCode').disabled = true; // 수정 시에는 코드 변경 불가
+        document.getElementById('editBreedName').value = data.name;
+        document.getElementById('editSize').value = data.size;
+        document.getElementById('editWeight').value = data.weight;
+        document.getElementById('editPersonality').value = data.personality;
+        document.getElementById('editCharacteristics').value = data.characteristics;
+
+        // 모달 제목 설정
+        document.querySelector('.modal-title').textContent = '견종 상세 정보';
+        document.getElementById('breedModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('breedModal').style.display = 'none';
+        toggleEditMode(false);
+    }
+
+    function toggleEditMode(isEdit) {
+        const modalContent = document.querySelector('.modal-content');
+        if (isEdit) {
+            modalContent.classList.remove('view-mode');
+            modalContent.classList.add('edit-mode');
+        } else {
+            modalContent.classList.remove('edit-mode');
+            modalContent.classList.add('view-mode');
+        }
+    }
+
+    function showNewBreedModal() {
+        isNewBreed = true;
+        // 입력 필드 초기화
+        document.getElementById('editBreedCode').value = '';
+        document.getElementById('editBreedCode').disabled = false;
+        document.getElementById('editBreedName').value = '';
+        document.getElementById('editSize').value = '';
+        document.getElementById('editWeight').value = '';
+        document.getElementById('editPersonality').value = '';
+        document.getElementById('editCharacteristics').value = '';
+
+        // 모달 제목 변경
+        document.querySelector('.modal-title').textContent = '새 견종 추가';
+        document.getElementById('breedModal').style.display = 'block';
+        toggleEditMode(true);
+    }
+
+    function openModal(card) {
+        isNewBreed = false;
+        const breed = card.dataset.breed;
+        const data = breedData[breed];
+
+        // 뷰 모드 데이터 설정
+        document.getElementById('viewBreedName').textContent = data.name;
+        document.getElementById('viewSize').textContent = data.size;
+        document.getElementById('viewWeight').textContent = data.weight;
+        document.getElementById('viewPersonality').textContent = data.personality;
+        document.getElementById('viewCharacteristics').textContent = data.characteristics;
+
+        // 수정 모드 데이터 설정
+        document.getElementById('editBreedCode').value = breed;
+        document.getElementById('editBreedCode').disabled = true; // 수정 시에는 코드 변경 불가
+        document.getElementById('editBreedName').value = data.name;
+        document.getElementById('editSize').value = data.size;
+        document.getElementById('editWeight').value = data.weight;
+        document.getElementById('editPersonality').value = data.personality;
+        document.getElementById('editCharacteristics').value = data.characteristics;
+
+        // 모달 제목 설정
+        document.querySelector('.modal-title').textContent = '견종 상세 정보';
+        document.getElementById('breedModal').style.display = 'block';
+    }
+
+    function saveChanges() {
+        const breedCode = document.getElementById('editBreedCode').value.trim();
+        const breedName = document.getElementById('editBreedName').value.trim();
+        const size = document.getElementById('editSize').value.trim();
+        const weight = document.getElementById('editWeight').value.trim();
+        const personality = document.getElementById('editPersonality').value.trim();
+        const characteristics = document.getElementById('editCharacteristics').value.trim();
+
+        // 입력 검증
+        if (!breedCode || !breedName || !size || !weight || !personality || !characteristics) {
+            alert('모든 필드를 입력해주세요.');
+            return;
+        }
+
+        // 견종 코드 형식 검증 (영문 대문자와 언더스코어만 허용)
+        if (!/^[A-Z_]+$/.test(breedCode)) {
+            alert('견종 코드는 영문 대문자와 언더스코어만 사용할 수 있습니다.');
+            return;
+        }
+
+        // 신규 추가 시 중복 검사
+        if (isNewBreed && breedData[breedCode]) {
+            alert('이미 존재하는 견종 코드입니다.');
+            return;
+        }
+
+        // 데이터 저장
+        breedData[breedCode] = {
+            name: breedName,
+            size: size,
+            weight: weight,
+            personality: personality,
+            characteristics: characteristics
         };
 
-        function openModal(card) {
-            const breed = card.dataset.breed;
-            const data = breedData[breed];
-            
-            // 뷰 모드 데이터 설정
-            document.getElementById('viewBreedName').textContent = data.name;
-            document.getElementById('viewSize').textContent = data.size;
-            document.getElementById('viewWeight').textContent = data.weight;
-            document.getElementById('viewPersonality').textContent = data.personality;
-            document.getElementById('viewCharacteristics').textContent = data.characteristics;
-            
-            // 수정 모드 데이터 설정
-            document.getElementById('editBreedName').value = data.name;
-            document.getElementById('editSize').value = data.size;
-            document.getElementById('editWeight').value = data.weight;
-            document.getElementById('editPersonality').value = data.personality;
-            document.getElementById('editCharacteristics').value = data.characteristics;
+        // 그리드 새로고침
+        const grid = document.getElementById('breedGrid');
+        grid.innerHTML = '';
+        renderBreeds();
 
-            // 모달 표시
-            document.getElementById('breedModal').style.display = 'block';
+        alert(isNewBreed ? '새로운 견종이 추가되었습니다.' : '견종 정보가 수정되었습니다.');
+        closeModal();
+    }
+
+    // ESC 키로 모달 닫기
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
         }
+    });
 
-        function closeModal() {
-            document.getElementById('breedModal').style.display = 'none';
-            toggleEditMode(false); // 모달을 닫을 때 뷰 모드로 리셋
+    // 모달 외부 클릭 시 닫기
+    window.onclick = function(event) {
+        if (event.target === document.getElementById('breedModal')) {
+            closeModal();
         }
-
-        function toggleEditMode(isEdit) {
-            const modalContent = document.querySelector('.modal-content');
-            if (isEdit) {
-                modalContent.classList.remove('view-mode');
-                modalContent.classList.add('edit-mode');
-            } else {
-                modalContent.classList.remove('edit-mode');
-                modalContent.classList.add('view-mode');
-            }
-        }
-
-        function saveChanges() {
-            // 여기에 데이터 저장 로직 구현
-            alert('변경사항이 저장되었습니다.');
-            toggleEditMode(false);
-        }
-
-        // ESC 키로 모달 닫기
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeModal();
-            }
-        });
-
-        // 모달 외부 클릭 시 닫기
-        window.onclick = function(event) {
-            if (event.target === document.getElementById('breedModal')) {
-                closeModal();
-            }
-        }
-    </script>
+    };
+</script>
 </body>
 </html>

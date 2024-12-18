@@ -1,8 +1,8 @@
 package org.example.est_team_project2.api.pedia;
 
 
-import org.example.est_team_project2.domain.pedia.requestEnums.PediaEdit;
-import org.example.est_team_project2.dto.Pedia.PediaEditDTO;
+import org.example.est_team_project2.domain.pedia.PediaEdit;
+import org.example.est_team_project2.dto.pedia.PediaEditDTO;
 import org.example.est_team_project2.service.pedia.PediaEditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
