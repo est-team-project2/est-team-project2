@@ -1,22 +1,29 @@
 package org.example.est_team_project2.service.pedia;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
 import org.example.est_team_project2.dao.pedia.PediaContentRepository;
 import org.example.est_team_project2.domain.pedia.PediaContent;
-import org.example.est_team_project2.dto.pedia.PediaContentDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
+import java.util.List;
+
 @Service
-@Transactional
-@RequiredArgsConstructor
 public class PediaContentService {
 
-    private final PediaContentRepository pediaContentRepository;
+    private final PediaContentRepository repository;
 
-    public PediaContent save(PediaContentDto pediaContentDto) {
-        return pediaContentRepository.save(PediaContent.from(pediaContentDto));
+    @Autowired
+    public PediaContentService(PediaContentRepository repository) {
+        this.repository = repository;
+    }
+
+    public PediaContent save(PediaContent pediaContent) {
+        // PediaContent 저장
+        return repository.save(pediaContent);
+    }
+
+    public List<PediaContent> findAll() {
+        return repository.findAll();
     }
 }
