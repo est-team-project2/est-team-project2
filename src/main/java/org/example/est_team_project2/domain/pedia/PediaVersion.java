@@ -37,7 +37,4 @@ public class PediaVersion {
     }
 }
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now(); // 생성 시점 설정
-    }
+   

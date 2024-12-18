@@ -2,7 +2,7 @@ package org.example.est_team_project2.service.pedia;
 
 
 import org.example.est_team_project2.dao.pedia.PediaEditRepository;
-import org.example.est_team_project2.domain.pedia.requestEnums.PediaEdit;
+import org.example.est_team_project2.domain.pedia.PediaEdit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

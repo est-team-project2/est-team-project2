@@ -1,4 +1,4 @@
-package org.example.est_team_project2.domain.pedia;
+package org.example.est_team_project2.domain.pedia.requestEnums;
 
 import lombok.Getter;
 

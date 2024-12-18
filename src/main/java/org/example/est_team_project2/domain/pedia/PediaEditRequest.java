@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.example.est_team_project2.domain.member.Member;
 import org.example.est_team_project2.domain.pedia.requestEnums.RequestStatus;
-import org.example.est_team_project2.dto.Pedia.PediaEditRequestDto;
+import org.example.est_team_project2.dto.pedia.PediaEditRequestDto;
 
 import java.time.LocalDateTime;
 

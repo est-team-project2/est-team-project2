@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.est_team_project2.domain.member.memberEnums.MemberType;
 import org.example.est_team_project2.domain.member.memberEnums.SocialType;
+import org.example.est_team_project2.domain.pedia.PediaEditRequest;
 
 
 @Getter
