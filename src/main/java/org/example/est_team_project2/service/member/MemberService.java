@@ -5,10 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.example.est_team_project2.dao.member.MemberRepository;
 import org.example.est_team_project2.domain.member.Member;
-import org.example.est_team_project2.dto.MemberDto;
+
+import org.example.est_team_project2.dto.member.MemberDto;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ import java.util.Optional;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public void save(MemberDto memberDto) {
         //객체 생성 해서 저장
@@ -28,7 +31,7 @@ public class MemberService implements UserDetailsService {
         Member member = Member.builder()
                 .email(memberDto.getEmail())
                 .nickName(memberDto.getNickName())
-                .password(memberDto.getPassword())
+                .password(passwordEncoder.encode(memberDto.getPassword()))
                 .build();
 
         memberRepository.save(member);

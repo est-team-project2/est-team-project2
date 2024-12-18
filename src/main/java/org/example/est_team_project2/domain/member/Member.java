@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
-
+    //
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

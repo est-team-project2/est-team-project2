@@ -1,5 +1,4 @@
-package org.example.est_team_project2.dto;
-
+package org.example.est_team_project2.dto.member;
 
 
 import jakarta.validation.constraints.*;
