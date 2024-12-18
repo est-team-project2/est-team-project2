@@ -1,30 +1,17 @@
 package org.example.est_team_project2.domain.pedia;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.example.est_team_project2.domain.member.Member;
-import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
-import org.example.est_team_project2.dto.pedia.PediaVersionDto;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 public class PediaVersion {
-
     @Id
-    @Column(name = "pedia_version_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -32,43 +19,25 @@ public class PediaVersion {
     @JoinColumn(name = "pedia_id")
     private Pedia pedia;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "pedia_content_id")
     private PediaContent pediaContent;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member editor;
+    private Long memberId; // 회원 ID
+    private int pediaVersionCode; // 버전 코드
 
-    @Column(unique = true)
-    @Setter
-    private String pediaVersionCode = null;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt; // 작성 일시
 
-    @Setter(AccessLevel.PRIVATE)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private String status; // 상태
 
-    @Setter
-    private CommonStatus status = CommonStatus.INACTIVE;
-
-    @Builder
-    public PediaVersion(Pedia pedia, PediaContent pediaContent, Member editor) {
-        this.pedia = pedia;
-        this.pediaContent = pediaContent;
-        this.editor = editor;
-    }
-
-    public static PediaVersion from(PediaVersionDto pediaVersionDto) {
-        PediaVersion pediaVersion = PediaVersion.builder()
-            .pedia(pediaVersionDto.getPedia())
-            .pediaContent(pediaVersionDto.getPediaContent())
-            .editor(pediaVersionDto.getEditor())
-            .build();
-
-        pediaVersion.setPediaVersionCode(pediaVersionDto.getPediaVersionCode());
-        pediaVersion.setCreatedAt(pediaVersionDto.getCreatedAt());
-        pediaVersion.setStatus(pediaVersionDto.getStatus());
-
-        return pediaVersion;
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now(); // 생성 시점 설정
     }
 }
 
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now(); // 생성 시점 설정
+    }

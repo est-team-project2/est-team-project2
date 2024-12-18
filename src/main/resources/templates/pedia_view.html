@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>등록된 Pedia Content</title>
+</head>
+<body>
+<h1>등록된 Pedia Content</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>이미지 URI</th>
+        <th>품종</th>
+        <th>원산지</th>
+        <th>크기</th>
+        <th>상세 정보</th>
+        <th>유전병</th>
+        <th>특징</th>
+        <th>상태</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="content : ${pediaContents}">
+        <td th:text="${content.imageUri}"></td>
+        <td th:text="${content.breed}"></td>
+        <td th:text="${content.origin}"></td>
+        <td th:text="${content.size}"></td>
+        <td th:text="${content.detail}"></td>
+        <td th:text="${content.geneticDisease}"></td>
+        <td th:text="${content.feature}"></td>
+        <td th:text="${content.status}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/pediacontent/register">등록 페이지로 돌아가기</a>
+</body>
+</html>
