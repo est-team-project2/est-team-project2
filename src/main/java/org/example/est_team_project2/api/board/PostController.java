@@ -1,15 +1,10 @@
 package org.example.est_team_project2.api.board;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dto.board.CommentDto;
 import org.example.est_team_project2.dto.board.PostDto;
-import org.example.est_team_project2.dto.member.MemberDetails;
 import org.example.est_team_project2.service.board.CommentService;
 import org.example.est_team_project2.service.board.PostService;
-import org.example.est_team_project2.service.member.MemberService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +13,16 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/posts")
 public class PostController {
 
-    private final MemberService memberService;
     private final PostService postService;
     private final CommentService commentService;
 
+    public PostController(PostService postService, CommentService commentService) {
+        this.postService = postService;
+        this.commentService = commentService;
+    }
 
     // 게시글 목록 페이지
     @GetMapping
@@ -52,15 +49,10 @@ public class PostController {
 
     // 게시글 작성
     @PostMapping("/new")
-    public String createPost(
-            @RequestParam Long member_id,
-            @RequestParam String title,
-            @RequestParam String contents
-    ) {
-        postService.createPost(member_id, title, contents);
-        return "redirect:/posts";
+    public String createPost(@RequestParam String email, @RequestParam String title, @RequestParam String contents) {
+        postService.createPost(email, title, contents);
+        return "redirect:/posts";  // 작성 후 게시글 목록으로 리다이렉트
     }
-
 
     // 게시글 삭제
     @PostMapping("/{postId}/delete")
