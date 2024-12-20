@@ -2,7 +2,6 @@ package org.example.est_team_project2.api.pedia;
 
 import org.example.est_team_project2.domain.pedia.Pedia;
 import org.example.est_team_project2.domain.pedia.PediaContent;
-import org.example.est_team_project2.domain.pedia.PediaVersion;
 import org.example.est_team_project2.dto.pedia.PediaContentDTO;
 import org.example.est_team_project2.service.pedia.PediaContentService;
 import org.example.est_team_project2.service.pedia.PediaService;
@@ -98,10 +97,10 @@ public class PediaContentController {
         return "redirect:/pediacontent/view";
     }
 
-    @GetMapping("/view")
-    public String viewPediaContentList(Model model) {
-        List<PediaContent> contents = pediaContentService.findAll();
-        model.addAttribute("pediaContents", contents);
-        return "pedia_content_view";
-    }
+//    @GetMapping("/view")
+//    public String viewPediaContentList(Model model) {
+//        List<PediaContent> contents = pediaContentService.findAll();
+//        model.addAttribute("pediaContents", contents);
+//        return "pedia_content_view";
+//    }
 }
