@@ -8,9 +8,12 @@ import lombok.NoArgsConstructor;
 
 import org.example.est_team_project2.domain.member.Member;
 import org.example.est_team_project2.domain.member.memberEnums.MemberType;
+import org.example.est_team_project2.domain.member.memberEnums.SocialType;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,7 +34,11 @@ public class MemberDto implements UserDetails {
     @Size(min=8, max= 15 , message = "비밀번호를 제대로 입력 해주세요.")
     private String password;
 
-    private MemberType role;
+    private MemberType role = MemberType.USER;
+
+    private SocialType socialType = SocialType.FORMBASED;
+
+    private LocalDateTime updateAt = LocalDateTime.now();
 
 
     // Service 의 loadUserByUsername 에서 사용
@@ -44,7 +51,7 @@ public class MemberDto implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(role.toString()));
     }
 
     @Override
@@ -54,7 +61,7 @@ public class MemberDto implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.nickName;
     }
 
 }
