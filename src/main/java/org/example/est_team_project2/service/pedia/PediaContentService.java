@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-Slf4j
+@Slf4j
 @Service
 @RequiredArgsConstructor//final이 붙은 필드의 생성자를 만들어준다.
 @Transactional
