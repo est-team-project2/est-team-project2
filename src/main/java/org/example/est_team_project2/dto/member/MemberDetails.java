@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.example.est_team_project2.domain.member.memberEnums.MemberType;
 import org.example.est_team_project2.domain.member.memberEnums.SocialType;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Collection;
@@ -25,21 +26,28 @@ public class MemberDetails implements OAuth2User {
     private String password;
 
     @Setter
-    private MemberType memberType;
+    private MemberType role;
 
-
+    @Setter
     private String nickname;
 
     private Map<String, Object> attributes;
 
     @Builder
-    public MemberDetails(Map<String, Object> attributes, String email, String name, String password,SocialType socialType, MemberType memberType) {
+    public MemberDetails(
+            Map<String, Object> attributes,
+            String email,
+            String name,
+            String password,
+            SocialType socialType,
+            MemberType role
+    ) {
         this.attributes = attributes;
         this.email = email;
-        this.password = password;
         this.nickname = name;
+        this.password = password;
         this.socialType = socialType;
-        this.memberType = memberType;
+        this.role = role;
     }
 
     @Override
@@ -49,11 +57,11 @@ public class MemberDetails implements OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(role.toString()));
     }
 
     @Override
     public String getName() {
-        return nickname;
+        return this.nickname;
     }
 }

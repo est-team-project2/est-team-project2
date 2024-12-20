@@ -1,14 +1,23 @@
 package org.example.est_team_project2.api.member;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dto.member.MemberDto;
+import org.example.est_team_project2.service.member.FindPassService;
 import org.example.est_team_project2.service.member.MemberService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.NoSuchElementException;
 
 
 @Slf4j
@@ -17,6 +26,8 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     private final MemberService memberService;
+    private final FindPassService findPassService;
+
 
     @GetMapping("/")
     public String index() {
@@ -25,14 +36,15 @@ public class LoginController {
 
     @GetMapping("/signin")
     public String login() {
-        return "signin";
+        return "member/signin";
     }
 
 
     @GetMapping("/signup")
     public String signUp(Model model) {
         model.addAttribute("memberDto", new MemberDto());
-        return "signup";
+
+        return "member/signup";
     }
 
 
@@ -90,5 +102,37 @@ public class LoginController {
         return checkNickName;
 
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/index";
+    }
+
+    @GetMapping("/find-password")
+    public String findPassword() {
+        return "member/findPassword";
+    }
+
+    @PostMapping("/find-password")
+    public ResponseEntity<String> processFindPassword(@RequestParam String email) {
+        try {
+            // 임시 비밀번호 생성 및 업데이트
+            String tempPassword = findPassService.createTempPassword(email);
+
+            // 이메일로 임시 비밀번호 전송
+            findPassService.sendTempPassword(email, tempPassword);
+
+            return ResponseEntity.ok("임시 비밀번호가 이메일로 전송되었습니다.");
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 이메일을 가진 사용자를 찾을 수 없습니다.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("임시 비밀번호 발송 중 오류가 발생했습니다.");
+        }
+    }
+
 
 }

@@ -112,7 +112,6 @@ public class PediaContentController {
         return "page1";
     }
 
-
     // 4번 수정 요청 승인 해결!
     @PostMapping("/RequestAccept")
     public String processRequestAccept(String code, String memberEmail) {

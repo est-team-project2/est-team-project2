@@ -35,6 +35,8 @@ public class MemberService implements UserDetailsService {
                 .email(memberDto.getEmail())
                 .nickName(memberDto.getNickName())
                 .password(passwordEncoder.encode(memberDto.getPassword()))
+                .role(memberDto.getRole())
+                .socialType(memberDto.getSocialType())
                 .build();
         memberRepository.save(member);
     }

@@ -3,10 +3,8 @@ package org.example.est_team_project2.domain.member;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import org.example.est_team_project2.domain.member.memberEnums.MemberType;
 import org.example.est_team_project2.domain.member.memberEnums.SocialType;
 import org.example.est_team_project2.domain.pedia.PediaEditRequest;
@@ -31,7 +29,8 @@ public class Member {
 
     private LocalDateTime createdAt = LocalDateTime.now(); // 언제 만들어 졌는지
 
-    private LocalDateTime updatedAt; //언제 수정되었는지
+    private LocalDateTime updateAt = LocalDateTime.now(); //언제 수정되었는지
+
 
     @Column(unique = true)
     private String email; //아이디 겸 이메일
@@ -53,7 +52,12 @@ public class Member {
         this.email = email;
         this.nickName = nickName;
         this.password = password;
+        this.socialType = socialType;
+        this.role = role;
+    }
 
+    public void changePassword(String encodedPassword) {
+        this.password = encodedPassword;
     }
 
 }
