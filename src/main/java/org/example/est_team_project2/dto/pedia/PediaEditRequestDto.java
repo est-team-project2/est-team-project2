@@ -18,13 +18,15 @@ public class PediaEditRequestDto {
     private PediaVersion pediaVersion;
     private Member respondedMember;
     private Member requestedMember;
+    private String pediaEditRequestCode;
     private LocalDateTime closedAt;
     private RequestStatus status;
 
-    public PediaEditRequestDto from(PediaEditRequest pediaEditRequest) {
+    public static PediaEditRequestDto from(PediaEditRequest pediaEditRequest) {
         PediaEditRequestDto pediaEditRequestDto = new PediaEditRequestDto();
 
         pediaEditRequestDto.pediaVersion = pediaEditRequest.getPediaVersion();
+        pediaEditRequestDto.pediaEditRequestCode = pediaEditRequest.getPediaEditRequestCode();
         pediaEditRequestDto.respondedMember = pediaEditRequest.getRespondedMember();
         pediaEditRequestDto.requestedMember = pediaEditRequest.getRequestedMember();
         pediaEditRequestDto.closedAt = pediaEditRequest.getClosedAt();
@@ -33,3 +35,4 @@ public class PediaEditRequestDto {
         return pediaEditRequestDto;
     }
 }
+

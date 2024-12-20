@@ -231,8 +231,7 @@
                         <input type="checkbox" name="remember">
                         <span>로그인 상태 유지</span>
                     </label>
-
-                    <a href="/find-password" class="forgot-password">비밀번호 찾기</a>
+                    <a href="#" class="forgot-password">비밀번호 찾기</a>
                 </div>
 
                 <button type="submit" class="btn btn-login">로그인</button>
@@ -241,9 +240,9 @@
             <div class="social-login">
                 <p>또는</p>
                 <div class="social-buttons">
-                    <button class="btn-social" id="google-login">Google 로그인</button>
-                    <button class="btn-social" id="kakao-login">Kakao 로그인</button>
-                    <button class="btn-social" id="naver-login">Naver 로그인</button>
+                    <button class="btn-social">Google 로그인</button>
+                    <button class="btn-social">Kakao 로그인</button>
+                    <button class="btn-social">Naver 로그인</button>
                 </div>
             </div>
 
@@ -252,18 +251,5 @@
             </div>
         </div>
     </main>
-    <script>
-        document.getElementById('google-login').addEventListener('click', function() {
-            window.location.href = '/oauth2/authorization/google';
-        });
-
-        document.getElementById('kakao-login').addEventListener('click', function() {
-            window.location.href = '/oauth2/authorization/kakao';
-        });
-
-        document.getElementById('naver-login').addEventListener('click', function() {
-            window.location.href = '/oauth2/authorization/naver';
-        });
-    </script>
 </body>
 </html>

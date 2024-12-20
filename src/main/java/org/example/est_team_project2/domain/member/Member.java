@@ -27,9 +27,10 @@ public class Member {
     @OneToMany(mappedBy = "respondedMember")
     List<PediaEditRequest> respondedPediaEditRequests;
 
-    private LocalDateTime createAt = LocalDateTime.now(); // 언제 만들어 졌는지
+    private LocalDateTime createdAt = LocalDateTime.now(); // 언제 만들어 졌는지
 
     private LocalDateTime updateAt = LocalDateTime.now(); //언제 수정되었는지
+
 
     @Column(unique = true)
     private String email; //아이디 겸 이메일

@@ -68,7 +68,7 @@ public class MemberService implements UserDetailsService {
     public Member getMemberByEmail(String email) {
         return memberRepository.findByEmail(email).orElseThrow(
             () -> new NoSuchElementException("Member By Email Not Found")
-        ); 
+        );
     }
 
     public String checkDuplicateNickName(MemberDto memberDto) {
