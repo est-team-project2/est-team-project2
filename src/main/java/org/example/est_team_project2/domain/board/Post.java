@@ -1,15 +1,24 @@
 package org.example.est_team_project2.domain.board;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.est_team_project2.domain.member.Member;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
@@ -29,7 +38,7 @@ public class Post {
     private String title;
     private String contents;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private final LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     private int views = 0; // 조회수
@@ -48,9 +57,15 @@ public class Post {
         this.contents = contents;
     }
 
-    public void softDelete() {
-        this.deleted = true;
-        this.deletedAt = LocalDateTime.now();
+    public void update(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+        updatedAt = LocalDateTime.now();
     }
 
+    public void softDelete() {
+        this.deleted = true;
+        comments.forEach(Comment::softDelete);
+        this.deletedAt = LocalDateTime.now();
+    }
 }

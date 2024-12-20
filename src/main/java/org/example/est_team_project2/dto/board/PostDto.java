@@ -1,12 +1,13 @@
 package org.example.est_team_project2.dto.board;
 
-import lombok.*;
+import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.est_team_project2.domain.board.Post;
 
-import java.time.LocalDateTime;
-
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,23 +17,25 @@ public class PostDto {
     private String title;
     private String contents;
     private Long memberId;
-    private String memberNickname;
+    private String memberNickName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Boolean deleted;
     private LocalDateTime deletedAt;
 
+    private Boolean canModify = false;
+
     public static PostDto from(Post post) {
         return PostDto.builder()
-                .id(post.getId())
-                .title(post.getTitle())
-                .contents(post.getContents())
-//                .memberId(post.getMember().getId())
-//                .memberNickname(post.getMember().getNickname())
-                .createdAt(post.getCreatedAt())
-                .updatedAt(post.getUpdatedAt())
-                .deleted(post.getDeleted())
-                .deletedAt(post.getDeletedAt())
-                .build();
+            .id(post.getId())
+            .title(post.getTitle())
+            .contents(post.getContents())
+            .memberId(post.getMember().getId())
+            .memberNickName(post.getMember().getNickName())
+            .createdAt(post.getCreatedAt())
+            .updatedAt(post.getUpdatedAt())
+            .deleted(post.getDeleted())
+            .deletedAt(post.getDeletedAt())
+            .build();
     }
 }

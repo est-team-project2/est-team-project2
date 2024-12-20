@@ -4,19 +4,18 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.example.est_team_project2.dao.member.MemberRepository;
 import org.example.est_team_project2.domain.member.Member;
-
+import org.example.est_team_project2.domain.member.memberEnums.MemberType;
 import org.example.est_team_project2.dto.member.MemberDto;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 
 @Slf4j
@@ -32,10 +31,10 @@ public class MemberService implements UserDetailsService {
         //객체 생성 해서 저장
         log.info("memberDto = {}", memberDto);
         Member member = Member.builder()
-                .email(memberDto.getEmail())
-                .nickName(memberDto.getNickName())
-                .password(passwordEncoder.encode(memberDto.getPassword()))
-                .build();
+            .email(memberDto.getEmail())
+            .nickName(memberDto.getNickName())
+            .password(passwordEncoder.encode(memberDto.getPassword()))
+            .build();
         memberRepository.save(member);
     }
 
@@ -62,11 +61,16 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-
     public Member getMemberByEmail(String email) {
         return memberRepository.findByEmail(email).orElseThrow(
             () -> new NoSuchElementException("Member By Email Not Found")
-        ); 
+        );
+    }
+
+    public Member getMemberByNickName(String nickName) {
+        return memberRepository.findByNickName(nickName).orElseThrow(
+            () -> new NoSuchElementException("Member By Nick Name Not Found")
+        );
     }
 
     public String checkDuplicateNickName(MemberDto memberDto) {
@@ -83,5 +87,26 @@ public class MemberService implements UserDetailsService {
             return "ok";
         }
     }
-}
 
+    public String getSignedInMemberNickName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+
+    public boolean getCanModify(String postMemberNickName) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String signedInMemberNickName = authentication.getName();
+
+        try {
+            Member member = getMemberByNickName(signedInMemberNickName);
+            
+            if (member.getRole() == MemberType.ADMIN) {
+                return true;
+            }
+
+            return postMemberNickName.equals(signedInMemberNickName);
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+}

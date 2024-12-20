@@ -1,40 +1,54 @@
 package org.example.est_team_project2.domain.pedia;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.example.est_team_project2.dto.pedia.PediaDto;
 
-@Getter
-@Setter
 @Entity
-@Table(name = "Pedia")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Pedia {
+
     @Id
+    @Column(name = "pedia_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pedia_id") // 데이터베이스 컬럼 매핑
-    private Long id; // Pedia ID
+    private Long id;
 
-    @Column(name = "member_id", nullable = false) // 필수값 설정
-    private Long memberId; // 회원 ID
+    @Column(unique = true, nullable = false)
+    private String title;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt; // 생성 일시
+    @Setter
+    private String currentVersionCode = null;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt; // 수정 일시
+    @Setter(AccessLevel.PRIVATE)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "title", nullable = false)
-    private String title; // 제목
+    @Setter
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now(); // 생성 시점 설정
+    @Builder
+    public Pedia(String title) {
+        this.title = title;
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = LocalDateTime.now(); // 수정 시점 설정
+    public static Pedia from(PediaDto pediaDto) {
+        Pedia pedia = Pedia.builder()
+            .title(pediaDto.getTitle())
+            .build();
+
+        pedia.setCurrentVersionCode(pediaDto.getCurrentVersionCode());
+        pedia.setCreatedAt(pediaDto.getCreatedAt());
+        pedia.setUpdatedAt(pediaDto.getUpdatedAt());
+
+        return pedia;
     }
 }
