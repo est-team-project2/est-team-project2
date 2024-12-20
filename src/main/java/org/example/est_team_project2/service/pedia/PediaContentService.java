@@ -1,17 +1,20 @@
 package org.example.est_team_project2.service.pedia;
 
-
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dao.pedia.PediaContentRepository;
 import org.example.est_team_project2.domain.pedia.PediaContent;
 import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
 import org.example.est_team_project2.dto.pedia.PediaContentDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+Slf4j
 @Service
 @RequiredArgsConstructor//final이 붙은 필드의 생성자를 만들어준다.
+@Transactional
 public class PediaContentService {
 
     private final PediaContentRepository pediaContentRepository;

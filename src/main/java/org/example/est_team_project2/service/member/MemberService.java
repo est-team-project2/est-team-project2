@@ -7,8 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.example.est_team_project2.dao.member.MemberRepository;
 import org.example.est_team_project2.domain.member.Member;
-
+import org.example.est_team_project2.domain.member.memberEnums.MemberType;
 import org.example.est_team_project2.dto.member.MemberDto;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -71,6 +73,12 @@ public class MemberService implements UserDetailsService {
         );
     }
 
+    public Member getMemberByNickName(String nickName) {
+        return memberRepository.findByNickName(nickName).orElseThrow(
+            () -> new NoSuchElementException("Member By Nick Name Not Found")
+        );
+    }
+
     public String checkDuplicateNickName(MemberDto memberDto) {
 
         Optional<Member> checkEmail = memberRepository.findByNickName(memberDto.getNickName());
@@ -85,5 +93,26 @@ public class MemberService implements UserDetailsService {
             return "ok";
         }
     }
-}
 
+    public String getSignedInMemberNickName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
+    }
+
+    public boolean getCanModify(String postMemberNickName) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String signedInMemberNickName = authentication.getName();
+
+        try {
+            Member member = getMemberByNickName(signedInMemberNickName);
+
+            if (member.getRole() == MemberType.ADMIN) {
+                return true;
+            }
+
+            return postMemberNickName.equals(signedInMemberNickName);
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>게시글 작성</title>
+</head>
+<body>
+<h1>새 게시글 작성</h1>
+<form action="/posts/new" method="post">
+  <label for="title">제목</label>
+  <input type="text" id="title" name="title" required>
+  <br>
+  <label for="contents">내용</label>
+  <textarea id="contents" name="contents" required></textarea>
+  <br>
+  <button type="submit">작성</button>
+</form>
+<a href="/posts">게시글 목록으로 돌아가기</a>
+</body>
+
+</html>

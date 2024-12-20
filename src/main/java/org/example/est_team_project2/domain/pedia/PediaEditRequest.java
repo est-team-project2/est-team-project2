@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class PediaEditRequest {
 
     private static final String REQ_PREFIX = "REQ-";
@@ -54,9 +53,9 @@ public class PediaEditRequest {
 
     public static PediaEditRequest from(PediaEditRequestDto pediaEditRequestDto) {
         PediaEditRequest pediaEditRequest = PediaEditRequest.builder()
-                .pediaVersion(pediaEditRequestDto.getPediaVersion())
-                .requestedMember(pediaEditRequestDto.getRequestedMember())
-                .build();
+            .pediaVersion(pediaEditRequestDto.getPediaVersion())
+            .requestedMember(pediaEditRequestDto.getRequestedMember())
+            .build();
 
         pediaEditRequest.setPediaEditRequestCode(pediaEditRequestDto.getPediaEditRequestCode());
         pediaEditRequest.setRespondedMember(pediaEditRequestDto.getRespondedMember());

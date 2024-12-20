@@ -29,7 +29,7 @@ public class VersionRequestService {
     // 1번 RequestEdit
     // 페이지 수정 페이지 에서 Post로 보내면 됨
     // 새로운 수정 요청 만들기
-    public VersionRequestDetails createNewEditRequest (VersionRequestDetails versionRequestDetails,
+    public VersionRequestDetails createNewEditRequest(VersionRequestDetails versionRequestDetails,
         PediaContentDto pediaContentDto) {
         log.info("versionRequestDetails = {}", versionRequestDetails.getRequestedMemberEmail());
 
@@ -113,8 +113,9 @@ public class VersionRequestService {
         findPediaVersion.setStatus(CommonStatus.ACTIVE);
         findPedia.setCurrentVersionCode(nextPediaVersionCode);
 
-        // PediaEditeRequest close 상태로 변경하고 관련 정보 반환
-        return VersionRequestDetails.from(pediaEditRequestService.closePediaEditRequest(code, findMember));
+        // PediaEditRequest close 상태로 변경하고 관련 정보 반환
+        return VersionRequestDetails.from(
+            pediaEditRequestService.closePediaEditRequest(code, findMember));
     }
 
     // 5번 RequestDecline post

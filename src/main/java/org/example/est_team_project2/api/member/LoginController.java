@@ -15,7 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.NoSuchElementException;
 
@@ -38,7 +41,6 @@ public class LoginController {
     public String login() {
         return "member/signin";
     }
-
 
     @GetMapping("/signup")
     public String signUp(Model model) {
@@ -64,11 +66,11 @@ public class LoginController {
                 model.addAttribute("checkError", "error");
             }
 
-            if ( checkEmail == null ) {
+            if (checkEmail == null) {
                 model.addAttribute("checkEmail", "fail");
             }
 
-            if ( checkNickName == null ) {
+            if (checkNickName == null) {
                 model.addAttribute("checkNickName", "fail");
             }
 
@@ -85,7 +87,7 @@ public class LoginController {
     // 비동기 통신 -> 이메일이 있는지 없는지 체크
     @PostMapping("/signup/duplicateCheckEmail")
     @ResponseBody
-    public String processCheckDuplicateEmail (@RequestBody MemberDto memberDto) {
+    public String processCheckDuplicateEmail(@RequestBody MemberDto memberDto) {
         // 이메일이 있는지 없는지 일단 체크
 
         String checkEmail = memberService.checkDuplicateEmail(memberDto);
@@ -95,7 +97,7 @@ public class LoginController {
     // 비동기 통신 -> 닉네임이 있는지 없는지 체크
     @PostMapping("/signup/duplicateCheckNickName")
     @ResponseBody
-    public String processCheckDuplicateNickName (@RequestBody MemberDto memberDto) {
+    public String processCheckDuplicateNickName(@RequestBody MemberDto memberDto) {
         // 닉네임이 있는지 없는지 일단 체크
 
         String checkNickName = memberService.checkDuplicateNickName(memberDto);

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text="${post.title}">게시글</title>
+</head>
+<body>
+<h1 th:text="${post.title}"></h1>
+<p th:text="${post.contents}"></p>
+<p><strong>작성자:</strong> <span th:text="${post.memberNickName}"></span></p>
+<p><strong>작성일:</strong> <span th:text="${post.createdAt}"></span></p>
+
+<h2>댓글</h2>
+<form th:action="@{/comments/{postId}/new(postId=${post.id})}" method="post">
+  <textarea name="contents" placeholder="댓글을 입력하세요..."></textarea>
+  <button type="submit">댓글 작성</button>
+</form>
+
+<ul>
+  <li th:each="comment : ${comments}">
+    <p th:text="${comment.contents}"></p>
+    <p><span th:text="${comment.memberNickName}"></span> | <span
+        th:text="${comment.createdAt}"></span></p>
+    <form th:if="${comment.canModify}"
+          th:action="@{/comments/{commentId}/delete(commentId=${comment.id})}" method="post">
+      <button type="submit">삭제</button>
+    </form>
+  </li>
+</ul>
+
+<form th:if="${post.canModify}" th:action="@{/posts/{postId}/update(postId=${post.id})}"
+      method="get">
+  <button type="submit">게시글 수정</button>
+</form>
+
+<form th:if="${post.canModify}" th:action="@{/posts/{postId}/delete(postId=${post.id})}"
+      method="post">
+  <button type="submit">게시글 삭제</button>
+</form>
+
+<a href="/posts">게시글 목록으로 돌아가기</a>
+
+</body>
+</html>

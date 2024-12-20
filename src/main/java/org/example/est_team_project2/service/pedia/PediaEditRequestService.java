@@ -31,7 +31,7 @@ public class PediaEditRequestService {
 
     public PediaEditRequest getPediaEditRequestByCode(String code) {
         return pediaEditRequestRepository.findByPediaEditRequestCode(code).orElseThrow(
-                () -> new NoSuchElementException("Pedia Edit Request By Code Not Found")
+            () -> new NoSuchElementException("Pedia Edit Request By Code Not Found")
         );
     }
 }

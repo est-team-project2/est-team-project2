@@ -8,14 +8,14 @@ import lombok.*;
 import org.example.est_team_project2.domain.member.memberEnums.MemberType;
 import org.example.est_team_project2.domain.member.memberEnums.SocialType;
 import org.example.est_team_project2.domain.pedia.PediaEditRequest;
-
+import org.example.est_team_project2.domain.pedia.PediaVersion;
 
 @Getter
 @Entity
 @Table(name = "member")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
-    //
+
     @Id
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,8 @@ public class Member {
     @OneToMany(mappedBy = "respondedMember")
     List<PediaEditRequest> respondedPediaEditRequests;
 
-    private LocalDateTime createdAt = LocalDateTime.now(); // 언제 만들어 졌는지
-
-    private LocalDateTime updateAt = LocalDateTime.now(); //언제 수정되었는지
-
+    @OneToMany(mappedBy = "editor")
+    List<PediaVersion> editedPediaVersions;
 
     @Column(unique = true)
     private String email; //아이디 겸 이메일
@@ -43,8 +41,12 @@ public class Member {
     @Enumerated(EnumType.STRING) // DB에서 enum이라고 인식 할 수 있어서 스트링으로 받아준다
     private MemberType role = MemberType.USER;
 
-    @Column(unique = true, name ="nick_name")
-    private String nickName; // 활동명
+    @Column(unique = true, name = "nick_name")
+    private String nickName;
+
+    private LocalDateTime createdAt = LocalDateTime.now(); // 언제 만들어 졌는지
+
+    private LocalDateTime updatedAt = LocalDateTime.now(); //언제 수정되었는지
 
     @Builder
     public Member(String email, String password, SocialType socialType, MemberType role,

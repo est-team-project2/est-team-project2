@@ -4,7 +4,9 @@ import lombok.*;
 import org.example.est_team_project2.domain.pedia.PediaContent;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class PediaContentDto {
 
     private Long id; // PediaContent의 ID (optional, 등록 시 필요 없을 수 있음)
@@ -38,5 +40,4 @@ public class PediaContentDto {
 
         return pediaContentDto;
     }
-
 }

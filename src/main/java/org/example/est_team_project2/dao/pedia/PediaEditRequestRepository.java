@@ -8,6 +8,5 @@ import java.util.Optional;
 public interface PediaEditRequestRepository extends JpaRepository<PediaEditRequest, Long> {
 
     Optional<PediaEditRequest> findByPediaEditRequestCode(
-            String pediaEditRequestCode);
+        String pediaEditRequestCode);
 }
-

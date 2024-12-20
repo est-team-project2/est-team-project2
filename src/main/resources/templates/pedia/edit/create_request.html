@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Version Request</title>
+</head>
+<body>
+<h1>Create Version Request</h1>
+<form action="/create" method="post">
+  <!-- VersionRequestDetails -->
+  <fieldset>
+    <legend>Version Request Details</legend>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required>
+    <br>
+
+    <label for="pediaVersionCode">Pedia Version Code:</label>
+    <input type="text" id="pediaVersionCode" name="pediaVersionCode" required>
+    <br>
+
+    <label for="pediaEditRequestCode">Pedia Edit Request Code:</label>
+    <input type="text" id="pediaEditRequestCode" name="pediaEditRequestCode">
+    <br>
+
+    <label for="requestedMemberEmail">Requested Member Email:</label>
+    <input type="email" id="requestedMemberEmail" name="requestedMemberEmail" required>
+    <br>
+
+    <label for="respondedMemberEmail">Responded Member Email:</label>
+    <input type="email" id="respondedMemberEmail" name="respondedMemberEmail">
+    <br>
+
+    <label for="createdAt">Created At:</label>
+    <input type="datetime-local" id="createdAt" name="createdAt">
+    <br>
+
+    <label for="closedAt">Closed At:</label>
+    <input type="datetime-local" id="closedAt" name="closedAt">
+    <br>
+
+    <label for="status">Request Status:</label>
+    <select id="status" name="status">
+      <option value="PENDING">Pending</option>
+      <option value="APPROVED">Approved</option>
+      <option value="CLOSED">Closed</option>
+    </select>
+  </fieldset>
+
+  <hr>
+
+  <!-- PediaContentDto -->
+  <fieldset>
+    <legend>Pedia Content</legend>
+    <label for="imageUri">Image URI:</label>
+    <input type="url" id="imageUri" name="imageUri">
+    <br>
+
+    <label for="breed">Breed:</label>
+    <input type="text" id="breed" name="breed" required>
+    <br>
+
+    <label for="origin">Origin:</label>
+    <input type="text" id="origin" name="origin">
+    <br>
+
+    <label for="size">Size:</label>
+    <input type="text" id="size" name="size">
+    <br>
+
+    <label for="detail">Detail:</label>
+    <textarea id="detail" name="detail"></textarea>
+    <br>
+
+    <label for="geneticDisease">Genetic Disease:</label>
+    <textarea id="geneticDisease" name="geneticDisease"></textarea>
+    <br>
+
+    <label for="feature">Feature:</label>
+    <textarea id="feature" name="feature"></textarea>
+    <br>
+
+    <label for="contentStatus">Content Status:</label>
+    <select id="contentStatus" name="status">
+      <option value="ACTIVE">Active</option>
+      <option value="INACTIVE">Inactive</option>
+      <option value="PENDING">Pending</option>
+    </select>
+  </fieldset>
+
+  <br>
+  <button type="submit">Submit</button>
+</form>
+</body>
+</html>

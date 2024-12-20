@@ -10,8 +10,8 @@ import org.example.est_team_project2.dto.pedia.PediaContentDto;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PediaContent {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pedia_content_id")
     private Long id;
 
