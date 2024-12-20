@@ -19,9 +19,9 @@ import org.example.est_team_project2.domain.pedia.PediaEditRequest;
 public class Member {
     //
     @Id
-    @Column(name = "user_id")
+    @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;    
+    private Long id;
 
     @OneToMany(mappedBy = "requestedMember")
     List<PediaEditRequest> requestedPediaEditRequests;
@@ -29,9 +29,9 @@ public class Member {
     @OneToMany(mappedBy = "respondedMember")
     List<PediaEditRequest> respondedPediaEditRequests;
 
-    private LocalDateTime createAt = LocalDateTime.now(); // 언제 만들어 졌는지
+    private LocalDateTime createdAt = LocalDateTime.now(); // 언제 만들어 졌는지
 
-    private LocalDateTime updateAt; //언제 수정되었는지
+    private LocalDateTime updatedAt; //언제 수정되었는지
 
     @Column(unique = true)
     private String email; //아이디 겸 이메일

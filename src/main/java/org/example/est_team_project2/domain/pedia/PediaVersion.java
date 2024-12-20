@@ -1,17 +1,20 @@
 package org.example.est_team_project2.domain.pedia;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.example.est_team_project2.domain.member.Member;
+import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
+import org.example.est_team_project2.dto.pedia.PediaVersionDto;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PediaVersion {
+
     @Id
+    @Column(name = "pedia_version_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -19,21 +22,44 @@ public class PediaVersion {
     @JoinColumn(name = "pedia_id")
     private Pedia pedia;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "pedia_content_id")
     private PediaContent pediaContent;
 
-    private Long memberId; // 회원 ID
-    private int pediaVersionCode; // 버전 코드
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member editor;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt; // 작성 일시
+    @Column(unique = true)
+    @Setter
+    private String pediaVersionCode = null;
 
-    private String status; // 상태
+    @Setter(AccessLevel.PRIVATE)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now(); // 생성 시점 설정
+    @Setter
+    @Enumerated(EnumType.STRING)
+    private CommonStatus status = CommonStatus.INACTIVE;
+
+    @Builder
+    public PediaVersion(Pedia pedia, PediaContent pediaContent, Member editor) {
+        this.pedia = pedia;
+        this.pediaContent = pediaContent;
+        this.editor = editor;
+    }
+
+    public static PediaVersion from(PediaVersionDto pediaVersionDto) {
+        PediaVersion pediaVersion = PediaVersion.builder()
+                .pedia(pediaVersionDto.getPedia())
+                .pediaContent(pediaVersionDto.getPediaContent())
+                .editor(pediaVersionDto.getEditor())
+                .build();
+
+        pediaVersion.setPediaVersionCode(pediaVersionDto.getPediaVersionCode());
+        pediaVersion.setCreatedAt(pediaVersionDto.getCreatedAt());
+        pediaVersion.setStatus(pediaVersionDto.getStatus());
+
+        return pediaVersion;
     }
 }
 

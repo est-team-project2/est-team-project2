@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Breed 검색</title>
+</head>
+<body>
+<h1>강아지 품종 검색</h1>
+
+<!-- 검색 폼 -->
+<form action="/search" method="get">
+    <label for="breed">품종을 입력하세요:</label>
+    <input type="text" id="breed" name="breed" placeholder="예: 진돗개" required>
+    <button type="submit">검색</button>
+</form>
+
+<!-- 검색 결과 출력 -->
+<h2>검색 결과</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>이미지 URI</th>
+        <th>품종</th>
+        <th>원산지</th>
+        <th>크기</th>
+        <th>상세 정보</th>
+        <th>유전병</th>
+        <th>특징</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="content : ${results}">
+        <td th:text="${content.imageUri}"></td>
+        <td th:text="${content.breed}"></td>
+        <td th:text="${content.origin}"></td>
+        <td th:text="${content.size}"></td>
+        <td th:text="${content.detail}"></td>
+        <td th:text="${content.geneticDisease}"></td>
+        <td th:text="${content.feature}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
