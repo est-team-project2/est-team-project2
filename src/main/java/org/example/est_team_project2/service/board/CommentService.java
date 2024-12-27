@@ -50,4 +50,11 @@ public class CommentService {
         return commentRepository.findById(commentId)
             .orElseThrow(() -> new RuntimeException("Comment By Id Not Found"));
     }
+
+    public CommentDto updateComment(Long commentId, String contents) {
+        Comment comment = getCommentById(commentId);
+        comment.update(contents);
+
+        return CommentDto.from(comment);
+    }
 }

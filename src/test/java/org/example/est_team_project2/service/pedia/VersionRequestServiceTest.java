@@ -2,13 +2,10 @@ package org.example.est_team_project2.service.pedia;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import lombok.extern.slf4j.Slf4j;
-import org.example.est_team_project2.domain.member.memberEnums.MemberType;
 import org.example.est_team_project2.domain.pedia.Pedia;
 import org.example.est_team_project2.domain.pedia.PediaVersion;
 import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
 import org.example.est_team_project2.domain.pedia.requestEnums.RequestStatus;
-import org.example.est_team_project2.dto.member.MemberDto;
 import org.example.est_team_project2.dto.pedia.PediaContentDto;
 import org.example.est_team_project2.dto.pedia.PediaDto;
 import org.example.est_team_project2.dto.pedia.VersionRequestDetails;
@@ -21,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
 @SpringBootTest
 @Transactional
 class VersionRequestServiceTest {
@@ -44,21 +40,27 @@ class VersionRequestServiceTest {
     private VersionRequestDetails versionRequestDetails2;
     private PediaContentDto pediaContentDto2;
 
+    private VersionRequestDetails versionRequestDetails3;
+    private PediaContentDto pediaContentDto3;
+
+    private VersionRequestDetails versionRequestDetails4;
+    private PediaContentDto pediaContentDto4;
+
     @BeforeEach
-    @Rollback(false)
+    @Rollback
     void setUp() {
-        MemberDto memberDto1 = new MemberDto("user1@user.com", "nickName1", "password1",
-            MemberType.USER);
-
-        MemberDto memberDto2 = new MemberDto("user2@user.com", "nickName2", "password2",
-            MemberType.USER);
-
-        MemberDto memberDto3 = new MemberDto("admin@user.com", "nickName0", "password0",
-            MemberType.ADMIN);
-
-        memberService.save(memberDto1);
-        memberService.save(memberDto2);
-        memberService.save(memberDto3);
+//        MemberDto memberDto1 = new MemberDto("user1@user.com", "nickName1", "password1",
+//            MemberType.USER);
+//
+//        MemberDto memberDto2 = new MemberDto("user2@user.com", "nickName2", "password2",
+//            MemberType.USER);
+//
+//        MemberDto memberDto3 = new MemberDto("admin@user.com", "nickName0", "password0",
+//            MemberType.ADMIN);
+//
+//        memberService.save(memberDto1);
+//        memberService.save(memberDto2);
+//        memberService.save(memberDto3);
 
         Pedia pedia1 = Pedia.builder().title("푸들").build();
 
@@ -78,10 +80,22 @@ class VersionRequestServiceTest {
         pediaContentDto2 = PediaContentDto.builder().imageUri("IMAGE02")
             .breed("푸들").origin("아무지역").size("소형").detail("세부사항2").geneticDisease("유전병2")
             .feature("특징2").build();
+
+        versionRequestDetails3 = VersionRequestDetails.builder().title("말티즈")
+            .requestedMemberEmail("user2@user.com").build();
+        pediaContentDto3 = PediaContentDto.builder().imageUri("IMAGE02")
+            .breed("푸들").origin("아무지역").size("소형").detail("세부사항2").geneticDisease("유전병2")
+            .feature("특징2").build();
+
+        versionRequestDetails4 = VersionRequestDetails.builder().title("말티즈")
+            .requestedMemberEmail("user2@user.com").build();
+        pediaContentDto4 = PediaContentDto.builder().imageUri("IMAGE02")
+            .breed("푸들").origin("아무지역").size("소형").detail("세부사항2").geneticDisease("유전병2")
+            .feature("특징2").build();
     }
 
     @Test
-    @Rollback(false)
+    @Rollback
     @DisplayName("새 수정 요청 생성 테스트")
     void createNewPediaEditRequestTest() throws Exception {
         VersionRequestDetails findDetails = versionRequestService.createNewEditRequest(
@@ -93,7 +107,7 @@ class VersionRequestServiceTest {
     }
 
     @Test
-    @Rollback(false)
+    @Rollback
     @DisplayName("수정 요청에서 내용 읽기 테스트")
     void readPediaContentAndRequestByCodeTest() throws Exception {
         VersionRequestDetails findDetails1 = versionRequestService.createNewEditRequest(
@@ -105,7 +119,7 @@ class VersionRequestServiceTest {
     }
 
     @Test
-    @Rollback(false)
+    @Rollback
     @DisplayName("수정 요청 거절 테스트")
     void rejectPediaEditRequestTest() throws Exception {
         VersionRequestDetails findDetails = versionRequestService.createNewEditRequest(
@@ -129,7 +143,7 @@ class VersionRequestServiceTest {
     }
 
     @Test
-    @Rollback(false)
+    @Rollback
     @DisplayName("수정 요청 수락 테스트")
     void acceptPediaEditRequestTest() throws Exception {
         VersionRequestDetails findDetails = versionRequestService.createNewEditRequest(
