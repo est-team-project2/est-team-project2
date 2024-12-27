@@ -62,4 +62,14 @@ public class Member {
         this.password = encodedPassword;
     }
 
+    public void changeNickname(String newNickname){
+        this.nickName = newNickname;
+    }
+    public void updateTime() {
+        this.updatedAt = LocalDateTime.now();
+    }
+    public void changeRole(MemberType newRole) {
+        this.role = newRole;
+    }
+
 }

@@ -1,20 +1,260 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>내 정보</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9fafb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #fff3e0;
+            padding: 1rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f97316;
+            text-decoration: none;
+        }
+
+        /* Login Form Styles */
+        .login-container {
+            max-width: 400px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            color: #f97316;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+            font-size: 0.875rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .forgot-password {
+            color: #f97316;
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-login {
+            background-color: #f97316;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .btn-login:hover {
+            background-color: #ea580c;
+        }
+
+        .social-login {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .social-login p {
+            color: #6b7280;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .social-login p::before,
+        .social-login p::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background-color: #e5e7eb;
+        }
+
+        .social-login p::before {
+            left: 0;
+        }
+
+        .social-login p::after {
+            right: 0;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-social {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid #e5e7eb;
+            background-color: white;
+            border-radius: 0.5rem;
+            color: #4b5563;
+        }
+
+        .btn-social:hover {
+            background-color: #f9fafb;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .signup-link a {
+            color: #f97316;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <script th:inline="javascript">
+        window.onload = function() {
+            const message = /*[[${message}]]*/ null;
+            if (message) {
+                alert(message);
+            }
+        };
+    </script>
 </head>
 <body>
-<h1>User Profile</h1>
+<header>
+    <div class="container header-content">
+        <a href="#" class="logo">Mungpedia</a>
+    </div>
+</header>
+<main class="container">
+    <div class="login-container">
+        <div class="login-header">
+            <h1>회원정보</h1>
+        </div>
 
-<div>
-    <h2>Profile Information</h2>
-    <p><strong>Nickname:</strong> <span th:text="${nickname}"></span></p>
-    <p><strong>Email:</strong> <span th:text="${email}"></span></p>
-    <p><strong>Social Type:</strong> <span th:text="${socialType}"></span></p>
-    <p><strong>Member Type:</strong> <span th:text="${memberType}"></span></p>
-</div>
+        <div class="form-group">
+            <label>이메일:</label>
+            <span th:text="${email}"></span>
+        </div>
+
+        <div class="form-group">
+            <label>현재 닉네임:</label>
+            <span th:text="${nickName}"></span>
+        </div>
+
+        <form action="/my/update-nickname" method="post">
+            <input type="hidden" name="email" th:value="${email}">
+
+            <div class="form-group">
+                <label for="newNickName">새 닉네임:</label>
+                <input type="text" id="newNickName" name="newNickname"
+                       th:placeholder="'새 닉네임을 입력하세요'" required>
+            </div>
+
+
+            <button type="submit" class="btn btn-login">닉네임 변경</button>
+        </form>
+
+        <form action="/my/update-password" method="get">
+            <button type="submit" class="btn btn-login">비밀번호 변경</button>
+        </form>
+
+        <form action="/logout" method="get">
+            <button type="submit" class="btn btn-login">로그아웃</button>
+        </form>
+
+    </div>
+</main>
 
 </body>
 </html>

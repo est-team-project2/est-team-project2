@@ -73,7 +73,7 @@ public class LoginController {
                 model.addAttribute("checkNickName", "fail");
             }
 
-            return "signup";
+            return "member/signup";
 
         } else {
             // 위의 조건에 해당하지 않으면 db에 멤버 정보를 저장 후 index 페이지로
@@ -110,7 +110,7 @@ public class LoginController {
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @GetMapping("/find-password")

@@ -417,6 +417,7 @@
     </style>
 </head>
 <body>
+
     <header>
         <div class="container header-content">
             <a href="#" class="logo-container">
@@ -435,6 +436,7 @@
                     <button class="btn btn-logout" onclick="logout()">로그아웃</button>
                 </th:block>
             </nav>
+
         </div>
     </header>
 
@@ -447,6 +449,7 @@
             <input type="text" class="search-bar" id="searchInput" placeholder="백과사전, 펫샵, 동물병원, 야간 응급 동물병원, 애견 동반 호텔 통합 검색">
             <button class="search-button" id="searchButton" onclick="handleSearch()">검색</button>
         </div>
+
         <div id="searchResults" class="search-results"></div>
         <div id="map" class="map-container"></div>
     </div>
@@ -462,6 +465,7 @@
             </div>
             <div class="grid" id="breedGrid">
                 <!-- JavaScript로 동적 생성되는 카드들 -->
+
             </div>
             <div class="pagination">
                 <a href="#" class="disabled">&lt;&lt;</a>
@@ -866,5 +870,6 @@
             initializePagination();
         });
     </script>
+
 </body>
 </html>
