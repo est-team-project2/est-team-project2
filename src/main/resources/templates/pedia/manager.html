@@ -492,6 +492,8 @@
         }
     </style>
 
+</head>
+<body>
 <header>
     <div class="container header-content">
         <a th:href="@{/static}" class="logo-container">
@@ -511,38 +513,258 @@
     </div>
 </header>
 
-
-
 <main class="container">
     <div class="board-container">
         <div class="board-header">
-            <h1 class="board-title">피디아 백과</h1>
-
+            <h1 class="board-title">수정 요청 페이지</h1>
             <div class="board-actions">
+                 <form class="search-form" th:action="@{/community/search}" method="get">
+                    <select name="type" class="search-select">
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                        <option value="author">작성자</option>
+                    </select>
+                             <input type="text" name="keyword" class="search-input" placeholder="검색어를 입력하세요">
+                             <button type="submit" class="write-btn">검색</button>
+
+                     <div class="actions">
+                         <button class="btn" onclick="editPost(${post.id})">수정</button>
+                         <button class="btn" onclick="deletePost(${post.id})">거절</button>
+                     </div>
+                </form>
             </div>
         </div>
 
+        <!-- 게시글 목록 -->
+        <div class="post-list">
+            <div class="post-item" th:each="post : ${posts}">
+                <div class="post-info">
+                    <h3 class="post-title" th:text="${post.title}"
+                        th:onclick="|location.href='@{/management/post/{id}(id=${post.id})}'|">
+                    </h3>
+                    <div class="post-meta">
+                        <span th:text="${post.author}">요청자</span>
+                        <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">
+                                2024-03-17 15:30
+                            </span>
+                    </div>
+                </div>
 
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>품종</th>
-                    <th>상세</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr th:each="content : ${pediaContents}">
-                    <td th:text="${content.breed}"></td>
-                    <td>  <a th:href="@{/pedia/detail/{id}(id=${content.id})}">상세보기</a> </td>
-
-                </tr>
-            </tbody>
-        </table>
-
+            </div>
         </div>
 
+        <!-- 페이지네이션 -->
+        <div class="pagination">
+            <a th:href="@{/community(page=1)}" th:class="${currentPage == 1 ? 'disabled' : ''}">&lt;&lt;</a>
+            <a th:each="pageNum : ${#numbers.sequence(startPage, endPage)}"
+               th:href="@{/community(page=${pageNum})}"
+               th:class="${pageNum == currentPage ? 'active' : ''}"
+               th:text="${pageNum}">1</a>
+            <a th:href="@{/community(page=${totalPages})}"
+               th:class="${currentPage == totalPages ? 'disabled' : ''}">&gt;&gt;</a></div>
+          </div>
+
+    </div>
 </main>
 
+<!-- 글쓰기 모달 -->
+<div id="writeModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">글쓰기</h3>
+            <button class="close-modal" onclick="closeWriteModal()">&times;</button>
+        </div>
+        <form class="write-form" id="writeForm" onsubmit="submitPost(event)" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="postTitle">제목</label>
+                <input type="text" id="postTitle" name="title" required placeholder="제목을 입력하세요">
+            </div>
+
+            <div class="form-group">
+                <label for="postContent">내용</label>
+                <textarea id="postContent" name="content" required placeholder="내용을 입력하세요"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>파일 첨부</label>
+                <div id="fileUploadZone" class="file-upload-container">
+                    <div class="file-upload-section">
+                        <label for="files" class="file-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            파일 선택 또는 드래그하여 업로드
+                            <small>(이미지 또는 동영상)</small>
+                        </label>
+                        <input type="file" id="files" name="files"
+                               accept="image/*,video/*" multiple
+                               onchange="handleFileUpload(Array.from(this.files))">
+                        <div id="filePreviewContainer" class="preview-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" onclick="closeWriteModal()">취소</button>
+                <button type="submit" class="btn-submit">등록</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // 전역 변수 선언
+    let uploadedFiles = [];
+
+    // DOM이 로드되면 이벤트 리스너 설정
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeEventListeners();
+    });
+
+    // 이벤트 리스너 초기화
+    function initializeEventListeners() {
+        const writeBtn = document.querySelector('.write-btn');
+        const modal = document.getElementById('writeModal');
+        const writeForm = document.getElementById('writeForm');
+
+        writeBtn.addEventListener('click', openWriteModal);
+        document.addEventListener('keydown', handleEscapeKey);
+        modal.addEventListener('click', handleOutsideClick);
+        writeForm.addEventListener('submit', submitPost);
+
+        // 드래그 앤 드롭 이벤트 설정
+        const dropZone = document.getElementById('fileUploadZone');
+        dropZone.addEventListener('dragover', handleDragOver);
+        dropZone.addEventListener('drop', handleFileDrop);
+    }
+
+    function handleDragOver(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.add('dragover');
+    }
+
+    function handleFileDrop(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        event.currentTarget.classList.remove('dragover');
+
+        const files = Array.from(event.dataTransfer.files);
+        handleFileUpload(files);
+    }
+
+    function handleFileUpload(files) {
+        files.forEach(file => {
+            if (validateFile(file)) {
+                createPreview(file);
+                uploadedFiles.push(file);
+            }
+        });
+    }
+
+    // 파일 유효성 검사
+    function validateFile(file) {
+        const validTypes = ['image/', 'video/'];
+        const isValidType = validTypes.some(type => file.type.startsWith(type));
+
+        if (!isValidType) {
+            alert('이미지 또는 동영상 파일만 업로드할 수 있습니다.');
+            return false;
+        }
+        return true;
+    }
+
+    // 미리보기 생성
+    function createPreview(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const previewContainer = document.getElementById('filePreviewContainer');
+            const previewItem = createPreviewItem(e.target.result, file);
+            previewContainer.appendChild(previewItem);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function createPreviewItem(src, file) {
+        const div = document.createElement('div');
+        div.className = 'preview-item';
+
+        const media = file.type.startsWith('image/') ? new Image() : document.createElement('video');
+        media.src = src;
+        if (file.type.startsWith('video/')) {
+            media.controls = true;
+        }
+
+        const removeButton = createRemoveButton(div, file);
+        const fileInfo = createFileInfo(file);
+
+        div.appendChild(media);
+        div.appendChild(removeButton);
+        div.appendChild(fileInfo);
+
+        return div;
+    }
+
+    function createRemoveButton(container, file) {
+        const button = document.createElement('button');
+        button.className = 'remove-file';
+        button.innerHTML = '×';
+        button.onclick = () => removeFile(container, file);
+        return button;
+    }
+
+    function createFileInfo(file) {
+        const div = document.createElement('div');
+        div.className = 'file-info';
+        const fileType = file.type.startsWith('image/') ? '이미지' : '동영상';
+        div.textContent = `${fileType} - ${formatFileSize(file.size)}`;
+        return div;
+    }
+
+    function removeFile(element, file) {
+        uploadedFiles = uploadedFiles.filter(f => f !== file);
+        element.remove();
+    }
+
+    // 미리보기 초기화
+    function clearPreviews() {
+        document.getElementById('filePreviewContainer').innerHTML = '';
+        uploadedFiles = [];
+    }
+
+    // 폼 제출 처리
+    async function submitPost(event) {
+        event.preventDefault();
+
+        try {
+            const formData = new FormData();
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+
+            formData.append('title', title);
+            formData.append('content', content);
+
+            // 파일 추가
+            uploadedFiles.forEach((file, index) => {
+                formData.append('files', file);
+            });
+
+            const response = await fetch('/api/posts', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('게시글 등록에 실패했습니다.');
+            }
+
+            const result = await response.json();
+            alert('게시글이 등록되었습니다.');
+            closeWriteModal();
+            location.reload();
+        } catch (error) {
+            console.error('Error:', error);
+            alert(error.message || '게시글 등록 중 오류가 발생했습니다.');
+        }
+    }
+</script>
 </body>
 </html>

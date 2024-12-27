@@ -524,20 +524,12 @@
 
 
         <table border="1">
-            <thead>
-                <tr>
-                    <th>품종</th>
-                    <th>상세</th>
-                </tr>
-            </thead>
 
-            <tbody>
-                <tr th:each="content : ${pediaContents}">
-                    <td th:text="${content.breed}"></td>
-                    <td>  <a th:href="@{/pedia/detail/{id}(id=${content.id})}">상세보기</a> </td>
-
-                </tr>
-            </tbody>
+            <form action="/registerOnlyBreed" method="post">
+                <h4>견종을 추가해주세요</h4>
+                <input type="text" name="breed" placeholder="품종"><br>
+                <button type="submit">등록</button>
+            </form>
         </table>
 
         </div>

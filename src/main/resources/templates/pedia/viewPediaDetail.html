@@ -524,20 +524,20 @@
 
 
         <table border="1">
-            <thead>
-                <tr>
-                    <th>품종</th>
-                    <th>상세</th>
-                </tr>
-            </thead>
+            <label>
+                <h3>백과 내용</h3>
+                <p th:text="'게시글 번호 : ' + ${content.id}">게시글 번호</p>
+                <p th:text="'이미지 : ' + ${content.imageUri}">이미지</p>
+                <p th:text="'견종명 : ' + ${content.breed}">견종명</p>
+                <p th:text="'원산지 : ' + ${content.origin}">원산지</p>
+                <p th:text="'크기 : ' + ${content.size}">크기</p>
+                <p th:text="'상세정보 : ' + ${content.detail}">상세정보</p>
+                <p th:text="'유전병 : ' + ${content.geneticDisease}">유전병</p>
+                <p th:text="'특징 : ' + ${content.feature}">특징</p>
 
-            <tbody>
-                <tr th:each="content : ${pediaContents}">
-                    <td th:text="${content.breed}"></td>
-                    <td>  <a th:href="@{/pedia/detail/{id}(id=${content.id})}">상세보기</a> </td>
-
-                </tr>
-            </tbody>
+                <br>
+                <a class="btn-submit" th:href="@{/pedia/edit-request/{id}(id=${content.id})}">수정</a>
+            </label>
         </table>
 
         </div>

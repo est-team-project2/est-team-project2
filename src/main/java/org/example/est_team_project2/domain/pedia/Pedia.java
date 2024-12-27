@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class Pedia {
 
     @Id
@@ -44,4 +45,6 @@ public class Pedia {
 
         return pedia;
     }
+
+
 }

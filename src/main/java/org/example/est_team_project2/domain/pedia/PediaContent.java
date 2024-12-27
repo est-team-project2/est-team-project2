@@ -8,11 +8,13 @@ import org.example.est_team_project2.dto.pedia.PediaContentDto;
 
 @Entity
 @Getter
+@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class PediaContent {
 
     @Id
     @Column(name = "pedia_content_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "image_uri")
@@ -39,7 +41,7 @@ public class PediaContent {
     //상태
     @Setter
     @Enumerated(EnumType.STRING)
-    private CommonStatus status;
+    private CommonStatus status = CommonStatus.DEACTIVE;
 
     @Builder
     public PediaContent(String imageUri, String breed, String origin, String size, String detail,
