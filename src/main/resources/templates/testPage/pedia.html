@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멍피디아 - 백과사전</title>
+    <style>
+        /* 기본 스타일 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9fafb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background-color: #fff3e0;
+            padding: 1rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-text, .logo-paw {
+            height: 35px;
+            width: auto;
+        }
+
+        .logo-paw {
+            height: 20px;
+        }
+
+        /* 내비게이션 */
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #4b5563;
+        }
+
+        nav a.active {
+            color: #f97316;
+            font-weight: bold;
+        }
+
+        /* 버튼 스타일 */
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-login {
+            background-color: white;
+        }
+
+        .btn-signup,
+        .btn-search,
+        .btn-save,
+        .btn-edit,
+        .btn-modal.btn-edit {
+            background-color: #f97316;
+            color: white;
+        }
+
+        .btn-add,
+        .btn-cancel,
+        .btn-modal.btn-cancel {
+            background-color: #4b5563;
+            color: white;
+        }
+
+        /* 검색 섹션 */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem;
+            padding: 1rem 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .search-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-grow: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+        }
+
+        .search-input {
+            flex-grow: 1;
+            padding: 0.5rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #f97316;
+        }
+
+        /* 그리드 레이아웃 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        /* 견종 카드 */
+        .breed-card {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .breed-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .breed-image {
+            width: 100%;
+            height: 150px;
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .breed-info {
+            padding: 0.5rem;
+        }
+
+        .breed-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .breed-description {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .breed-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            padding: 0.5rem;
+        }
+
+        .info-group {
+            margin-bottom: 1rem;
+        }
+
+        .info-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+        }
+
+        .info-group input,
+        .info-group select,
+        .info-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            transition: border-color 0.2s;
+        }
+
+        .info-group input:focus,
+        .info-group select:focus,
+        .info-group textarea:focus {
+            outline: none;
+            border-color: #f97316;
+        }
+
+        .info-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        /* 모달 푸터 버튼 스타일 수정 */
+        .modal-footer button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        /* 검색 버튼 스타일 - 주황색 */
+        .modal-footer .btn-save,
+        .modal-footer button.btn-edit {
+            background-color: #f97316;
+            color: white;
+        }
+
+        .modal-footer .btn-save:hover,
+        .modal-footer button.btn-edit:hover {
+            background-color: #ea580c;
+        }
+
+        /* 닫기/취소 버튼 스타일 - 회색 */
+        .modal-footer .btn-cancel {
+            background-color: #e5e7eb;
+            color: #4b5563;
+        }
+
+        .modal-footer .btn-cancel:hover {
+            background-color: #d1d5db;
+        }
+
+        /* 모달 푸터 레이아웃 */
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        /* 뷰/편집 모드 */
+        .edit-mode .view-content,
+        .view-mode .edit-content {
+            display: none;
+        }
+
+        /* 페이지네이션 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .pagination button {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.25rem;
+            background-color: white;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pagination button:hover:not(.disabled) {
+            background-color: #f3f4f6;
+        }
+
+        .pagination button.active {
+            background-color: #f97316;
+            color: white;
+            border-color: #f97316;
+        }
+
+        .pagination button.disabled {
+            color: #9ca3af;
+            background-color: #f3f4f6;
+            cursor: not-allowed;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .modal-content {
+                margin: 1rem;
+                padding: 1rem;
+            }
+
+            .search-controls {
+                margin: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container header-content">
+        <a href="/" class="logo-container">
+            <img src="/api/images/1.png" alt="Mungpedia" class="logo-text">
+            <img src="/api/images/3.png" alt="Paw" class="logo-paw">
+        </a>
+        <nav>
+            <a href="/">홈</a>
+            <a href="/encyclopedia" class="active">동물백과</a>
+            <a href="/community">커뮤니티</a>
+            <button class="btn btn-login">로그인</button>
+            <button class="btn btn-signup">회원가입</button>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section class="encyclopedia-section">
+        <div class="section-header">
+            <h2 class="section-title">백과 사전</h2>
+            <div class="search-controls">
+                <input type="text" class="search-input" id="breedSearch" placeholder="견종 검색...">
+                <button class="btn btn-search" id="searchButton">검색</button>
+                <button class="btn btn-add" onclick="ModalManager.showNewBreedModal()">추가</button>
+            </div>
+        </div>
+
+        <div class="grid" id="breedGrid"></div>
+        <div class="pagination" id="pagination"></div>
+    </section>
+
+    <div id="breedModal" class="modal">
+        <div class="modal-content view-mode">
+            <div class="modal-header">
+                <h3 class="modal-title">견종 상세 정보</h3>
+                <button class="close-modal" onclick="ModalManager.closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- 뷰 모드 -->
+                <div class="view-content">
+                    <div class="info-group">
+                        <label>견종명</label>
+                        <p id="viewBreedName"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>원산지</label>
+                        <p id="viewOrigin"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>크기</label>
+                        <p id="viewSize"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>상세 설명</label>
+                        <p id="viewDetail"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>유전병</label>
+                        <p id="viewGeneticDisease"></p>
+                    </div>
+                    <div class="info-group">
+                        <label>특징</label>
+                        <p id="viewCharacteristics"></p>
+                    </div>
+                </div>
+
+                <!-- 수정/추가 모드 -->
+                <div class="edit-content">
+                    <div class="info-group">
+                        <label for="editBreedName">견종명</label>
+                        <input type="text" id="editBreedName" required>
+                    </div>
+                    <div class="info-group">
+                        <label for="editOrigin">원산지</label>
+                        <input type="text" id="editOrigin" required>
+                    </div>
+                    <div class="info-group">
+                        <label for="editSize">크기</label>
+                        <select id="editSize" required>
+                            <option value="초소형">초소형</option>
+                            <option value="소형">소형</option>
+                            <option value="중형">중형</option>
+                            <option value="대형">대형</option>
+                        </select>
+                    </div>
+                    <div class="info-group">
+                        <label for="editDetail">상세 설명</label>
+                        <textarea id="editDetail" required></textarea>
+                    </div>
+                    <div class="info-group">
+                        <label for="editGeneticDisease">유전병</label>
+                        <textarea id="editGeneticDisease" required></textarea>
+                    </div>
+                    <div class="info-group">
+                        <label for="editCharacteristics">특징</label>
+                        <textarea id="editCharacteristics" required></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="view-content">
+                    <button class="btn-edit" onclick="ModalManager.toggleEditMode(true)">수정</button>
+                    <button class="btn-cancel" onclick="ModalManager.closeModal()">닫기</button>
+                </div>
+                <div class="edit-content">
+                    <button class="btn-save" onclick="ModalManager.saveChanges()">저장</button>
+                    <button class="btn-cancel" onclick="ModalManager.toggleEditMode(false)">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // 견종 데이터
+    const breedData = {
+        'CORGI': {
+            breedName: '웰시 코기',
+            origin: '웨일스',
+            size: '소형',
+            detail: '양치기 견종으로 개발된 활동적인 견종입니다. 지능이 높고 훈련이 잘되며, 가족과의 유대관계가 강합니다.',
+            geneticDisease: '척추 질환, 고관절 이형성증, 눈 질환(PRA)',
+            characteristics: '짧은 다리와 긴 몸통이 특징적이며, 양치기 개로서의 본능을 가지고 있습니다. 운동량이 많이 필요하며 훈련 능력이 뛰어납니다.',
+            updatedAt: '2024-03-20'
+        },
+        'GERMAN_SHEPHERD': {
+            breedName: '저먼 셰퍼드',
+            origin: '독일',
+            size: '대형',
+            detail: '독일에서 양치기 개로 개발되었으며, 현재는 경찰견, 군용견으로 널리 활용되고 있는 지능이 높은 견종입니다.',
+            geneticDisease: '고관절 이형성증, 퇴행성 척수병증, 췌장 외분비 기능 부전',
+            characteristics: '강인한 체격과 뛰어난 운동능력을 가지고 있으며, 경찰견이나 군용견으로 자주 활용됩니다. 충성심이 강하고 지능이 높으며, 용감하고 자신감이 있습니다.',
+            updatedAt: '2024-03-20'
+        },
+        'MALTIPOO': {
+            breedName: '말티푸',
+            origin: '미국',
+            size: '소형',
+            detail: '말티즈와 푸들의 교배종으로, 반려견으로서 이상적인 성격을 가진 견종입니다.',
+            geneticDisease: '슬개골 탈구, 백내장, 진행성 망막 위축증',
+            characteristics: '저자극성 털을 가지고 있어 알레르기가 있는 사람에게 적합하며, 똑똑하고 훈련이 잘 됩니다. 활발하고 애교가 많으며, 사교적이고 친근합니다.',
+            updatedAt: '2024-03-20'
+        },
+        'DOBERMAN': {
+            breedName: '도베르만',
+            origin: '독일',
+            size: '대형',
+            detail: '경비견으로 개발된 견종으로, 뛰어난 지능과 운동능력을 가진 견종입니다.',
+            geneticDisease: '심장병, 폰 빌레브란트병, 경추척수증',
+            characteristics: '근육질의 체격과 뛰어난 운동능력을 가지고 있으며, 경비견으로 우수한 능력을 보입니다. 충성심이 강하고 용감하며, 가족을 잘 보호합니다.',
+            updatedAt: '2024-03-20'
+        },
+        'BORDER_COLLIE': {
+            breedName: '보더 콜리',
+            origin: '영국/스코틀랜드',
+            size: '중형',
+            detail: '세계에서 가장 지능이 높은 견종으로 알려져 있으며, 양치기 견종 중에서도 특히 뛰어난 능력을 보입니다.',
+            geneticDisease: '고관절 이형성증, 진행성 망막 위축증, 청력 손실',
+            characteristics: '뛰어난 지능과 운동신경을 가졌으며, 양치기 개로서 탁월한 능력을 보입니다. 지능이 매우 높고 활동적이며 훈련성이 뛰어납니다.',
+            updatedAt: '2024-03-20'
+        },
+        'GOLDEN_RETRIEVER': {
+            breedName: '골든 리트리버',
+            origin: '영국',
+            size: '대형',
+            detail: '사냥견으로 개발되었으나 현재는 반려견, 안내견으로 더 많이 활용되는 인기 견종입니다.',
+            geneticDisease: '고관절 이형성증, 심장병, 안구질환',
+            characteristics: '부드러운 금색 털과 온화한 성격으로 가족견으로 인기가 많습니다. 온순하고 친근하며 인내심이 많습니다.',
+            updatedAt: '2024-03-20'
+        },
+        'POODLE': {
+            breedName: '푸들',
+            origin: '프랑스',
+            size: '소형~대형',
+            detail: '수렵견으로 시작하여 현재는 반려견으로 인기가 높은 견종으로, 다양한 크기가 있습니다.',
+            geneticDisease: '슬개골 탈구, 진행성 망막 위축증, 쿠싱증후군',
+            characteristics: '털이 빠지지 않고 알레르기 반응이 적으며, 다양한 크기로 존재합니다. 영리하고 우아하며 활발한 성격입니다.',
+            updatedAt: '2024-03-20'
+        },
+        'CHIHUAHUA': {
+            breedName: '치와와',
+            origin: '멕시코',
+            size: '초소형',
+            detail: '세계에서 가장 작은 견종 중 하나로, 오랜 역사를 가진 견종입니다.',
+            geneticDisease: '심장병, 슬개골 탈구, 수두증',
+            characteristics: '세계에서 가장 작은 견종 중 하나이며, 긴 수명을 가지고 있습니다. 용감하고 충성심이 강하며 활발합니다.',
+            updatedAt: '2024-03-20'
+        }
+    };
+
+    // 상태 관리
+    let currentPage = 1;
+    const itemsPerPage = 12;
+    let currentBreedId = null;
+
+    // 데이터 관리자
+    const DataManager = {
+        getBreed(breedKey) {
+            return breedData[breedKey];
+        },
+
+        addBreed(breedKey, breedInfo) {
+            if (breedData[breedKey]) return false;
+            breedData[breedKey] = {
+                ...breedInfo,
+                updatedAt: new Date().toLocaleDateString('ko-KR')
+            };
+            return true;
+        },
+
+        updateBreed(breedKey, breedInfo) {
+            if (!breedData[breedKey]) return false;
+            breedData[breedKey] = {
+                ...breedData[breedKey],
+                ...breedInfo,
+                updatedAt: new Date().toLocaleDateString('ko-KR')
+            };
+            return true;
+        },
+
+        searchBreeds(searchTerm) {
+            const term = searchTerm.toLowerCase();
+            return Object.entries(breedData).filter(([_, breed]) =>
+                breed.breedName.toLowerCase().includes(term) ||
+                breed.characteristics.toLowerCase().includes(term) ||
+                breed.detail.toLowerCase().includes(term)
+            );
+        }
+    };
+
+    // UI 관리자
+    const UIManager = {
+        init() {
+            this.renderBreedCards();
+            this.initializeSearchHandlers();
+            this.initializeModalHandlers();
+        },
+
+        renderBreedCards(breeds = breedData) {
+            const grid = document.getElementById('breedGrid');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+            const breedEntries = Object.entries(breeds);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageBreeds = breedEntries.slice(startIndex, endIndex);
+
+            pageBreeds.forEach(([key, breed]) => {
+                const card = this.createBreedCard(key, breed);
+                grid.appendChild(card);
+            });
+
+            this.renderPagination(breedEntries.length);
+        },
+
+        createBreedCard(key, breed) {
+            const card = document.createElement('div');
+            card.className = 'breed-card';
+            card.setAttribute('data-breed', key);
+
+            card.innerHTML = `
+                    <div class="breed-image"></div>
+                    <div class="breed-info">
+                        <h3 class="breed-name">${breed.breedName}</h3>
+                        <p class="breed-description">${breed.characteristics.substring(0, 100)}...</p>
+                        <div class="breed-meta">
+                            <span class="breed-size">${breed.size}</span>
+                            <span class="updated">Updated: ${breed.updatedAt}</span>
+                        </div>
+                    </div>
+                `;
+
+            card.addEventListener('click', () => ModalManager.openModal(key));
+            return card;
+        },
+
+        initializeSearchHandlers() {
+            const searchInput = document.getElementById('breedSearch');
+            const searchButton = document.getElementById('searchButton');
+            if (!searchInput || !searchButton) return;
+
+            let debounceTimer;
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    const searchTerm = e.target.value.trim();
+                    if (searchTerm.length >= 2) {
+                        const searchResults = DataManager.searchBreeds(searchTerm);
+                        this.renderBreedCards(Object.fromEntries(searchResults));
+                    } else if (searchTerm.length === 0) {
+                        this.renderBreedCards();
+                    }
+                }, 300);
+            });
+
+            searchButton.addEventListener('click', () => {
+                const searchTerm = searchInput.value.trim();
+                if (searchTerm) {
+                    const searchResults = DataManager.searchBreeds(searchTerm);
+                    this.renderBreedCards(Object.fromEntries(searchResults));
+                }
+            });
+        },
+
+        initializeModalHandlers() {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') ModalManager.closeModal();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    ModalManager.closeModal();
+                }
+            });
+        },
+
+        renderPagination(totalItems) {
+            const pagination = document.getElementById('pagination');
+            if (!pagination) return;
+
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            pagination.innerHTML = '';
+
+            if (currentPage > 1) {
+                this.addPaginationButton(pagination, '이전', currentPage - 1);
+            }
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    this.addPaginationButton(pagination, i, i, i === currentPage);
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    pagination.appendChild(document.createTextNode('...'));
+                }
+            }
+
+            if (currentPage < totalPages) {
+                this.addPaginationButton(pagination, '다음', currentPage + 1);
+            }
+        },
+
+        addPaginationButton(container, text, pageNum, isActive = false) {
+            const button = document.createElement('button');
+            button.textContent = text;
+            button.className = isActive ? 'active' : '';
+            button.addEventListener('click', () => {
+                currentPage = pageNum;
+                this.renderBreedCards();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            container.appendChild(button);
+        }
+    };
+
+    // 모달 관리자
+    const ModalManager = {
+        openModal(breedKey) {
+            const modal = document.getElementById('breedModal');
+            const breed = DataManager.getBreed(breedKey);
+            if (!modal || !breed) return;
+
+            currentBreedId = breedKey;
+            this.updateModalContent(breed);
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        },
+
+        closeModal() {
+            const modal = document.getElementById('breedModal');
+            if (!modal) return;
+
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentBreedId = null;
+            this.toggleEditMode(false);
+        },
+
+        updateModalContent(breed) {
+            const fields = {
+                'viewBreedName': breed.breedName,
+                'viewOrigin': breed.origin,
+                'viewSize': breed.size,
+                'viewDetail': breed.detail,
+                'viewGeneticDisease': breed.geneticDisease,
+                'viewCharacteristics': breed.characteristics
+            };
+
+            Object.entries(fields).forEach(([id, value]) => {
+                const element = document.getElementById(id);
+                if (element) element.textContent = value;
+            });
+        },
+
+        toggleEditMode(isEdit) {
+            const modalContent = document.querySelector('.modal-content');
+            if (!modalContent) return;
+
+            modalContent.classList.toggle('view-mode', !isEdit);
+            modalContent.classList.toggle('edit-mode', isEdit);
+
+            if (isEdit && currentBreedId) {
+                const breed = DataManager.getBreed(currentBreedId);
+                if (breed) {
+                    this.fillEditForm(breed);
+                }
+            }
+        },
+
+        fillEditForm(breed) {
+            const fields = {
+                'editBreedName': breed.breedName,
+                'editOrigin': breed.origin,
+                'editSize': breed.size,
+                'editDetail': breed.detail,
+                'editGeneticDisease': breed.geneticDisease,
+                'editCharacteristics': breed.characteristics
+            };
+
+            Object.entries(fields).forEach(([id, value]) => {
+                const element = document.getElementById(id);
+                if (element) element.value = value;
+            });
+        },
+
+        showNewBreedModal() {
+            currentBreedId = null;
+            const modal = document.getElementById('breedModal');
+            const title = modal?.querySelector('.modal-title');
+            if (!modal || !title) return;
+
+            this.clearEditForm();
+            title.textContent = '새 견종 추가';
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            this.toggleEditMode(true);
+        },
+
+        clearEditForm() {
+            const fields = [
+                'editBreedName', 'editOrigin', 'editSize', 'editDetail',
+                'editGeneticDisease', 'editCharacteristics'
+            ];
+
+            fields.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) element.value = '';
+            });
+        },
+
+        saveChanges() {
+            const formData = {
+                breedName: document.getElementById('editBreedName')?.value.trim() || '',
+                origin: document.getElementById('editOrigin')?.value.trim() || '',
+                size: document.getElementById('editSize')?.value.trim() || '',
+                detail: document.getElementById('editDetail')?.value.trim() || '',
+                geneticDisease: document.getElementById('editGeneticDisease')?.value.trim() || '',
+                characteristics: document.getElementById('editCharacteristics')?.value.trim() || ''
+            };
+
+            if (!this.validateFormData(formData)) {
+                alert('모든 필드를 입력해주세요.');
+                return;
+            }
+
+            const success = currentBreedId ?
+                this.updateBreed(currentBreedId, formData) :
+                this.createNewBreed(formData);
+
+            if (success) {
+                UIManager.renderBreedCards();
+                this.closeModal();
+                alert(currentBreedId ? '변경사항이 저장되었습니다.' : '새로운 견종이 추가되었습니다.');
+            }
+        },
+
+        validateFormData(formData) {
+            return Object.values(formData).every(value => value.length > 0);
+        },
+
+        createNewBreed(formData) {
+            const breedKey = formData.breedName.toUpperCase().replace(/\s+/g, '_');
+            if (!/^[A-Z_]+$/.test(breedKey)) {
+                alert('올바른 견종명을 입력해주세요.');
+                return false;
+            }
+
+            return DataManager.addBreed(breedKey, formData);
+        },
+
+        updateBreed(breedKey, formData) {
+            return DataManager.updateBreed(breedKey, formData);
+        }
+    };
+
+    // 앱 초기화
+    document.addEventListener('DOMContentLoaded', () => UIManager.init());
+</script>
+</body>

@@ -47,13 +47,6 @@ public class FindPassService {
         return tempPassword;
     }
 
-    // 검증
-    public boolean verifyTempPassword(String email, String tempPassword) {
-        Optional<Member> member = memberRepository.findByEmail(email);
-        Member findMember = member.orElseThrow(NoSuchElementException::new);
-        return bCryptPasswordEncoder.matches(tempPassword, findMember.getPassword());
-    }
-
     // 임시 비번 발신
     public void sendTempPassword(String email, String tempPassword) {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
