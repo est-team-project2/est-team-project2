@@ -523,22 +523,32 @@
         </div>
 
 
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>품종</th>
-                    <th>상세</th>
-                </tr>
-            </thead>
+        <form method="POST" th:action="@{/sendEditInfo/{id}(id=${content.id})}">
+            <h3>백과 내용</h3>
+            <p th:text="'게시글 번호 : ' + ${content.id}">게시글 번호</p>
+            <p th:text="'이미지 : ' + ${content.imageUri}">이미지</p>
+            <p th:text="'견종명 : ' + ${content.breed}" name="breed">견종명</p>
+            <p th:text="'원산지 : ' + ${content.origin}">원산지</p>
+            <p th:text="'크기 : ' + ${content.size}">크기</p>
+            <p th:text="'상세정보 : ' + ${content.detail}">상세정보</p>
+            <p th:text="'유전병 : ' + ${content.geneticDisease}">유전병</p>
+            <p th:text="'특징 : ' + ${content.feature}">특징</p>
 
-            <tbody>
-                <tr th:each="content : ${pediaContents}">
-                    <td th:text="${content.breed}"></td>
-                    <td>  <a th:href="@{/pedia/detail/{id}(id=${content.id})}">상세보기</a> </td>
+            <hr>
+            <br>
+            <h3>수정 할 내용</h3>
 
-                </tr>
-            </tbody>
-        </table>
+            <input type="text" name="imageUri" placeholder="이미지 URI"><br>
+            <input type="text" name="breed" placeholder="품종"><br>
+            <input type="text" name="origin" placeholder="원산지"><br>
+            <input type="text" name="size" placeholder="크기"><br>
+            <input type="text" name="detail" placeholder="상세 정보"><br>
+            <input type="text" name="geneticDisease" placeholder="유전병"><br>
+            <input type="text" name="feature" placeholder="특징"><br>
+
+            <br>
+            <button type="submit">수정</button>
+        </form>
 
         </div>
 

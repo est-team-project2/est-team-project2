@@ -125,7 +125,7 @@ class VersionRequestServiceTest {
         // 버전코드가 REJ로 시작하고, 상태가 INACTIVE인지 확인
         assertThat(findPediaVersion.getPediaVersionCode()).startsWith("REJ-");
         assertThat(findPediaVersion.getStatus()).isEqualTo(
-            CommonStatus.INACTIVE);
+            CommonStatus.DEACTIVE);
     }
 
     @Test
@@ -162,8 +162,8 @@ class VersionRequestServiceTest {
             findPediaVersion2.getPediaVersionCode());
         assertThat(findPediaVersion2.getStatus()).isEqualTo(CommonStatus.ACTIVE);
 
-        // 지난 버젼이 INACTIVE 되었는지 확인
+        // 지난 버젼이 DEACTIVE 되었는지 확인
         assertThat(findPediaVersion1.getStatus()).isEqualTo(
-            CommonStatus.INACTIVE);
+            CommonStatus.DEACTIVE);
     }
 }

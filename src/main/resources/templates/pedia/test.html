@@ -10,6 +10,7 @@
 <form action="/registerOnlyBreed" method="post">
   <h4>견종을 추가해주세요</h4>
   <input type="text" name="breed" placeholder="품종"><br>
+  <p>이메일: <span th:text="${email}"></span></p>
   <button type="submit">등록</button>
 </form>
 </body>

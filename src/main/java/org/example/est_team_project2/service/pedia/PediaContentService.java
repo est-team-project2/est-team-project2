@@ -21,26 +21,28 @@ public class PediaContentService {
 
 
 
-//    public void save(PediaContentDto pediaContentDTO) {
-//        PediaContent pediaContent = PediaContent.builder()
-//                .imageUri(pediaContentDTO.getImageUri())
-//                .breed(pediaContentDTO.getBreed())
-//                .origin(pediaContentDTO.getOrigin())
-//                .size(pediaContentDTO.getSize())
-//                .detail(pediaContentDTO.getDetail())
-//                .geneticDisease(pediaContentDTO.getGeneticDisease())
-//                .feature(pediaContentDTO.getFeature())
-//                .build();
-//        pediaContentRepository.save(pediaContent);
-//    }
+    public void save(PediaContentDto pediaContentDTO) {
+        PediaContent pediaContent = PediaContent.builder()
+                .imageUri(pediaContentDTO.getImageUri())
+                .breed(pediaContentDTO.getBreed())
+                .origin(pediaContentDTO.getOrigin())
+                .size(pediaContentDTO.getSize())
+                .detail(pediaContentDTO.getDetail())
+                .geneticDisease(pediaContentDTO.getGeneticDisease())
+                .feature(pediaContentDTO.getFeature())
+                .build();
+        pediaContentRepository.save(pediaContent);
+    }
 
-    //경돈님꺼
-    public PediaContent save(PediaContentDto pediaContentDto) {
+
+//    경돈님꺼
+    public PediaContent saveEdit(PediaContentDto pediaContentDto) {
         return pediaContentRepository.save(PediaContent.from(pediaContentDto));
     }
 
 
-    public void registerOnlyBreed(PediaContentDto pediaContentDTO) {
+    public void registerOnlySaveBreed(PediaContentDto pediaContentDTO) {
+
         PediaContent pediaContent = PediaContent.builder()
                 .imageUri("방금 만든 따끈따끈한 견종입니다 이미지를 추가해주세요")
                 .breed(pediaContentDTO.getBreed())
@@ -51,6 +53,7 @@ public class PediaContentService {
                 .feature("특징을 추가해주세요")
                 .status(CommonStatus.ACTIVE)
                 .build();
+
         pediaContentRepository.save(pediaContent);
     }
 
@@ -58,5 +61,20 @@ public class PediaContentService {
         return pediaContentRepository.findAll();
     }
 
+
+    public PediaContent findById(Long id) {
+
+        return pediaContentRepository.findById(id).orElseThrow();
+    }
+
+//    public PediaContent findByBeforeInfo(Long id) {
+//        PediaContent EditPediaContent = pediaContentRepository.findById(id).orElseThrow();
+//        Long Editid = EditPediaContent.getId(); //7
+//        String EditBreed = EditPediaContent.getBreed(); //진돗개
+//
+//        List<PediaContent> all = pediaContentRepository.findAll();
+//
+//
+//    }
 
 }

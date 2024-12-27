@@ -39,7 +39,7 @@ public class PediaVersion {
 
     @Setter
     @Enumerated(EnumType.STRING)
-    private CommonStatus status = CommonStatus.INACTIVE;
+    private CommonStatus status = CommonStatus.DEACTIVE;
 
     @Builder
     public PediaVersion(Pedia pedia, PediaContent pediaContent, Member editor) {

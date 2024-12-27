@@ -27,6 +27,7 @@ public class PediaContentDto {
 
     private Long memberId;
 
+
     public static PediaContentDto from(PediaContent pediaContent) {
         PediaContentDto pediaContentDto = new PediaContentDto();
 
