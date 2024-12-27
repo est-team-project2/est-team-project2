@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>회원 상세</title>
+</head>
+<body>
+<h1><span th:text="${member.nickName}"></span></h1>
+<form th:action="@{'/admin/members/' + ${member.id} + '/update-role'}" method="post">
+  <div>
+    <p><strong>ID:</strong> <span th:text="${member.id}">1</span></p>
+    <p><strong>Email:</strong> <span th:text="${member.email}">user@example.com</span></p>
+    <p><strong>Nickname:</strong> <span th:text="${member.nickName}">user1</span></p>
+    <p><strong>Social Type:</strong> <span th:text="${member.socialType}">FORMBASED</span></p>
+    <p><strong>Created At:</strong> <span th:text="${member.createdAt}">2024-01-01 00:00:00</span></p>
+    <p><strong>Updated At:</strong> <span th:text="${member.updatedAt}">2024-01-01 00:00:00</span></p>
+  </div>
+
+  <div>
+    <label for="role"><strong>Role:</strong></label>
+    <select name="role" id="role">
+      <option value="USER" th:selected="${member.role == 'USER'}">USER</option>
+      <option value="EXPERT" th:selected="${member.role == 'EXPERT'}">EXPERT</option>
+      <option value="ADMIN" th:selected="${member.role == 'ADMIN'}">ADMIN</option>
+    </select>
+  </div>
+
+  <div>
+    <button type="submit">Update Role</button>
+  </div>
+</form>
+
+<button onclick="history.back()">Back to Member List</button>
+</body>
+</html>
+

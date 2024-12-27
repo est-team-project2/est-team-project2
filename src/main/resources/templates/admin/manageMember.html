@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>(관리자)회원 관리</title>
+</head>
+<body>
+<h1>회원 관리</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Nickname</th>
+        <th>Role</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member : ${members.content}">
+        <td th:text="${member.id}">1</td>
+        <td th:text="${member.email}">user@example.com</td>
+        <td th:text="${member.nickName}">user1</td>
+        <td th:text="${member.role}">USER</td>
+        <td>
+            <a th:href="@{'/admin/manageMember/' + ${member.id}}">View Details</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <a th:href="@{/admin/manageMember(page=${members.number - 1})}"
+       th:if="${members.hasPrevious()}">이전</a>
+    <span th:text="${members.number + 1}"></span>
+    <a th:href="@{/admin/manageMember(page=${members.number + 1})}"
+       th:if="${members.hasNext()}">다음</a>
+</div>
+</body>
+</html>

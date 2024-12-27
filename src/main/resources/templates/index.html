@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>멍피디아 - 백과사전</title>
+    <!-- 카카오맵 API -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d7685767a15f68342aeab49f3273718"></script>
     <style>
         * {
             margin: 0;
@@ -93,6 +95,59 @@
             margin-right: 1rem;
         }
 
+        /* Search Bar */
+        .search-container {
+            padding: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .search-bar {
+            flex: 1;
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+        }
+
+        .search-button {
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            border: none;
+            background-color: #f97316;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .search-button:hover {
+            background-color: #ea580c;
+            transform: translateY(-1px);
+        }
+
+        .search-button:active {
+            transform: translateY(1px);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+            display: none;
+        }
+
         /* Hero Section */
         .hero {
             text-align: center;
@@ -104,20 +159,6 @@
             height: 100px;
             width: auto;
             margin: 0 auto;
-        }
-
-        /* Search Bar */
-        .search-container {
-            padding: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .search-bar {
-            width: 100%;
-            padding: 0.75rem;
-            border-radius: 9999px;
-            border: 1px solid #e5e7eb;
         }
 
         /* Section Header */
@@ -134,21 +175,21 @@
             color: #333;
         }
 
-        .add-breed-btn {
-            background-color: #f97316;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            cursor: pointer;
+        .more-btn {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            text-decoration: none;
+            color: #f97316;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
         }
 
-        .add-breed-btn:hover {
-            background-color: #ea580c;
+        .more-btn:hover {
+            background-color: #fff3e0;
+            transform: translateX(5px);
         }
 
         /* Encyclopedia Grid */
@@ -387,9 +428,9 @@
             <a href="#">동물백과</a>
             <a href="#">커뮤니티</a>
             <a href="#">백과사전</a>
+            <a href="#">지도</a>
             <button class="btn btn-login">로그인</button>
             <button class="btn btn-signup">회원가입</button>
-            </th:block>
             <th:block th:if="${session.loginEmail != null}">
                 <span class="user-email" th:text="${session.loginEmail}"></span>
                 <button class="btn btn-logout" onclick="logout()">로그아웃</button>
@@ -403,17 +444,22 @@
 </div>
 
 <div class="search-container">
-    <input type="text" class="search-bar" placeholder="통합 검색">
+    <div class="search-wrapper">
+        <input type="text" class="search-bar" id="searchInput" placeholder="백과사전, 펫샵, 동물병원, 야간 응급 동물병원, 애견 동반 호텔 통합 검색">
+        <button class="search-button" id="searchButton" onclick="handleSearch()">검색</button>
+    </div>
+    <div id="searchResults" class="search-results"></div>
+    <div id="map" class="map-container"></div>
 </div>
 
 <main class="container">
     <section class="encyclopedia-section">
         <div class="section-header">
             <h2 class="section-title">백과 사전</h2>
-            <button class="add-breed-btn" onclick="showNewBreedModal()">
-                <span>견종 추가</span>
-                <span>+</span>
-            </button>
+            <a href="/encyclopedia" class="more-btn">
+                <span>더 보기</span>
+                <span>&gt;</span>
+            </a>
         </div>
         <div class="grid" id="breedGrid">
             <!-- JavaScript로 동적 생성되는 카드들 -->
@@ -429,9 +475,13 @@
             <a href="#">&gt;</a>
             <a href="#">&gt;&gt;</a>
         </div>
-    </section>
-
-    <section class="community-section">
+        <div class="section-header">
+            <h2 class="section-title">커뮤니티</h2>
+            <a href="/community" class="more-btn">
+                <span>더 보기</span>
+                <span>&gt;</span>
+            </a>
+        </div>
         <div class="posts-container">
             <div class="post-card">
                 <div class="post-image">
@@ -467,80 +517,10 @@
     </section>
 </main>
 
-<!-- 견종 상세 정보 모달 -->
-<div id="breedModal" class="modal">
-    <div class="modal-content view-mode">
-        <div class="modal-header">
-            <h3 class="modal-title">견종 상세 정보</h3>
-            <button class="close-modal" onclick="closeModal()">&times;</button>
-        </div>
-        <div class="modal-body">
-            <!-- 뷰 모드 -->
-            <div class="view-content">
-                <div class="info-group">
-                    <label>견종명</label>
-                    <p id="viewBreedName"></p>
-                </div>
-                <div class="info-group">
-                    <label>크기</label>
-                    <p id="viewSize"></p>
-                </div>
-                <div class="info-group">
-                    <label>체중</label>
-                    <p id="viewWeight"></p>
-                </div>
-                <div class="info-group">
-                    <label>성격</label>
-                    <p id="viewPersonality"></p>
-                </div>
-                <div class="info-group">
-                    <label>특징</label>
-                    <p id="viewCharacteristics"></p>
-                </div>
-            </div>
-            <!-- 수정 모드 -->
-            <div class="edit-content">
-                <div class="info-group">
-                    <label for="editBreedCode">견종 코드</label>
-                    <input type="text" id="editBreedCode" required placeholder="영문 대문자와 언더스코어만 사용 (예: WELSH_CORGI)">
-                </div>
-
-                <div class="info-group">
-                    <label for="editBreedName">견종명</label>
-                    <input type="text" id="editBreedName" required placeholder="예: 웰시 코기">
-                </div>
-                <div class="info-group">
-                    <label for="editSize">크기</label>
-                    <input type="text" id="editSize" required placeholder="예: 소형, 중형, 대형">
-                </div>
-                <div class="info-group">
-                    <label for="editWeight">체중</label>
-                    <input type="text" id="editWeight" required placeholder="예: 10-12kg">
-                </div>
-                <div class="info-group">
-                    <label for="editPersonality">성격</label>
-                    <textarea id="editPersonality" required placeholder="견종의 성격을 자세히 설명해주세요"></textarea>
-                </div>
-                <div class="info-group">
-                    <label for="editCharacteristics">특징</label>
-                    <textarea id="editCharacteristics" required placeholder="견종의 주요 특징을 자세히 설명해주세요"></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="view-content">
-                <button class="btn-modal btn-edit" onclick="toggleEditMode(true)">수정</button>
-                <button class="btn-modal btn-cancel" onclick="closeModal()">닫기</button>
-            </div>
-            <div class="edit-content">
-                <button class="btn-modal btn-edit" onclick="saveChanges()">저장</button>
-                <button class="btn-modal btn-cancel" onclick="toggleEditMode(false)">취소</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script>
+    let map;
+    let markers = [];
+
     const breedData = {
         'CORGI': {
             name: '웰시 코기',
@@ -600,16 +580,238 @@
         }
     };
 
-    let isNewBreed = false;
+    // 초기화 함수
+    function initializeSearch() {
+        const searchInput = document.getElementById('searchInput');
+        const mapContainer = document.getElementById('map');
 
-    // 견종 카드 렌더링
+        // 카카오맵 초기화
+        map = new kakao.maps.Map(mapContainer, {
+            center: new kakao.maps.LatLng(37.566826, 126.978656),
+            level: 3
+        });
+
+        // 검색 이벤트 리스너
+        searchInput.addEventListener('input', debounce(handleSearch, 300));
+    }
+
+    // 검색 처리 함수
+    function handleSearch() {
+        const searchInput = document.getElementById('searchInput');
+        const query = searchInput.value.trim();
+
+        if (!query) {
+            document.getElementById('searchResults').style.display = 'none';
+            document.getElementById('map').style.display = 'none';
+            return;
+        }
+
+        searchAll(query);
+    }
+
+    // 통합 검색 함수
+    function searchAll(query) {
+        // 백과사전 검색
+        const encyclopediaResults = Object.entries(breedData)
+            .filter(([_, breed]) =>
+                breed.name.includes(query) ||
+                breed.characteristics.includes(query) ||
+                breed.personality.includes(query)
+            )
+            .map(([code, breed]) => ({
+                type: 'encyclopedia',
+                code,
+                name: breed.name,
+                description: breed.characteristics
+            }));
+
+        // 카카오맵 검색
+        const places = new kakao.maps.services.Places();
+        const searchTypes = [
+            { type: 'petshop', keyword: '애견용품' },
+            { type: 'hospital', keyword: '동물병원' },
+            { type: 'emergency', keyword: '24시동물병원' },
+            { type: 'hotel', keyword: '애견동반호텔' }
+        ];
+
+        clearMarkers();
+
+        // 모든 검색 결과 합치기
+        Promise.all(searchTypes.map(({ type, keyword }) => {
+            return new Promise((resolve) => {
+                places.keywordSearch(`${keyword} ${query}`, (result, status) => {
+                    if (status === kakao.maps.services.Status.OK) {
+                        resolve(result.map(place => ({ ...place, type })));
+                    } else {
+                        resolve([]);
+                    }
+                });
+            });
+        })).then(results => {
+            const allPlaces = results.flat();
+            displayCombinedResults(encyclopediaResults, allPlaces);
+        });
+    }
+
+    // 통합 검색 결과 표시
+    function displayCombinedResults(encyclopediaResults, placeResults) {
+        const resultsDiv = document.getElementById('searchResults');
+        const mapContainer = document.getElementById('map');
+
+        resultsDiv.style.display = 'block';
+        mapContainer.style.display = placeResults.length > 0 ? 'block' : 'none';
+
+        let resultsHtml = '';
+
+        // 백과사전 결과 표시
+        if (encyclopediaResults.length > 0) {
+            resultsHtml += '<div class="search-category"><h3>백과사전</h3>';
+            resultsHtml += encyclopediaResults.map(result => `
+                    <div class="search-result-item" onclick="openBreedDetails('${result.code}')">
+                        <strong>${result.name}</strong>
+                        <p>${result.description.substring(0, 100)}...</p>
+                    </div>
+                `).join('');
+            resultsHtml += '</div>';
+        }
+
+        // 장소 결과 표시
+        if (placeResults.length > 0) {
+            const bounds = new kakao.maps.LatLngBounds();
+            const typeLabels = {
+                'petshop': '펫샵',
+                'hospital': '동물병원',
+                'emergency': '야간 응급 동물병원',
+                'hotel': '애견 동반 호텔'
+            };
+
+            // 카테고리별 결과 그룹화 및 표시
+            const groupedResults = groupPlacesByType(placeResults);
+            resultsHtml += displayPlaceResults(groupedResults, typeLabels, bounds);
+
+            if (markers.length > 0) {
+                map.setBounds(bounds);
+            }
+        }
+
+        // 검색 결과 없음 처리
+        if (encyclopediaResults.length === 0 && placeResults.length === 0) {
+            resultsHtml = '<div class="no-results">검색 결과가 없습니다.</div>';
+        }
+
+        resultsDiv.innerHTML = resultsHtml;
+    }
+
+    // 장소 결과 그룹화
+    function groupPlacesByType(places) {
+        return places.reduce((acc, place) => {
+            if (!acc[place.type]) acc[place.type] = [];
+            acc[place.type].push(place);
+            return acc;
+        }, {});
+    }
+
+    // 장소 결과 HTML 생성
+    function displayPlaceResults(groupedResults, typeLabels, bounds) {
+        let html = '';
+        Object.entries(groupedResults).forEach(([type, places]) => {
+            html += `<div class="search-category"><h3>${typeLabels[type]}</h3>`;
+            places.forEach(place => {
+                const position = new kakao.maps.LatLng(place.y, place.x);
+                bounds.extend(position);
+
+                const marker = createMarker(place, position);
+                markers.push(marker);
+
+                html += createPlaceResultHTML(place, markers.length - 1);
+            });
+            html += '</div>';
+        });
+        return html;
+    }
+
+    // 마커 생성
+    function createMarker(place, position) {
+        const marker = new kakao.maps.Marker({
+            map: map,
+            position: position
+        });
+
+        const infowindow = new kakao.maps.InfoWindow({
+            content: `
+                    <div style="padding:5px;font-size:12px;">
+                        <strong>${place.place_name}</strong><br>
+                        ${place.phone || '전화번호 없음'}<br>
+                        <small>${place.address_name}</small>
+                    </div>
+                `
+        });
+
+        kakao.maps.event.addListener(marker, 'mouseover', () => infowindow.open(map, marker));
+        kakao.maps.event.addListener(marker, 'mouseout', () => infowindow.close());
+        kakao.maps.event.addListener(marker, 'click', () => {
+            window.open(`https://map.kakao.com/link/to/${place.place_name},${place.y},${place.x}`, '_blank');
+        });
+
+        marker.infowindow = infowindow;
+        return marker;
+    }
+
+    // 장소 결과 HTML 생성
+    function createPlaceResultHTML(place, markerIndex) {
+        return `
+                <div class="search-result-item"
+                    onclick="panToMarker(${place.y}, ${place.x})"
+                    onmouseover="showInfoWindow(${markerIndex})"
+                    onmouseout="hideInfoWindow(${markerIndex})">
+                    <strong>${place.place_name}</strong>
+                    <p>${place.address_name}</p>
+                    <small>${place.phone || '전화번호 없음'}</small>
+                    <div class="search-result-actions">
+                        <button onclick="window.open('https://map.kakao.com/link/to/${place.place_name},${place.y},${place.x}', '_blank'); event.stopPropagation();">
+                            길찾기
+                        </button>
+                    </div>
+                </div>
+            `;
+    }
+
+    // 유틸리티 함수들
+    function showInfoWindow(index) {
+        if (markers[index]?.infowindow) {
+            markers[index].infowindow.open(map, markers[index]);
+        }
+    }
+
+    function hideInfoWindow(index) {
+        if (markers[index]?.infowindow) {
+            markers[index].infowindow.close();
+        }
+    }
+
+    function clearMarkers() {
+        markers.forEach(marker => marker.setMap(null));
+        markers = [];
+    }
+
+    function panToMarker(lat, lng) {
+        map.panTo(new kakao.maps.LatLng(lat, lng));
+    }
+
+    function openBreedDetails(breedCode) {
+        window.location.href = `/pedia/${breedCode}`;
+    }
+
+    // 견종 목록 렌더링
     function renderBreeds() {
         const grid = document.getElementById('breedGrid');
-        Object.entries(breedData).forEach(([key, breed]) => {
+        grid.innerHTML = '';
+
+        Object.entries(breedData).slice(0, 8).forEach(([key, breed]) => {
             const card = document.createElement('div');
             card.className = 'breed-card';
             card.setAttribute('data-breed', key);
-            card.onclick = () => openModal(card);
+            card.onclick = () => openBreedDetails(key);
 
             card.innerHTML = `
                     <div class="breed-image"></div>
@@ -621,151 +823,49 @@
         });
     }
 
-    // 페이지 로드 시 견종 카드 렌더링
-    document.addEventListener('DOMContentLoaded', renderBreeds);
-
-    function openModal(card) {
-        isNewBreed = false;
-        const breed = card.dataset.breed;
-        const data = breedData[breed];
-
-        // 뷰 모드 데이터 설정
-        document.getElementById('viewBreedName').textContent = data.name;
-        document.getElementById('viewSize').textContent = data.size;
-        document.getElementById('viewWeight').textContent = data.weight;
-        document.getElementById('viewPersonality').textContent = data.personality;
-        document.getElementById('viewCharacteristics').textContent = data.characteristics;
-
-        // 수정 모드 데이터 설정
-        document.getElementById('editBreedCode').value = breed;
-        document.getElementById('editBreedCode').disabled = true; // 수정 시에는 코드 변경 불가
-        document.getElementById('editBreedName').value = data.name;
-        document.getElementById('editSize').value = data.size;
-        document.getElementById('editWeight').value = data.weight;
-        document.getElementById('editPersonality').value = data.personality;
-        document.getElementById('editCharacteristics').value = data.characteristics;
-
-        // 모달 제목 설정
-        document.querySelector('.modal-title').textContent = '견종 상세 정보';
-        document.getElementById('breedModal').style.display = 'block';
+    // 페이지네이션 초기화
+    function initializePagination() {
+        const paginationLinks = document.querySelectorAll('.pagination a');
+        paginationLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!link.classList.contains('disabled')) {
+                    updatePage(link.textContent);
+                }
+            });
+        });
     }
 
-    function closeModal() {
-        document.getElementById('breedModal').style.display = 'none';
-        toggleEditMode(false);
+    // 페이지 업데이트
+    function updatePage(pageNumber) {
+        const paginationLinks = document.querySelectorAll('.pagination a');
+        paginationLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.textContent === pageNumber) {
+                link.classList.add('active');
+            }
+        });
     }
 
-    function toggleEditMode(isEdit) {
-        const modalContent = document.querySelector('.modal-content');
-        if (isEdit) {
-            modalContent.classList.remove('view-mode');
-            modalContent.classList.add('edit-mode');
-        } else {
-            modalContent.classList.remove('edit-mode');
-            modalContent.classList.add('view-mode');
-        }
-    }
-
-    function showNewBreedModal() {
-        isNewBreed = true;
-        // 입력 필드 초기화
-        document.getElementById('editBreedCode').value = '';
-        document.getElementById('editBreedCode').disabled = false;
-        document.getElementById('editBreedName').value = '';
-        document.getElementById('editSize').value = '';
-        document.getElementById('editWeight').value = '';
-        document.getElementById('editPersonality').value = '';
-        document.getElementById('editCharacteristics').value = '';
-
-        // 모달 제목 변경
-        document.querySelector('.modal-title').textContent = '새 견종 추가';
-        document.getElementById('breedModal').style.display = 'block';
-        toggleEditMode(true);
-    }
-
-    function openModal(card) {
-        isNewBreed = false;
-        const breed = card.dataset.breed;
-        const data = breedData[breed];
-
-        // 뷰 모드 데이터 설정
-        document.getElementById('viewBreedName').textContent = data.name;
-        document.getElementById('viewSize').textContent = data.size;
-        document.getElementById('viewWeight').textContent = data.weight;
-        document.getElementById('viewPersonality').textContent = data.personality;
-        document.getElementById('viewCharacteristics').textContent = data.characteristics;
-
-        // 수정 모드 데이터 설정
-        document.getElementById('editBreedCode').value = breed;
-        document.getElementById('editBreedCode').disabled = true; // 수정 시에는 코드 변경 불가
-        document.getElementById('editBreedName').value = data.name;
-        document.getElementById('editSize').value = data.size;
-        document.getElementById('editWeight').value = data.weight;
-        document.getElementById('editPersonality').value = data.personality;
-        document.getElementById('editCharacteristics').value = data.characteristics;
-
-        // 모달 제목 설정
-        document.querySelector('.modal-title').textContent = '견종 상세 정보';
-        document.getElementById('breedModal').style.display = 'block';
-    }
-
-    function saveChanges() {
-        const breedCode = document.getElementById('editBreedCode').value.trim();
-        const breedName = document.getElementById('editBreedName').value.trim();
-        const size = document.getElementById('editSize').value.trim();
-        const weight = document.getElementById('editWeight').value.trim();
-        const personality = document.getElementById('editPersonality').value.trim();
-        const characteristics = document.getElementById('editCharacteristics').value.trim();
-
-        // 입력 검증
-        if (!breedCode || !breedName || !size || !weight || !personality || !characteristics) {
-            alert('모든 필드를 입력해주세요.');
-            return;
-        }
-
-        // 견종 코드 형식 검증 (영문 대문자와 언더스코어만 허용)
-        if (!/^[A-Z_]+$/.test(breedCode)) {
-            alert('견종 코드는 영문 대문자와 언더스코어만 사용할 수 있습니다.');
-            return;
-        }
-
-        // 신규 추가 시 중복 검사
-        if (isNewBreed && breedData[breedCode]) {
-            alert('이미 존재하는 견종 코드입니다.');
-            return;
-        }
-
-        // 데이터 저장
-        breedData[breedCode] = {
-            name: breedName,
-            size: size,
-            weight: weight,
-            personality: personality,
-            characteristics: characteristics
+    // 디바운스 유틸리티
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
         };
-
-        // 그리드 새로고침
-        const grid = document.getElementById('breedGrid');
-        grid.innerHTML = '';
-        renderBreeds();
-
-        alert(isNewBreed ? '새로운 견종이 추가되었습니다.' : '견종 정보가 수정되었습니다.');
-        closeModal();
     }
 
-    // ESC 키로 모달 닫기
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeModal();
-        }
+    // 초기화
+    document.addEventListener('DOMContentLoaded', () => {
+        renderBreeds();
+        initializeSearch();
+        initializePagination();
     });
-
-    // 모달 외부 클릭 시 닫기
-    window.onclick = function(event) {
-        if (event.target === document.getElementById('breedModal')) {
-            closeModal();
-        }
-    };
 </script>
 </body>
 </html>

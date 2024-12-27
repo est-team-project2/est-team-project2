@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>멍피디아 - 회원가입</title>
     <style>
         * {
@@ -159,7 +161,7 @@
     </style>
 </head>
 <body>
-  
+
 <header>
     <div class="container header-content">
         <a href="#" class="logo-container">
@@ -178,6 +180,7 @@
 
         <form id="signupForm" onsubmit="return validateForm(event)" method="post" th:object="${memberDto}">
             <div class="form-group">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <label for="email">이메일</label>
                 <input type="email" id="email" name="email" required th:errorclass = "erroe-msg" th:field="*{email}"
                        placeholder="example@email.com">
@@ -239,7 +242,6 @@
         let findFormTag = document.getElementById("signupForm");
         //자바 스크립트 돔을 통해서
         //도큐먼트 오브젝트 모델 dom html을 객체로 생각함
-        //
 
         // 이메일 검증
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -296,6 +298,10 @@
     // 회원가입 이메일 검증 부분
     //signupForm이라는 id를 가진 요소를 가져온다.
     const formEl = document.getElementById('signupForm');
+    // const csrfToken = getCookie('X-CSRF-TOKEN');
+
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+    const csrfToken = document.querySelector('meta[name="_csrf"]').content;
 
     //이벤트 리스너를 추가한다.
     // formEl.addEventListener('이벤트 타입', () => {이벤트가 발생하면 진행 될 코드}
@@ -316,7 +322,10 @@
         // 매칭을 해준다. {DTO의 필드와 이름이 같아야함: 자바 스크립트의 변수}
         fetch("/signup/duplicateCheckEmail", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify({ email: email })
         })
             //then 이란 fetch 라는 비동기 함수가 완료 된 이후 실행 될 코드를 담고 있다.
@@ -353,9 +362,15 @@
 
         console.log("nickname" + nickname);
 
+        const headers = {
+            "Content-Type": "application/json"
+        }
+
+        headers[csrfHeader] = csrfToken;
+
         fetch("/signup/duplicateCheckNickName", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: headers,
             body: JSON.stringify({nickName: nickname })
         })
             .then(response => response.text()) //요청을 text로 받는다.
