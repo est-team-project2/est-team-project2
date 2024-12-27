@@ -101,14 +101,17 @@ public class VersionRequestService {
 
         // 기존 PediaVersion, PediaContent 비활성화 상태 변경
         String currentPediaVersionCode = findPedia.getCurrentVersionCode();
-        PediaVersion findCurrentPediaVersion = pediaVersionService.getPediaVersionByCode(
-            currentPediaVersionCode);
-        findCurrentPediaVersion.setStatus(CommonStatus.INACTIVE);
-        findCurrentPediaVersion.getPediaContent().setStatus(CommonStatus.INACTIVE);
+        if (currentPediaVersionCode != null) {
+            PediaVersion findCurrentPediaVersion = pediaVersionService.getPediaVersionByCode(
+                currentPediaVersionCode);
+            findCurrentPediaVersion.setStatus(CommonStatus.INACTIVE);
+            findCurrentPediaVersion.getPediaContent().setStatus(CommonStatus.INACTIVE);
+        }
 
         // 새로운 버젼 코드 생성 -> PediaVersion에 부여하고 PediaCurrentVersionCode 세팅
         // 새로운 PediaVersion 활성화 상태 변경
-        String nextPediaVersionCode = genNextPediaVersionCode(currentPediaVersionCode);
+        String nextPediaVersionCode = genNextPediaVersionCode(findPedia.getId(),
+            currentPediaVersionCode);
         findPediaVersion.setPediaVersionCode(nextPediaVersionCode);
         findPediaVersion.setStatus(CommonStatus.ACTIVE);
         findPedia.setCurrentVersionCode(nextPediaVersionCode);
@@ -137,14 +140,15 @@ public class VersionRequestService {
     // 컨트롤러에서는 엮어줄 필요가 없음
     // 현재 버젼 바탕으로 다음 버젼 생성 (+0.1)
     // 기존 버젼이 없을 경우, 0.1에서 시작
-    public String genNextPediaVersionCode(String currentVersionCode) {
+    public String genNextPediaVersionCode(Long pediaId, String currentVersionCode) {
         if (currentVersionCode == null) {
-            return "0.1";
+            return pediaId + "-0.1";
         }
 
-        double currentVersionCodeDouble = Double.parseDouble(currentVersionCode) + 0.1;
+        String currentVersionNumber = currentVersionCode.split("-")[1];
+        double currentVersionCodeDouble = Double.parseDouble(currentVersionNumber) + 0.1;
 
-        return String.format("%.1f", currentVersionCodeDouble);
+        return pediaId + String.format("-%.1f", currentVersionCodeDouble);
     }
 
     // REJ- 로 시작하는 코드를 생성

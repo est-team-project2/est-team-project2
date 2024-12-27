@@ -1,6 +1,7 @@
 package org.example.est_team_project2.dto.board;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,9 +24,12 @@ public class CommentDto {
     private Boolean deleted;
     private LocalDateTime deletedAt;
 
+    private String formattedCreatedAt;
     private Boolean canModify = false;
 
     public static CommentDto from(Comment comment) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
         return CommentDto.builder()
             .id(comment.getId())
             .contents(comment.getContents())
@@ -36,6 +40,7 @@ public class CommentDto {
             .updatedAt(comment.getUpdatedAt())
             .deleted(comment.getDeleted())
             .deletedAt(comment.getDeletedAt())
+            .formattedCreatedAt(comment.getCreatedAt().format(formatter))
             .build();
     }
 }

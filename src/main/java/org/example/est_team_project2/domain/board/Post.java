@@ -68,4 +68,8 @@ public class Post {
         comments.forEach(Comment::softDelete);
         this.deletedAt = LocalDateTime.now();
     }
+
+    public void increaseViews() {
+        this.views++;
+    }
 }

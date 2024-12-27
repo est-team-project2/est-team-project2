@@ -53,5 +53,10 @@ public class Comment {
         this.deleted = true;
         this.deletedAt = LocalDateTime.now();
     }
+
+    public void update(String contents) {
+        this.contents = contents;
+        this.updatedAt = LocalDateTime.now();
+    }
 }
 
