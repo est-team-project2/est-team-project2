@@ -1,35 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>게시글 목록</title>
-  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
 </head>
 
 <body>
-<header>
-  <div class="container header-content">
-    <a th:href="@{/static}" class="logo-container">
-      <img th:src="@{/images/1.png}" alt="Mungpedia" class="logo-text">
-      <img th:src="@{/images/3.png}" alt="Paw" class="logo-paw">
-    </a>
-    <nav>
-      <a th:href="@{/static}">홈</a>
-      <a th:href="@{/encyclopedia}">동물백과</a>
-      <a th:href="@{/community}" class="active">커뮤니티</a>
-      <a th:href="@{/write}">백과 게시판</a>
-      <th:block sec:authorize="isAnonymous()">
-        <button class="btn btn-login" onclick="location.href='/login'">로그인</button>
-        <button class="btn btn-signup" onclick="location.href='/signup'">회원가입</button>
-      </th:block>
-      <th:block sec:authorize="isAuthenticated()">
-        <button class="btn" onclick="location.href='/logout'">로그아웃</button>
-      </th:block>
-    </nav>
-  </div>
-</header>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <main class="container">
   <div class="board-container">
@@ -95,5 +75,8 @@
     </div>
   </div>
 </main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>

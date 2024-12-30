@@ -229,172 +229,154 @@
 </main>
 
 <script th:inline="javascript">
+    // CSRF 토큰 설정
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+    const csrfToken = document.querySelector('meta[name="_csrf"]').content;
 
+    // 폼 요소 선택
+    const formEl = document.getElementById('signupForm');
 
-    function validateForm(event) {
+    // 오류 메시지 표시 함수
+    function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+
+    // 오류 메시지 숨김 함수
+    function hideError(elementId) {
+        document.getElementById(elementId).style.display = 'none';
+    }
+
+    // 이메일 중복 검사
+    async function checkEmail() {
+        const email = document.getElementById('email').value;
+        const checkResult = document.getElementById("check-result");
+
+        try {
+            const response = await fetch("/signup/duplicateCheckEmail", {
+                method: "POST",
+                headers: {
+                    [csrfHeader]: csrfToken,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email: email })
+            });
+            const data = await response.text();
+
+            if (data === "ok") {
+                checkResult.innerHTML = "사용 가능한 이메일";
+                checkResult.style.color = "green";
+            } else {
+                checkResult.innerHTML = "이미 사용중인 이메일";
+                checkResult.style.color = "red";
+            }
+            return data;
+        } catch (error) {
+            console.error("이메일 중복 검사 중 오류 발생:", error);
+            return "error";
+        }
+    }
+
+    // 닉네임 중복 검사
+    async function checkNickname() {
+        const nickname = document.getElementById('nickname').value;
+        const checkResult = document.getElementById("check-nickname-result");
+
+        try {
+            const response = await fetch("/signup/duplicateCheckNickName", {
+                method: "POST",
+                headers: {
+                    [csrfHeader]: csrfToken,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ nickName: nickname })
+            });
+            const data = await response.text();
+
+            if (data === "ok") {
+                checkResult.innerHTML = "사용 가능한 닉네임";
+                checkResult.style.color = "green";
+            } else {
+                checkResult.innerHTML = "이미 사용중인 닉네임";
+                checkResult.style.color = "red";
+            }
+            return data;
+        } catch (error) {
+            console.error("닉네임 중복 검사 중 오류 발생:", error);
+            return "error";
+        }
+    }
+
+    // 폼 유효성 검사
+    async function validateForm(event) {
         event.preventDefault();
-
         let isValid = true;
+
         const email = document.getElementById('email');
         const nickname = document.getElementById('nickname');
         const password = document.getElementById('password');
         const passwordConfirm = document.getElementById('passwordConfirm');
-        let findFormTag = document.getElementById("signupForm");
-        //자바 스크립트 돔을 통해서
-        //도큐먼트 오브젝트 모델 dom html을 객체로 생각함
 
         // 이메일 검증
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email.value)) {
-            document.getElementById('emailError').style.display = 'block';
+            showError('emailError', '유효한 이메일 주소를 입력해주세요');
             isValid = false;
         } else {
-            document.getElementById('emailError').style.display = 'none';
+            hideError('emailError');
         }
 
         // 닉네임 검증
         if (nickname.value.length < 2 || nickname.value.length > 20) {
-            document.getElementById('nicknameError').style.display = 'block';
+            showError('nicknameError', '닉네임은 2-20자 사이여야 합니다');
             isValid = false;
         } else {
-            document.getElementById('nicknameError').style.display = 'none';
+            hideError('nicknameError');
         }
 
         // 비밀번호 검증
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
         if (!passwordRegex.test(password.value)) {
-            document.getElementById('passwordError').style.display = 'block';
+            showError('passwordError', '비밀번호 요구사항을 충족해주세요');
             isValid = false;
         } else {
-            document.getElementById('passwordError').style.display = 'none';
+            hideError('passwordError');
         }
 
         // 비밀번호 확인 검증
         if (password.value !== passwordConfirm.value) {
-            document.getElementById('passwordConfirmError').style.display = 'block';
+            showError('passwordConfirmError', '비밀번호가 일치하지 않습니다');
             isValid = false;
         } else {
-            document.getElementById('passwordConfirmError').style.display = 'none';
+            hideError('passwordConfirmError');
         }
 
-        let check_email = /*[[${checkEmail != null ? checkEmail : 'null'}]]*/ 'null';
-        let check_nickname = /*[[${checkNickName != null ? checkNickName : 'null'}]]*/ 'null';
-        let check_error = /*[[${checkError != null ? checkError : 'null'}]]*/ 'null'
+        if (isValid) {
+            const emailResult = await checkEmail();
+            const nicknameResult = await checkNickname();
 
-        if (isValid && check_email !== "fail" && check_nickname !== "fail" && check_error !== "error") {
-            // 여기에 회원가입 API 호출 로직 추가
-            alert('회원가입이 완료되었습니다!');
-            // window.location.href = '/';
-            findFormTag.submit();
-            return true;
+            if (emailResult === "ok" && nicknameResult === "ok") {
+                alert('회원가입이 완료되었습니다!');
+                formEl.submit();
+            } else {
+                alert('이메일 또는 닉네임이 이미 사용 중입니다.');
+            }
         } else {
             alert('입력을 확인해주세요');
         }
-
-        return false;
     }
 
-
-    // 회원가입 이메일 검증 부분
-    //signupForm이라는 id를 가진 요소를 가져온다.
-    const formEl = document.getElementById('signupForm');
-    // const csrfToken = getCookie('X-CSRF-TOKEN');
-
-    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-    const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-
-    //이벤트 리스너를 추가한다.
-    // formEl.addEventListener('이벤트 타입', () => {이벤트가 발생하면 진행 될 코드}
-    formEl.addEventListener('focusout', () => {
-        console.log("Focus out!");
-
-        //id = email 요소 전체를 가져온다
-        const emailEl = document.getElementById('email');
-        const email = emailEl.value; //email로 받은 실질적인 값을 가져온다.
-
-        console.log("email" + email); // email을 제대로 가져왔는지 log로 찍어 본다.
-
-        // fetch api를 사용한다.
-        // fetch("요청을 보낼 주소") method 요청 타입, header 의 Content-Type = 데이터 형식을 명시
-        //application: 데이터가 사람이 읽는 텍스트가 아니라, 응용 프로그램(브라우저, 서버 등)이 해석해야 할 데이터
-        //json: 데이터의 구체적인 형식
-        //body : 바디에 포함 될 내용. JSON.stringify을 사용하면 json형식의 문자열로 바뀜.
-        // 매칭을 해준다. {DTO의 필드와 이름이 같아야함: 자바 스크립트의 변수}
-        fetch("/signup/duplicateCheckEmail", {
-            method: "POST",
-            headers: {
-                'X-CSRF-TOKEN': csrfToken,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email: email })
-        })
-            //then 이란 fetch 라는 비동기 함수가 완료 된 이후 실행 될 코드를 담고 있다.
-            //요청은 json 타입이나 response는 text 타입으로 받는다 자바의 컨트롤러에서 String 타입으로 반환했기 때문
-            .then(response => response.text()) //요청을 text로 받는다.
-            //data = response.text로 반환 받은 promise라는 객체를 담고 있다.
-            .then(data => {
-                // const는 값을 한번 할당하면 변경 할 수 없는 변수 타입이다.
-                const checkResult = document.getElementById("check-result")
-                console.log("요청성공", data);
-                if (data === "ok") {
-                    console.log ("사용 가능한 이메일")
-                    checkResult.innerHTML = "사용 가능한 이메일"
-                    //innerHTML을 사용하면 HTML 요소의 콘텐츠(내용)을 읽거나 변경 할 수 있다.
-
-                } else {
-                    console.log("이미 사용중인 이메일")
-                    checkResult.innerHTML = "이미 사용중인 이메일"
-                }
-
-            })
-            .catch(error => {
-                console.error("에러 발생:", error);
-            });
-
-    });
-
-    //회원 가입 닉네임 인증 부분
-    formEl.addEventListener('focusout', () => {
-        console.log("Focus out!");
-
-        const nicknameEl = document.getElementById('nickname');
-        const nickname = nicknameEl.value;
-
-        console.log("nickname" + nickname);
-
-        const headers = {
-            "Content-Type": "application/json"
+    // 이벤트 리스너 등록
+    formEl.addEventListener('focusout', (event) => {
+        if (event.target.id === 'email') {
+            checkEmail();
+        } else if (event.target.id === 'nickname') {
+            checkNickname();
         }
-
-        headers[csrfHeader] = csrfToken;
-
-        fetch("/signup/duplicateCheckNickName", {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify({nickName: nickname })
-        })
-            .then(response => response.text()) //요청을 text로 받는다.
-            .then(data => {
-                const checkResult = document.getElementById("check-nickname-result")
-                console.log("요청성공", data);
-                if (data === "ok") {
-                    console.log ("사용 가능한 닉네임")
-                    checkResult.innerHTML = "사용 가능한 닉네임"
-
-                } else {
-                    console.log("이미 사용중인 이메일")
-                    checkResult.innerHTML = "이미 사용중인 닉네임"
-                }
-
-            })
-            .catch(error => {
-                console.error("에러 발생:", error);
-            });
-
     });
 
-
-
+    formEl.addEventListener('submit', validateForm);
 
 </script>
 
