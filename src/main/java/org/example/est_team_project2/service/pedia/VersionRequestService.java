@@ -35,9 +35,8 @@ public class VersionRequestService {
         PediaContentDto pediaContentDto) {
         log.info("versionRequestDetails = {}", versionRequestDetails.getRequestedMemberEmail());
 
-        // 이메일로 Member 가져오기
-        Member findMember = memberService.getMemberByEmail(
-            versionRequestDetails.getRequestedMemberEmail());
+        // 로그인된 Member 가져오기
+        Member findMember = memberService.findSignedInMember();
         // pediaContent db에 저장
         PediaContent findPediaContent = pediaContentService.saveEdit(pediaContentDto);
         // Pedia title로 Pedia 가져오기
@@ -114,14 +113,15 @@ public class VersionRequestService {
 
         if (currentPediaVersionCode != null) {
             PediaVersion findCurrentPediaVersion = pediaVersionService.getPediaVersionByCode(
-                    currentPediaVersionCode);
+                currentPediaVersionCode);
             findCurrentPediaVersion.setStatus(CommonStatus.DEACTIVE);
             findCurrentPediaVersion.getPediaContent().setStatus(CommonStatus.DEACTIVE);
         }
 
         // 새로운 버젼 코드 생성 -> PediaVersion에 부여하고 PediaCurrentVersionCode 세팅
         // 새로운 PediaVersion 활성화 상태 변경
-        String nextPediaVersionCode = genNextPediaVersionCode(findPedia.getId(),currentPediaVersionCode);
+        String nextPediaVersionCode = genNextPediaVersionCode(findPedia.getId(),
+            currentPediaVersionCode);
         findPediaVersion.setPediaVersionCode(nextPediaVersionCode);
         findPediaVersion.setStatus(CommonStatus.ACTIVE);
         findPediaVersion.getPediaContent().setStatus(CommonStatus.ACTIVE);
@@ -148,10 +148,14 @@ public class VersionRequestService {
 
         findPediaVersion.setPediaVersionCode(genRejectedPediaVersionCode());
 
-
         // PediaEditeRequest close 상태로 변경하고 관련 정보 반환
         return VersionRequestDetails.from(
             pediaEditRequestService.closePediaEditRequest(code, findMember));
+    }
+
+    public void deactivatePediaContent(Long pediaContentId) {
+        PediaContent findPediaContent = pediaContentService.findById(pediaContentId);
+        findPediaContent.setStatus(CommonStatus.DEACTIVE);
     }
 
     // 컨트롤러에서는 엮어줄 필요가 없음

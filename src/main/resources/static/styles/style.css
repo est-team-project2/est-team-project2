@@ -485,3 +485,133 @@ input[type="file"] {
   background-color: #f97316; /* 원하는 배경색 */
   color: white; /* 원하는 글자색 */
 }
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.post-create-input {
+  display: flex;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s;
+}
+
+.comment-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.comment-container h2 {
+  margin-bottom: 1.25rem; /* 제목 아래 여백 (20px) */
+}
+
+.comment-container form {
+  margin-bottom: 1.25rem; /* 폼 아래 여백 (20px) */
+}
+
+.comment-container textarea {
+  width: 100%;
+  height: 6.25rem;
+  padding: 0.625rem;
+  border: 0.0625rem solid #ced4da;
+  border-radius: 0.25rem;
+  resize: none;
+}
+
+.comment-container button {
+  float: right;
+}
+
+.comment-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.comment-container li {
+  border: 0.0625rem solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 0.9375rem;
+  margin-bottom: 0.9375rem;
+  position: relative;
+}
+
+.comment-container li p {
+  margin: 0;
+  display: flex;
+}
+
+.comment-btn {
+  background-color: #f97316;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.comment-btn:hover {
+  background-color: #ea580c;
+}
+
+.board-actions {
+  padding: 1rem;
+}
+
+.comment-container > form {
+  margin-bottom: 3rem;
+}
+
+.comment-container > ul form {
+  margin-bottom: 2rem;
+}
+
+.contents-container {
+  padding: 0.625rem;
+}
+
+/* footer */
+footer {
+  background-color: #fff3e0;
+  padding: 1rem 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.footer-content {
+  margin: 0 auto;
+}
+
+.footer-contact {
+  margin: 0.313rem 0;
+}
+
+.footer-contact p {
+  margin: 0.313rem 0;
+}
+
+.footer-copyright {
+  margin-top: 1.25rem;
+  font-size: 0.9em;
+  color: #6c757d;
+}
+
+.hero-bottom {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(to top, #fff3e0, #fff);
+}

@@ -1,5 +1,6 @@
 package org.example.est_team_project2.service.board;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -74,5 +75,13 @@ public class PostService {
         Page<Post> allByDeletedFalse = this.postRepository.findAllByDeletedFalse(pageable);
 
         return allByDeletedFalse.map(PostDto::from);
+    }
+
+    public List<PostDto> findTopPostsByViews() {
+        LocalDateTime oneMonthAgo = LocalDateTime.now().minusMonths(1);
+        Pageable pageable = PageRequest.of(0, 3);
+        return postRepository.findTop3ByDeletedFalseOrderByViewsDesc(oneMonthAgo, pageable).stream()
+            .map(PostDto::from)
+            .toList();
     }
 }
