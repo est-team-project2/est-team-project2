@@ -1,11 +1,13 @@
 package org.example.est_team_project2.api.admin;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dao.board.CommentRepository;
 import org.example.est_team_project2.dao.board.PostRepository;
 import org.example.est_team_project2.dao.member.MemberRepository;
 
+import org.example.est_team_project2.dao.pedia.PediaContentRepository;
 import org.example.est_team_project2.dao.pedia.PediaRepository;
 import org.example.est_team_project2.dao.pedia.PediaVersionRepository;
 import org.example.est_team_project2.domain.board.Comment;
@@ -13,8 +15,10 @@ import org.example.est_team_project2.domain.board.Post;
 import org.example.est_team_project2.domain.member.Member;
 import org.example.est_team_project2.domain.member.memberEnums.MemberType;
 import org.example.est_team_project2.domain.pedia.Pedia;
+import org.example.est_team_project2.domain.pedia.PediaContent;
 import org.example.est_team_project2.domain.pedia.PediaVersion;
 
+import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
 import org.example.est_team_project2.service.admin.AdminService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +26,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -32,6 +38,7 @@ public class AdminController {
     private final MemberRepository memberRepository;
     private final PediaRepository pediaRepository;
     private final PediaVersionRepository pediaVersionRepository;
+    private final PediaContentRepository pediaContentRepository;
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
     private final AdminService adminService;
@@ -93,21 +100,40 @@ public class AdminController {
             @PageableDefault(size = 10) Pageable pageable,
             Model model
     ){
-        Page<PediaVersion> pediaVersions = pediaVersionRepository.findByPediaId(pageable, id);
-        model.addAttribute("pediaVersions", pediaVersions);
+        Page<PediaVersion> versions = pediaVersionRepository.findByPediaId(pageable, id);
+
+        model.addAttribute("versions", versions);
         return "admin/managePediaVersion";
     }
 
     @GetMapping("/managePedia/detail/{id}")
     public String managePediaContent(
             @PathVariable Long id,
-            @PageableDefault(size = 10) Pageable pageable,
             Model model
     ){
-        Page<PediaVersion> pediaVersions = pediaVersionRepository.findByPediaId(pageable, id);
-        model.addAttribute("pediaVersions", pediaVersions);
-        return "admin/managePediaVersion";
+        PediaVersion version = pediaVersionRepository.findById(id);
+        PediaContent content = version.getPediaContent();
+        model.addAttribute("content", content);
+
+        return "admin/managePediaContent";
     }
+
+    @PostMapping("/managePedia/update-status")
+    public String changePediaStatus(
+            @RequestParam Long id,
+            @RequestParam CommonStatus status
+    ) {
+        log.info("status = {}", status);
+        PediaContent content = pediaContentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("PediaContent not found for ID: " + id));
+
+        content.setStatus(status);
+        log.info("content.getStatus() = {}", content.getStatus());
+        pediaContentRepository.save(content);
+
+        return "redirect:/admin/managePedia";
+    }
+
 
     @GetMapping("/managePost")
     public String managePost(@PageableDefault(size = 10) Pageable pageable, Model model) {

@@ -75,6 +75,7 @@ public class PostService {
         Page<Post> allByDeletedFalse = this.postRepository.findAllByDeletedFalse(pageable);
 
         return allByDeletedFalse.map(PostDto::from);
+
     }
 
     public List<PostDto> findTopPostsByViews() {

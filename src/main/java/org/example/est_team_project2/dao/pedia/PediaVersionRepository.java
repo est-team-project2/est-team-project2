@@ -23,7 +23,7 @@ public interface PediaVersionRepository extends JpaRepository<PediaVersion, Inte
     @Query("SELECT r FROM PediaVersion r WHERE r.status = 'ACTIVE'")
     List<PediaVersion> findAll();
 
-    List<PediaVersion> findById(Long id);
+    PediaVersion findById(Long id);
 
     List<PediaVersion> findByPediaId(Long id);
 

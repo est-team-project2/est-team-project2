@@ -29,8 +29,8 @@
 </table>
 
 <div>
-    <button th:if="${posts.hasPrevious()}" th:onclick="location.href='?page=' + ${posts.number - 1}">Previous</button>
-    <button th:if="${posts.hasNext()}" th:onclick="location.href='?page=' + ${posts.number + 1}">Next</button>
+    <button th:if="${pedias.hasPrevious()}" th:onclick="location.href='?page=' + ${pedias.number - 1}">Previous</button>
+    <button th:if="${pedias.hasNext()}" th:onclick="location.href='?page=' + ${pedias.number + 1}">Next</button>
 </div>
 </body>
 </html>
