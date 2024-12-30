@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Post Detail</title>
+</head>
+<body>
+<h1 th:text="${version.pedia.title}"></h1>
+<h1>버전 관리</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>버전코드</th>
+        <th>생성일</th>
+        <th>수정일</th>
+        <th>수정자</th>
+        <th>상태</th>
+        <th>내용</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="version : ${versions}">
+        <td th:text="${version.pediaVersionCode}"></td>
+        <td th:text="${version.createdAt}"></td>
+        <td th:text="${version.updatedAt}"></td>
+        <td th:text="${version.member.nickname}"></td>
+        <td th:text="${version.status}"></td>
+        <td>
+            <a th:href="@{'/admin/managePedia/detail/' + ${version.id}}">View Details</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <button th:if="${posts.hasPrevious()}" th:onclick="location.href='?page=' + ${posts.number - 1}">Previous</button>
+    <button th:if="${posts.hasNext()}" th:onclick="location.href='?page=' + ${posts.number + 1}">Next</button>
+</div>
+</body>
+</html>

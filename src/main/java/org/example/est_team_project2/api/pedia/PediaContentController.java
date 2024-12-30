@@ -17,10 +17,7 @@ import org.example.est_team_project2.dto.pedia.PediaContentDto;
 import org.example.est_team_project2.dto.pedia.PediaFetchDto;
 import org.example.est_team_project2.dto.pedia.VersionRequestDetails;
 import org.example.est_team_project2.service.member.MemberService;
-import org.example.est_team_project2.service.pedia.PediaContentService;
-import org.example.est_team_project2.service.pedia.PediaEditRequestService;
-import org.example.est_team_project2.service.pedia.PediaService;
-import org.example.est_team_project2.service.pedia.VersionRequestService;
+import org.example.est_team_project2.service.pedia.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -118,6 +115,7 @@ public class PediaContentController {
 
         System.out.println(" 로직 수행후");
         return "redirect:/pedia";
+    }
 
     //버전 리스트 조회
     @GetMapping("/pedia/history/{breed}")

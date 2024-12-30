@@ -128,19 +128,6 @@ public class AdminController {
         Page<Comment> comments = commentRepository.findByPostId(pageable, id);
         model.addAttribute("comments", comments);
 
-
-    @GetMapping("/managePost/{id}")
-    public String managePostDetail(
-            @PathVariable Long id,
-            @PageableDefault(size = 10) Pageable pageable,
-            Model model) {
-        Post post = postRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
-        model.addAttribute("post", post);
-
-        Page<Comment> comments = commentRepository.findByPostId(pageable, id);
-        model.addAttribute("comments", comments);
-
         return "admin/managePostDetail";
     }
 
