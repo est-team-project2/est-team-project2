@@ -29,6 +29,32 @@
   </div>
 </form>
 
+<h1>posts</h1>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>작성자</th>
+    <th>글 제목</th>
+    <th>작성일</th>
+    <th>Details</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="post : ${posts.content}">
+    <td th:text="${post.id}">1</td>
+    <td th:text="${post.member.nickName}">Author Name</td>
+    <td th:text="${post.title}">Sample Post</td>
+    <td th:text="${post.createdAt}">2024-01-01 00:00:00</td>
+    <td>
+      <a th:href="@{'/admin/managePost/' + ${post.id}}">View Details</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
 <button onclick="history.back()">Back to Member List</button>
 </body>
 </html>

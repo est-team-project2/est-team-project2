@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>게시글 관리</title>
+    <title>(관리자)게시글 관리</title>
 </head>
 <body>
 <h1>게시글 관리</h1>
@@ -9,19 +9,32 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>제목</th>
         <th>작성자</th>
-        <th>게시일</th>
+        <th>글 제목</th>
+        <th>작성일</th>
+        <th>조회수</th>
+        <th>soft delete</th>
+        <th>Details</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="post : ${posts}">
-        <td th:text="${post.id}"></td>
-        <td th:text="${post.title}"></td>
-        <td th:text="${post.author}"></td>
-        <td th:text="${post.date}"></td>
+    <tr th:each="post : ${posts.content}">
+        <td th:text="${post.id}">1</td>
+        <td th:text="${post.member.nickName}">Author Name</td>
+        <td th:text="${post.title}">Sample Post</td>
+        <td th:text="${post.createdAt}">2024-01-01 00:00:00</td>
+        <td th:text="${post.views}">10</td>
+        <td th:text="${post.deleted}">false</td>
+        <td>
+            <a th:href="@{'/admin/managePost/' + ${post.id}}">View Details</a>
+        </td>
     </tr>
     </tbody>
 </table>
+
+<div>
+    <button th:if="${posts.hasPrevious()}" th:onclick="location.href='?page=' + ${posts.number - 1}">Previous</button>
+    <button th:if="${posts.hasNext()}" th:onclick="location.href='?page=' + ${posts.number + 1}">Next</button>
+</div>
 </body>
 </html>
