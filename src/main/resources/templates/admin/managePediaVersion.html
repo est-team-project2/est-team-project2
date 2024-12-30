@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Post Detail</title>
+  <title>Post Detail</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
 </head>
 <body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
 <h1>버전 관리</h1>
 <table border="1">
     <thead>
@@ -31,8 +35,15 @@
 </table>
 
 <div>
-    <button th:if="${versions.hasPrevious()}" th:onclick="location.href='?page=' + ${versions.number - 1}">Previous</button>
-    <button th:if="${versions.hasNext()}" th:onclick="location.href='?page=' + ${versions.number + 1}">Next</button>
+  <button th:if="${versions.hasPrevious()}" th:onclick="location.href='?page=' + ${versions.number - 1}">
+    Previous
+  </button>
+  <button th:if="${versions.hasNext()}" th:onclick="location.href='?page=' + ${versions.number + 1}">
+    Next
+  </button>
 </div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>

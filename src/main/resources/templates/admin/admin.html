@@ -1,14 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>관리자 페이지</title>
+  <title>관리자 페이지</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
 </head>
 <body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
 <h1>Admin Dashboard</h1>
 <ul>
-    <li><a th:href="@{/admin/manageMember}">회원 관리</a></li>
-    <li><a th:href="@{/admin/managePedia}">백과 관리</a></li>
-    <li><a th:href="@{/admin/managePost}">게시글 관리</a></li>
+  <li><a th:href="@{/admin/manageMember}">회원 관리</a></li>
+  <li><a th:href="@{/admin/managePedia}">백과 관리</a></li>
+  <li><a th:href="@{/admin/managePost}">게시글 관리</a></li>
 </ul>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>

@@ -1,269 +1,73 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>멍피디아 - 로그인</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f9fafb;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Header Styles */
-        header {
-            background-color: #fff3e0;
-            padding: 1rem;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #f97316;
-            text-decoration: none;
-        }
-
-        /* Login Form Styles */
-        .login-container {
-            max-width: 400px;
-            margin: 3rem auto;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .login-header h1 {
-            color: #f97316;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .login-header p {
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #4b5563;
-            font-size: 0.875rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
-        }
-
-        .login-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            font-size: 0.875rem;
-        }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .forgot-password {
-            color: #f97316;
-            text-decoration: none;
-        }
-
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .btn-login {
-            background-color: #f97316;
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        .btn-login:hover {
-            background-color: #ea580c;
-        }
-
-        .social-login {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .social-login p {
-            color: #6b7280;
-            margin-bottom: 1rem;
-            position: relative;
-        }
-
-        .social-login p::before,
-        .social-login p::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 45%;
-            height: 1px;
-            background-color: #e5e7eb;
-        }
-
-        .social-login p::before {
-            left: 0;
-        }
-
-        .social-login p::after {
-            right: 0;
-        }
-
-        .social-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .btn-social {
-            padding: 0.75rem 1.5rem;
-            border: 1px solid #e5e7eb;
-            background-color: white;
-            border-radius: 0.5rem;
-            color: #4b5563;
-        }
-
-        .btn-social:hover {
-            background-color: #f9fafb;
-        }
-
-        .signup-link {
-            text-align: center;
-            margin-top: 1.5rem;
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-
-        .signup-link a {
-            color: #f97316;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .signup-link a:hover {
-            text-decoration: underline;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>멍피디아 - 로그인</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <a href="#" class="logo">Mungpedia</a>
-        </div>
-    </header>
+<div th:replace="~{fragments/header :: header}"></div>
 
-    <main class="container">
-        <div class="login-container">
-            <div class="login-header">
-                <h1>로그인</h1>
-                <p>멍피디아에 오신 것을 환영합니다</p>
-            </div>
+<main class="container">
+  <div class="login-container">
+    <div class="login-header">
+      <h1>로그인</h1>
+      <p>멍피디아에 오신 것을 환영합니다</p>
+    </div>
 
-            <form action="#" method="POST">
-                <div class="form-group">
-                    <label for="email">이메일</label>
-                    <input type="email" id="email" name="email" required placeholder="이메일을 입력하세요">
-                </div>
+    <form action="#" method="POST">
+      <div class="form-group">
+        <label for="email">이메일</label>
+        <input type="email" id="email" name="email" required placeholder="이메일을 입력하세요">
+      </div>
 
-                <div class="form-group">
-                    <label for="password">비밀번호</label>
-                    <input type="password" id="password" name="password" required placeholder="비밀번호를 입력하세요">
-                </div>
+      <div class="form-group">
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password" required placeholder="비밀번호를 입력하세요">
+      </div>
 
-                <div class="login-options">
-                    <label class="remember-me">
-                        <input type="checkbox" name="remember">
-                        <span>로그인 상태 유지</span>
-                    </label>
+      <div class="login-options">
+        <label class="remember-me">
+          <input type="checkbox" name="remember">
+          <span>로그인 상태 유지</span>
+        </label>
 
-                    <a href="/find-password" class="forgot-password">비밀번호 찾기</a>
-                </div>
+        <a href="/find-password" class="forgot-password">비밀번호 찾기</a>
+      </div>
 
-                <button type="submit" class="btn btn-login">로그인</button>
-            </form>
+      <button type="submit" class="btn btn-login">로그인</button>
+    </form>
 
-            <div class="social-login">
-                <p>또는</p>
-                <div class="social-buttons">
-                    <button class="btn-social" id="google-login">Google 로그인</button>
-                    <button class="btn-social" id="kakao-login">Kakao 로그인</button>
-                    <button class="btn-social" id="naver-login">Naver 로그인</button>
-                </div>
-            </div>
+    <div class="social-login">
+      <p>또는</p>
+      <div class="social-buttons">
+        <button class="btn-social" id="google-login">Google 로그인</button>
+        <button class="btn-social" id="kakao-login">Kakao 로그인</button>
+        <button class="btn-social" id="naver-login">Naver 로그인</button>
+      </div>
+    </div>
 
-            <div class="signup-link">
-                아직 계정이 없으신가요? <a href="#">회원가입</a>
-            </div>
-        </div>
-    </main>
-    <script>
-        document.getElementById('google-login').addEventListener('click', function() {
-            window.location.href = '/oauth2/authorization/google';
-        });
+    <div class="signup-link">
+      아직 계정이 없으신가요? <a href="/signup">회원가입</a>
+    </div>
+  </div>
+</main>
 
-        document.getElementById('kakao-login').addEventListener('click', function() {
-            window.location.href = '/oauth2/authorization/kakao';
-        });
+<div th:replace="~{fragments/footer :: footer}"></div>
 
-        document.getElementById('naver-login').addEventListener('click', function() {
-            window.location.href = '/oauth2/authorization/naver';
-        });
-    </script>
+<script>
+  document.getElementById('google-login').addEventListener('click', function () {
+    window.location.href = '/oauth2/authorization/google';
+  });
+
+  document.getElementById('kakao-login').addEventListener('click', function () {
+    window.location.href = '/oauth2/authorization/kakao';
+  });
+
+  document.getElementById('naver-login').addEventListener('click', function () {
+    window.location.href = '/oauth2/authorization/naver';
+  });
+</script>
 </body>
 </html>
