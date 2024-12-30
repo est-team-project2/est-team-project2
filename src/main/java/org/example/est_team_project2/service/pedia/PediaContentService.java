@@ -4,9 +4,12 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dao.pedia.PediaContentRepository;
+import org.example.est_team_project2.domain.pedia.Pedia;
 import org.example.est_team_project2.domain.pedia.PediaContent;
 import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
 import org.example.est_team_project2.dto.pedia.PediaContentDto;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,6 +57,23 @@ public class PediaContentService {
 
         return pediaContentRepository.findById(id).orElseThrow();
     }
+
+//
+//    public List<PediaContentDto> findTop8ByStatusOrderByIdDesc() {
+//
+//
+//
+//        Pageable pageable = PageRequest.of(0, 8);
+//
+//
+//
+//        return pediaContentRepository.findTop8ByStatusOrderByIdDesc(pageable)
+//                .stream()
+//                .map(PediaContentDto::from)
+//                .toList();
+//    }
+
+
 
 
 
