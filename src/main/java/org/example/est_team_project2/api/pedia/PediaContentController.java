@@ -1,33 +1,37 @@
 package org.example.est_team_project2.api.pedia;
 
+import java.security.Principal;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.domain.member.Member;
 import org.example.est_team_project2.domain.pedia.Pedia;
 import org.example.est_team_project2.domain.pedia.PediaContent;
 import org.example.est_team_project2.domain.pedia.PediaEditRequest;
-import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
 import org.example.est_team_project2.dto.member.MemberDetails;
 import org.example.est_team_project2.dto.member.MemberDto;
 import org.example.est_team_project2.dto.pedia.PediaContentDto;
-import org.example.est_team_project2.dto.pedia.PediaEditRequestDto;
 import org.example.est_team_project2.dto.pedia.PediaFetchDto;
 import org.example.est_team_project2.dto.pedia.VersionRequestDetails;
 import org.example.est_team_project2.service.member.MemberService;
-import org.example.est_team_project2.service.pedia.*;
+import org.example.est_team_project2.service.pedia.PediaContentService;
+import org.example.est_team_project2.service.pedia.PediaEditRequestService;
+import org.example.est_team_project2.service.pedia.PediaService;
+import org.example.est_team_project2.service.pedia.VersionRequestService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class PediaContentController {
+
     private final PediaContentService pediaContentService;
     private final PediaService pediaService;
     private final VersionRequestService versionRequestService;
@@ -35,19 +39,18 @@ public class PediaContentController {
     private final MemberService memberService;
 
 
-
     //백과 리스트 조회 페이지
     @GetMapping("/pedia")
-    public String pedia(Model model,PediaContentDto pediaContentDto) {
+    public String pedia(Model model, PediaContentDto pediaContentDto) {
         List<PediaContent> contents = pediaContentService.findAll();
         model.addAttribute("pediaContents", contents);
         return "/pedia";
     }
 
 
-//    백과 세부 내용 조회(버튼이동)
+    //    백과 세부 내용 조회(버튼이동)
     @GetMapping("/pedia/detail/{id}")
-    public String showPostById(@PathVariable Long id,Model model) {
+    public String showPostById(@PathVariable Long id, Model model) {
 
         PediaContent content = pediaContentService.findById(id);
 
@@ -71,7 +74,7 @@ public class PediaContentController {
 
     // 백과 수정 요청 조회  (버튼 이동)
     @GetMapping("/pedia/edit-request/{id}")
-    public String pediaContentEdit(@PathVariable Long id,Model model,Principal principal) {
+    public String pediaContentEdit(@PathVariable Long id, Model model, Principal principal) {
         System.out.println("수정페이지 get 도착");
 
         log.info("id = {}", id);
@@ -81,21 +84,18 @@ public class PediaContentController {
 
         PediaContent byId = pediaContentService.findById(id);
 
-
         model.addAttribute("content", byId);
         model.addAttribute("versionRequestDetails", new VersionRequestDetails());
         model.addAttribute("pediaContentDto", new PediaContentDto());
-
 
         return "/pedia/editRequest";
     }
 
 
-
     //  수정 요청 전달 페이지(버튼) / 컨트롤러 분리 작업 필요
     @PostMapping("/sendEditInfo/{id}")
-    public String processPediaContentEdit(@PathVariable Long id,
-                                          PediaContentDto pediaContentDto, Principal principal) {
+    public String processPediaContentEdit(@PathVariable Long id, PediaContentDto pediaContentDto,
+        Principal principal) {
 
         System.out.println("수정페이지 컨트롤러 도착");
 
@@ -107,7 +107,6 @@ public class PediaContentController {
         Pedia pediaByTitle = pediaService.getPediaByTitle(byId.getBreed());
         log.info("pediaByTitle = {}", pediaByTitle);
 
-
         String name = principal.getName();
         log.info("name = {}", name);
 
@@ -118,10 +117,7 @@ public class PediaContentController {
         log.info("email = {}", email);
 
         VersionRequestDetails versionRequestDetails = VersionRequestDetails.builder()
-                .requestedMemberEmail(email)
-                .title(breed)
-                .build();
-
+            .requestedMemberEmail(email).title(breed).build();
 
         versionRequestService.createNewEditRequest(versionRequestDetails, pediaContentDto);
 
@@ -129,11 +125,10 @@ public class PediaContentController {
         return "redirect:/view-edit-request";
     }
 
-    
+
     //관리자용 강아지 종류 삽입
     @GetMapping("/registerOnlyBreed")
     public String registerOnlyBreed(Model model) {
-
 
         return "/pedia/registerOnlyBreed";
 
@@ -143,11 +138,8 @@ public class PediaContentController {
     @PostMapping("/registerOnlyBreed")
     public String processRegisterOnlyBreed(PediaContentDto pediaContentDTO) {
 
-
-
         String breed = pediaContentDTO.getBreed();
         log.info("breed = {}", breed);
-
 
         pediaContentService.registerOnlySaveBreed(pediaContentDTO);
         pediaService.save(breed);
@@ -156,15 +148,19 @@ public class PediaContentController {
         return "redirect:/pedia";
     }
 
-
+//    @PostMapping("/createNewPedia")
+//    public String createNewPedia(@RequestParam String title) {
+//        versionRequestService.createNewPedia(title);
+//
+//        return "redirect:/pedia";
+//    }
 
     // 4번 수정 요청 승인  컨트롤러 작동O
     @PostMapping("/RequestAccept")
     public String processRequestAccept(
 //            String code,
 //            String memberEmail
-            @RequestBody PediaFetchDto req
-    ) {
+        @RequestBody PediaFetchDto req) {
 
         // 수정 요청 승인 처리
         System.out.println("요청 수락 처리 컨트롤러 도달");
@@ -183,7 +179,6 @@ public class PediaContentController {
     }
 
 
-
     // 5번 수정 요청 거절  컨트롤러 작동O
     @PostMapping("/RequestDecline")
     public String processRequestDecline(@RequestBody PediaFetchDto req) {
@@ -193,7 +188,6 @@ public class PediaContentController {
         log.info("req.getCode() = {}", req.getCode());
         log.info("req.getMemberEmail() = {}", req.getMemberEmail());
 
-
         versionRequestService.rejectPediaEditRequest(req.getCode(), req.getMemberEmail());
 
         System.out.println(" 로직 수행후");
@@ -202,7 +196,8 @@ public class PediaContentController {
 
     // 수정요청 상세 확인 이동 컨트롤러 작동 //컨트롤러 서비스 분리X
     @GetMapping("/view-edit-request/detail/{id}")
-    public String viewEditRequest(Model model,@PathVariable Long id ,PediaContentDto pediaContentDto) {
+    public String viewEditRequest(Model model, @PathVariable Long id,
+        PediaContentDto pediaContentDto) {
         System.out.println("viewEditRequestDetail 로직도착");
 
         model.addAttribute(pediaContentDto);
@@ -226,28 +221,23 @@ public class PediaContentController {
         int b = a - 1;
         log.info("b = {}", b);
 
-
-
-
         PediaContent beforinfo = null;
 
         for (int i = b; i >= 0; i--) {
             System.out.println("for문 도착");
 
-
-                if (breed.equals(all.get(i).getBreed())) {
-                    beforinfo = pediaContentService.findById((long) i + 1);
-                    log.info("beforinfo = {}", beforinfo);
-                    break;
-                }
+            if (breed.equals(all.get(i).getBreed())) {
+                beforinfo = pediaContentService.findById((long) i + 1);
+                log.info("beforinfo = {}", beforinfo);
+                break;
+            }
 
 
         }
         if (beforinfo != null) {
-            model.addAttribute("beforinfo",beforinfo);
+            model.addAttribute("beforinfo", beforinfo);
         }
         log.info("beforinfo = {}", beforinfo);
-
 
         System.out.println("로직 수행 완료");
         return "/pedia/viewEditRequestDetail";
@@ -267,8 +257,6 @@ public class PediaContentController {
         }
         return false;
     }
-
-
 
 
 }

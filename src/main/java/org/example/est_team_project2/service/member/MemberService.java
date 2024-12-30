@@ -4,7 +4,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 import org.example.est_team_project2.dao.member.MemberRepository;
 import org.example.est_team_project2.domain.member.Member;
 import org.example.est_team_project2.domain.member.memberEnums.MemberType;
@@ -17,8 +16,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 
 @Slf4j
@@ -34,12 +31,12 @@ public class MemberService implements UserDetailsService {
         //객체 생성 해서 저장
         log.info("memberDto = {}", memberDto);
         Member member = Member.builder()
-                .email(memberDto.getEmail())
-                .nickName(memberDto.getNickName())
-                .password(passwordEncoder.encode(memberDto.getPassword()))
-                .role(memberDto.getRole())
-                .socialType(memberDto.getSocialType())
-                .build();
+            .email(memberDto.getEmail())
+            .nickName(memberDto.getNickName())
+            .password(passwordEncoder.encode(memberDto.getPassword()))
+            .role(memberDto.getRole())
+            .socialType(memberDto.getSocialType())
+            .build();
         memberRepository.save(member);
     }
 
@@ -97,6 +94,10 @@ public class MemberService implements UserDetailsService {
     public String getSignedInMemberNickName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
+    }
+
+    public Member findSignedInMember() {
+        return getMemberByNickName(getSignedInMemberNickName());
     }
 
     public boolean getCanModify(String postMemberNickName) {

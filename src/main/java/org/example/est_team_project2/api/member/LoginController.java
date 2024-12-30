@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dto.member.MemberDto;
@@ -11,13 +12,14 @@ import org.example.est_team_project2.service.member.FindPassService;
 import org.example.est_team_project2.service.member.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.NoSuchElementException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Slf4j
@@ -28,17 +30,15 @@ public class LoginController {
     private final MemberService memberService;
     private final FindPassService findPassService;
 
-
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
+//    @GetMapping("/")
+//    public String index() {
+//        return "index";
+//    }
 
     @GetMapping("/signin")
     public String login() {
         return "member/signin";
     }
-
 
 
     @GetMapping("/signup")
@@ -51,7 +51,8 @@ public class LoginController {
 
     // 회원가입
     @PostMapping("/signup")
-    public String processSignUp (@Valid MemberDto memberDto , BindingResult bindingResult, Model model) {
+    public String processSignUp(@Valid MemberDto memberDto, BindingResult bindingResult,
+        Model model) {
 
         String checkEmail = memberService.checkDuplicateEmail(memberDto);
         String checkNickName = memberService.checkDuplicateNickName(memberDto);
@@ -93,6 +94,7 @@ public class LoginController {
         return checkEmail;
 
     }
+
     // 비동기 통신 -> 닉네임이 있는지 없는지 체크
     @PostMapping("/signup/duplicateCheckNickName")
     @ResponseBody
@@ -131,7 +133,8 @@ public class LoginController {
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 이메일을 가진 사용자를 찾을 수 없습니다.");
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("임시 비밀번호 발송 중 오류가 발생했습니다.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("임시 비밀번호 발송 중 오류가 발생했습니다.");
         }
     }
 
