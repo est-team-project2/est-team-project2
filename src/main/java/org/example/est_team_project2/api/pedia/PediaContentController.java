@@ -10,28 +10,32 @@ import org.example.est_team_project2.domain.pedia.Pedia;
 import org.example.est_team_project2.domain.pedia.PediaContent;
 import org.example.est_team_project2.domain.pedia.PediaEditRequest;
 import org.example.est_team_project2.domain.pedia.PediaVersion;
-import org.example.est_team_project2.domain.pedia.requestEnums.CommonStatus;
 import org.example.est_team_project2.dto.member.MemberDetails;
 import org.example.est_team_project2.dto.member.MemberDto;
 import org.example.est_team_project2.dto.pedia.PediaContentDto;
 import org.example.est_team_project2.dto.pedia.PediaFetchDto;
 import org.example.est_team_project2.dto.pedia.VersionRequestDetails;
 import org.example.est_team_project2.service.member.MemberService;
-import org.example.est_team_project2.service.pedia.*;
+import org.example.est_team_project2.service.pedia.PediaContentService;
+import org.example.est_team_project2.service.pedia.PediaEditRequestService;
+import org.example.est_team_project2.service.pedia.PediaService;
+import org.example.est_team_project2.service.pedia.PediaVersionService;
+import org.example.est_team_project2.service.pedia.VersionRequestService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class PediaContentController {
+
     private final PediaRepository pediaRepository;
     private final PediaContentService pediaContentService;
     private final PediaService pediaService;
@@ -46,11 +50,9 @@ public class PediaContentController {
         List<PediaContent> contents = pediaContentService.findAll();
         model.addAttribute("pediaContents", contents);
 
-
-
         List<PediaContent> pedia = pediaContentService.findAll();
-        model.addAttribute("pedia",pedia);
-        return "/pedia";
+        model.addAttribute("pedia", pedia);
+        return "pedia/pedia";
     }
 
 
@@ -119,7 +121,7 @@ public class PediaContentController {
 
     //버전 리스트 조회
     @GetMapping("/pedia/history/{breed}")
-    public String viewHistory (@PathVariable String breed,Model model) {
+    public String viewHistory(@PathVariable String breed, Model model) {
 
         Pedia byTitle = pediaService.findByTitle(breed);
         log.info("byTitle = {}", byTitle);
@@ -138,7 +140,7 @@ public class PediaContentController {
 
     // 버전 상세 조회
     @GetMapping("/pedia/version/{code}")
-    public String viewVersionDetail (@PathVariable String code,Model model) {
+    public String viewVersionDetail(@PathVariable String code, Model model) {
         log.info("code = {}", code);
 
         PediaVersion pediaVersionByCode = pediaVersionService.getPediaVersionByCode(code);
@@ -179,10 +181,8 @@ public class PediaContentController {
         pediaContentService.registerOnlySaveBreed(pediaContentDTO);
         pediaService.save(breed);
 
-
         String name = principal.getName();
         Member memberByNickName = memberService.getMemberByNickName(name);
-
 
         String email = memberByNickName.getEmail();
         Member member = memberService.getMemberByEmail(email);
@@ -192,7 +192,7 @@ public class PediaContentController {
 
         List<PediaContent> contents = pediaContentService.findAll();
         for (int i = 0; i < contents.size(); i++) {
-            if(contents.get(i).getBreed().equals(breed)) {
+            if (contents.get(i).getBreed().equals(breed)) {
                 pediaContent = contents.get(i);
                 break;
             }
@@ -203,28 +203,26 @@ public class PediaContentController {
         //breed로 pedia id 가져오기
         List<Pedia> pedias = pediaService.findAll();
         for (int i = 0; i < pedias.size(); i++) {
-            if(pedias.get(i).getTitle().equals(breed)) {
+            if (pedias.get(i).getTitle().equals(breed)) {
                 pedia = pedias.get(i);
             }
         }
-        pedia.setCurrentVersionCode(pedia.getId()+"-0.1");
+        pedia.setCurrentVersionCode(pedia.getId() + "-0.1");
 
         String code = pedia.getId() + "-0.1";
 
-
         PediaVersion pediaVersion = PediaVersion.builder()
-                .pediaContent(pediaContent)
-                .pedia(pedia)
-                .editor(member)
-                .pediaVersionCode(code)
-                .build();
+            .pediaContent(pediaContent)
+            .pedia(pedia)
+            .editor(member)
+            .pediaVersionCode(code)
+            .build();
 
-       pediaVersionService.save(pediaVersion);
+        pediaVersionService.save(pediaVersion);
 
         // 관리자 페이지로 넘어가게 리턴 변경
         return "redirect:/pedia";
     }
-      
 
 //    @PostMapping("/createNewPedia")
 //    public String createNewPedia(@RequestParam String title) {
@@ -246,10 +244,8 @@ public class PediaContentController {
         System.out.println("요청 수락 처리 컨트롤러 도달");
         System.out.println("엔드포인트 도달 로직 수행전");
 
-
         log.info("req.getCode() = {}", req.getCode());
         log.info("req.getMemberEmail() = {}", req.getMemberEmail());
-
 
         versionRequestService.acceptPediaEditRequest(req.getCode(), req.getMemberEmail());
         System.out.println(" 로직 수행후");
@@ -257,7 +253,6 @@ public class PediaContentController {
 //        return "redirect:/view-edit-request"; // 성공 페이지 반환
         return "ok";
     }
-
 
 
     //관리자용 수정 요청 거절  컨트롤러 작동O
@@ -324,7 +319,6 @@ public class PediaContentController {
         System.out.println("로직 수행 완료");
         return "/pedia/viewEditRequestDetail";
     }
-
 
 
     // 컨텐츠 조회 사용 X

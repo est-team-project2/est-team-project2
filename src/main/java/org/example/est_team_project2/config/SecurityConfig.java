@@ -8,9 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -32,17 +29,17 @@ public class SecurityConfig {
         return http
 //                // 비활성화
 //                .csrf(csrf -> csrf.disable())
-                // CSRF 활성화
-                .csrf(csrf -> csrf
-                        .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/signup", "POST"))
-                )
+            // CSRF 활성화
+            .csrf(csrf -> csrf
+                .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/signup", "POST"))
+            )
 
-                .sessionManagement(session -> session
-                        .sessionFixation(sessionFixation -> sessionFixation.migrateSession())
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(true)
-                        .expiredUrl("/logout")
-                )
+            .sessionManagement(session -> session
+                .sessionFixation(sessionFixation -> sessionFixation.migrateSession())
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(true)
+                .expiredUrl("/logout")
+            )
 
             .oauth2Login(oauth2 -> oauth2
                 .loginPage("/signin")
