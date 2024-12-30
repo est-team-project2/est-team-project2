@@ -1,6 +1,7 @@
 package org.example.est_team_project2.config;
 
 import lombok.RequiredArgsConstructor;
+
 import org.example.est_team_project2.service.member.OauthService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -68,7 +69,6 @@ public class SecurityConfig {
                 .anyRequest()
                 .permitAll() // 나머지 요청은 모두 허용
             )
-
 
 //                //권한부여
 //                .authorizeHttpRequests(auth -> auth

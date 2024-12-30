@@ -1,5 +1,6 @@
 package org.example.est_team_project2.api;
 
+
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(
-            @PageableDefault(size = 10) Pageable pageable,
+            @PageableDefault(size = 8) Pageable pageable,
             Model model) {
 
         Page<PediaContent> pediaContents = pediaContentRepository.findTop8ByStatusOrderByIdDesc(pageable);
