@@ -12,6 +12,13 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findAllByDeletedFalse(Pageable pageable);
 
+
     @Query(value = "SELECT p FROM Post p WHERE p.deleted = false AND p.createdAt >= :oneMonthAgo ORDER BY p.views DESC")
     List<Post> findTop3ByDeletedFalseOrderByViewsDesc(LocalDateTime oneMonthAgo, Pageable pageable);
+
+    Page<Post> findAll(Pageable pageable);
+
+    Page<Post> findByMemberId(Pageable pageable, Long id);
+
+
 }
