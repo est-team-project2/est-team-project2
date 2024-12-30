@@ -70,7 +70,6 @@ public class SecurityConfig {
                 .permitAll() // 나머지 요청은 모두 허용
             )
 
-//
 //                //권한부여
 //                .authorizeHttpRequests(auth -> auth
 //                        // 모든

@@ -40,10 +40,16 @@ public class PediaContentService {
 
     public void registerOnlySaveBreed(PediaContentDto pediaContentDTO) {
 
-        PediaContent pediaContent = PediaContent.builder().imageUri("방금 만든 따끈따끈한 견종입니다 이미지를 추가해주세요")
-            .breed(pediaContentDTO.getBreed()).origin("원산지를 추가해주세요").size("크기를 추가해주세요")
-            .detail("세부 정보를 추가해주세요").geneticDisease("유전병을 추가해주세요").feature("특징을 추가해주세요")
-            .status(CommonStatus.ACTIVE).build();
+        PediaContent pediaContent = PediaContent.builder()
+                .imageUri("방금 만든 따끈따끈한 견종입니다 이미지를 추가해주세요")
+                .breed(pediaContentDTO.getBreed())
+                .origin("원산지를 추가해주세요")
+                .size("크기를 추가해주세요")
+                .detail("세부 정보를 추가해주세요")
+                .geneticDisease("유전병을 추가해주세요")
+                .feature("특징을 추가해주세요")
+                .status(CommonStatus.ACTIVE)
+                .build();
 
         pediaContentRepository.save(pediaContent);
     }

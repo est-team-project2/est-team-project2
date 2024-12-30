@@ -623,51 +623,25 @@
             <h1 class="board-title">수정 요청 확인 페이지</h1>
             <div class="board-actions">
             </div>
+
         </div>
 
 
-        <!-- 게시글 목록 -->
-        <form id = "post-list">
-            <div class="post-item" th:each="board : ${editRequest}"
-                 data-board-id="${board.id}"
-                 data-member-email="${board.requestedMember.email}">
-                <div class="post-info">
-                    <label>
-                        <span th:text="'요청번호 : ' + ${board.id}">요청번호</span>
-                        <span th:text="'요청번호 : ' + ${board.pediaEditRequestCode}">요청코드</span>
-                        <span th:text="'확인용 : ' + ${board.pediaVersion.pediaContent.id}">확인용</span>
-                        <span th:text="'요청자 : ' + ${board.requestedMember.email}">요청자</span>
-                        <span th:text="'강아지 종류 : ' + ${board.pediaVersion.pediaContent.breed}">강아지 종류</span>
-                        <button type="button" th:onclick="handleApprove([[${board.pediaEditRequestCode}]], [[${board.requestedMember.email}]] , [[${board.pediaVersion.pediaContent.breed}]])">
-                            승인
-                        </button>
 
-                        <button type="button" th:onclick="handleDecline([[${board.pediaEditRequestCode}]], [[${board.requestedMember.email}]]  )">
-                            거절
-                        </button>
-
-                        <a class="btn btn-submit" th:href="@{/view-edit-request/detail/{id}(id = ${board.pediaVersion.pediaContent.id})}">상세확인이동</a>
-                    </label>
-                </div>
-            </div>
-        </form>
-
-
-<!--        수정요청 이랑 엮어야함 , 상세확인 엮어야 하고, 인-->
+    <!--        수정요청 이랑 엮어야함 , 상세확인 엮어야 하고, 인-->
 
 
 
-<!--        &lt;!&ndash; 페이지네이션 &ndash;&gt;-->
-<!--        <div class="pagination">-->
-<!--            <a th:href="@{/community(page=1)}" th:class="${currentPage == 1 ? 'disabled' : ''}">&lt;&lt;</a>-->
-<!--            <a th:each="pageNum : ${#numbers.sequence(startPage, endPage)}"-->
-<!--               th:href="@{/community(page=${pageNum})}"-->
-<!--               th:class="${pageNum == currentPage ? 'active' : ''}"-->
-<!--               th:text="${pageNum}">1</a>-->
-<!--            <a th:href="@{/community(page=${totalPages})}"-->
-<!--               th:class="${currentPage == totalPages ? 'disabled' : ''}">&gt;&gt;</a></div>-->
-          </div>
-
+    <!--        &lt;!&ndash; 페이지네이션 &ndash;&gt;-->
+    <!--        <div class="pagination">-->
+    <!--            <a th:href="@{/community(page=1)}" th:class="${currentPage == 1 ? 'disabled' : ''}">&lt;&lt;</a>-->
+    <!--            <a th:each="pageNum : ${#numbers.sequence(startPage, endPage)}"-->
+    <!--               th:href="@{/community(page=${pageNum})}"-->
+    <!--               th:class="${pageNum == currentPage ? 'active' : ''}"-->
+    <!--               th:text="${pageNum}">1</a>-->
+    <!--            <a th:href="@{/community(page=${totalPages})}"-->
+    <!--               th:class="${currentPage == totalPages ? 'disabled' : ''}">&gt;&gt;</a></div>-->
+  </div>
 
 </main>
 
@@ -677,6 +651,7 @@
         <div class="modal-header">
             <h3 class="modal-title">글쓰기</h3>
             <button class="close-modal" onclick="closeWriteModal()">&times;</button>
+
         </div>
         <form class="write-form" id="writeForm" onsubmit="submitPost(event)" enctype="multipart/form-data">
             <div class="form-group">
@@ -721,6 +696,7 @@
     // DOM이 로드되면 이벤트 리스너 설정
     document.addEventListener('DOMContentLoaded', function() {
         initializeEventListeners();
+
     });
 
     // 이벤트 리스너 초기화
@@ -753,6 +729,7 @@
 
         const files = Array.from(event.dataTransfer.files);
         handleFileUpload(files);
+
     }
 
     function handleFileUpload(files) {
