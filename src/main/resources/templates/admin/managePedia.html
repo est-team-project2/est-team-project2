@@ -10,18 +10,27 @@
     <tr>
         <th>ID</th>
         <th>제목</th>
-        <th>카테고리</th>
-        <th>작성자</th>
+        <th>생성일</th>
+        <th>수정일</th>
+        <th>versions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="pedia : ${pedias}">
         <td th:text="${pedia.id}"></td>
         <td th:text="${pedia.title}"></td>
-        <td th:text="${pedia.category}"></td>
-        <td th:text="${pedia.author}"></td>
+        <td th:text="${pedia.updatedAt}"></td>
+        <td th:text="${pedia.createdAt}"></td>
+        <td>
+            <a th:href="@{'/admin/managePedia/' + ${pedia.id}}">View versions</a>
+        </td>
     </tr>
     </tbody>
 </table>
+
+<div>
+    <button th:if="${posts.hasPrevious()}" th:onclick="location.href='?page=' + ${posts.number - 1}">Previous</button>
+    <button th:if="${posts.hasNext()}" th:onclick="location.href='?page=' + ${posts.number + 1}">Next</button>
+</div>
 </body>
 </html>

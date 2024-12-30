@@ -11,6 +11,7 @@ import org.example.est_team_project2.service.member.FindPassService;
 import org.example.est_team_project2.service.member.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +31,14 @@ public class LoginController {
 
 
     @GetMapping("/")
-    public String index() {
+    public String index(HttpSession session) {
+        SecurityContext context = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+
+        if (context != null) {
+            System.out.println("권한: " + context.getAuthentication().getAuthorities());
+        } else {
+            System.out.println("SecurityContext가 존재하지 않습니다.");
+        }
         return "index";
     }
 

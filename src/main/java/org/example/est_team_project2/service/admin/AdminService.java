@@ -26,11 +26,6 @@ public class AdminService {
         return members;
     }
 
-
-
-
-
-
     //Post
     public Post findById(Long postId) {
         return postRepository.findById(postId)
