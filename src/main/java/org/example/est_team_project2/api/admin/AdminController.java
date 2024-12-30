@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dao.board.CommentRepository;
 import org.example.est_team_project2.dao.board.PostRepository;
 import org.example.est_team_project2.dao.member.MemberRepository;
+
 import org.example.est_team_project2.dao.pedia.PediaRepository;
 import org.example.est_team_project2.dao.pedia.PediaVersionRepository;
 import org.example.est_team_project2.domain.board.Comment;
@@ -13,6 +14,7 @@ import org.example.est_team_project2.domain.member.Member;
 import org.example.est_team_project2.domain.member.memberEnums.MemberType;
 import org.example.est_team_project2.domain.pedia.Pedia;
 import org.example.est_team_project2.domain.pedia.PediaVersion;
+
 import org.example.est_team_project2.service.admin.AdminService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -78,8 +80,10 @@ public class AdminController {
 
     @GetMapping("/managePedia")
     public String managePedia(@PageableDefault(size = 10) Pageable pageable, Model model) {
+
         Page<Pedia> pedias = pediaRepository.findAll(pageable);
         model.addAttribute("pedias", pedias);
+
         return "admin/managePedia";
     }
 
@@ -111,6 +115,18 @@ public class AdminController {
         model.addAttribute("posts", posts);
         return "admin/managePost";
     }
+
+    @GetMapping("/managePost/{id}")
+    public String managePostDetail(
+            @PathVariable Long id,
+            @PageableDefault(size = 10) Pageable pageable,
+            Model model) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
+        model.addAttribute("post", post);
+
+        Page<Comment> comments = commentRepository.findByPostId(pageable, id);
+        model.addAttribute("comments", comments);
 
 
     @GetMapping("/managePost/{id}")

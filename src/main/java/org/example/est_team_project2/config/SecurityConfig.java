@@ -29,12 +29,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+
 //                // 비활성화
 //                .csrf(csrf -> csrf.disable())
                 // CSRF 활성화
                 .csrf(csrf -> csrf
                         .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/signup", "POST"))
                 )
+
                 .sessionManagement(session -> session
                         .sessionFixation(sessionFixation -> sessionFixation.migrateSession())
                         .maximumSessions(1)
@@ -67,6 +69,7 @@ public class SecurityConfig {
 //                .anyRequest()
 //                .permitAll() // 나머지 요청은 모두 허용
 //            )
+
 
                 //권한부여
                 .authorizeHttpRequests(auth -> auth
