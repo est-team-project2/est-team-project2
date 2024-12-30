@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>회원 상세</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
 </head>
 <body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
 <h1><span th:text="${member.nickName}"></span></h1>
 <form th:action="@{'/admin/members/' + ${member.id} + '/update-role'}" method="post">
   <div>
@@ -11,8 +15,10 @@
     <p><strong>Email:</strong> <span th:text="${member.email}">user@example.com</span></p>
     <p><strong>Nickname:</strong> <span th:text="${member.nickName}">user1</span></p>
     <p><strong>Social Type:</strong> <span th:text="${member.socialType}">FORMBASED</span></p>
-    <p><strong>Created At:</strong> <span th:text="${member.createdAt}">2024-01-01 00:00:00</span></p>
-    <p><strong>Updated At:</strong> <span th:text="${member.updatedAt}">2024-01-01 00:00:00</span></p>
+    <p><strong>Created At:</strong> <span th:text="${member.createdAt}">2024-01-01 00:00:00</span>
+    </p>
+    <p><strong>Updated At:</strong> <span th:text="${member.updatedAt}">2024-01-01 00:00:00</span>
+    </p>
   </div>
 
   <div>
@@ -56,6 +62,9 @@
 
 
 <button onclick="history.back()">Back to Member List</button>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>
 

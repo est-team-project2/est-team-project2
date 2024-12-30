@@ -12,14 +12,14 @@
       <a href="/pedia">견종 백과</a>
       <a href="/view-edit-request">수정 요청</a>
       <a href="/posts">커뮤니티</a>
-      <a href="/templates/testPage/mapsearch.html">주변시설</a>
-      <a href="/templates/testPage/dog-calculator.html">건강계산기</a>
+      <a href="/map">주변시설</a>
+      <a href="/dog-calculator">건강계산기</a>
       <th:block sec:authorize="isAnonymous()">
         <button class="btn btn-login" onclick="location.href='/signin'">로그인</button>
         <button class="btn btn-signup" onclick="location.href='/signup'">회원가입</button>
       </th:block>
       <th:block sec:authorize="isAuthenticated()">
-        <button class="btn" onclick="location.href='/'">내정보</button>
+        <button class="btn" onclick="location.href='/my'">내정보</button>
       </th:block>
     </nav>
   </div>

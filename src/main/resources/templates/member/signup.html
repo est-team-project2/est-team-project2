@@ -1,382 +1,229 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="_csrf" th:content="${_csrf.token}">
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title>멍피디아 - 회원가입</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #f9fafb;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Header Styles */
-        header {
-            background-color: #fff3e0;
-            padding: 1rem;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-        }
-
-        .logo-text {
-            height: 35px;
-            width: auto;
-        }
-
-        .logo-paw {
-            height: 20px;
-            width: auto;
-        }
-
-        /* Signup Form Styles */
-        .signup-container {
-            max-width: 400px;
-            margin: 3rem auto;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-        }
-
-        .signup-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .signup-header h1 {
-            color: #f97316;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .signup-header p {
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #4b5563;
-            font-size: 0.875rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #f97316;
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
-        }
-
-        .form-group .requirements {
-            margin-top: 0.25rem;
-            font-size: 0.75rem;
-            color: #6b7280;
-        }
-
-        .form-group .error {
-            color: #ef4444;
-            font-size: 0.75rem;
-            margin-top: 0.25rem;
-            display: none;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .btn-signup {
-            background-color: #f97316;
-            color: white;
-            margin-bottom: 1rem;
-        }
-
-        .btn-signup:hover {
-            background-color: #ea580c;
-        }
-
-        .login-link {
-            text-align: center;
-            margin-top: 1.5rem;
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-
-        .login-link a {
-            color: #f97316;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .login-link a:hover {
-            text-decoration: underline;
-        }
-        .erroe-msg {
-            border-color : red;
-            color : red;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="_csrf" th:content="${_csrf.token}">
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <title>멍피디아 - 회원가입</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
 </head>
 <body>
 
-<header>
-    <div class="container header-content">
-        <a href="#" class="logo-container">
-            <img src="/api/images/1.png" alt="Mungpedia" class="logo-text">
-            <img src="/api/images/3.png" alt="Paw" class="logo-paw">
-        </a>
-    </div>
-</header>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <main class="container">
-    <div class="signup-container">
-        <div class="signup-header">
-            <h1>회원가입</h1>
-            <p>멍피디아의 회원이 되어보세요</p>
-        </div>
-
-        <form id="signupForm" onsubmit="return validateForm(event)" method="post" th:object="${memberDto}">
-            <div class="form-group">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <label for="email">이메일</label>
-                <input type="email" id="email" name="email" required th:errorclass = "erroe-msg" th:field="*{email}"
-                       placeholder="example@email.com">
-                <span id="check-result"></span>
-                <div  class="erroe-msg" th:errors = "*{email}"></div>
-                <div class="error" id="emailError">유효한 이메일 주소를 입력해주세요</div>
-            </div>
-
-            <div class="form-group">
-                <label for="nickname">닉네임</label>
-                <input type="text" id="nickname" name="nickName" required th:errorclass = "erroe-msg" th:field="*{nickName}"
-                       minlength="2" maxlength="20" placeholder="닉네임 (2-20자)">
-
-                <span id="check-nickname-result"></span>
-                <div  class="erroe-msg" th:errors = "*{nickName}"></div>
-
-                <div class="error" id="nicknameError">닉네임은 2-20자 사이여야 합니다</div>
-            </div>
-
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" name="password" required th:errorclass = "erroe-msg" th:field="*{password}"
-                       minlength="8" placeholder="비밀번호 (8자 이상)">
-                <div class="requirements">
-                    * 8자 이상<br>
-                    * 영문, 숫자, 특수문자 조합
-                </div>
-                <div  class="erroe-msg" th:errors = "*{password}"></div>
-                <div class="error" id="passwordError">비밀번호 요구사항을 충족해주세요</div>
-            </div>
-
-            <div class="form-group">
-                <label for="passwordConfirm">비밀번호 확인</label>
-                <input type="password" id="passwordConfirm" name="passwordConfirm"
-                       required placeholder="비밀번호 다시 입력">
-                <div class="error" id="passwordConfirmError">비밀번호가 일치하지 않습니다</div>
-            </div>
-
-            <button type="submit" class="btn btn-signup">가입하기</button>
-        </form>
-
-        <div class="login-link">
-            이미 계정이 있으신가요? <a href="#">로그인</a>
-        </div>
+  <div class="signup-container">
+    <div class="signup-header">
+      <h1>회원가입</h1>
+      <p>멍피디아의 회원이 되어보세요</p>
     </div>
+
+    <form id="signupForm" onsubmit="return validateForm(event)" method="post"
+          th:object="${memberDto}">
+      <div class="form-group">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label for="email">이메일</label>
+        <input type="email" id="email" name="email" required th:errorclass="erroe-msg"
+               th:field="*{email}"
+               placeholder="example@email.com">
+        <span id="check-result"></span>
+        <div class="erroe-msg" th:errors="*{email}"></div>
+        <div class="error" id="emailError">유효한 이메일 주소를 입력해주세요</div>
+      </div>
+
+      <div class="form-group">
+        <label for="nickname">닉네임</label>
+        <input type="text" id="nickname" name="nickName" required th:errorclass="erroe-msg"
+               th:field="*{nickName}"
+               minlength="2" maxlength="20" placeholder="닉네임 (2-20자)">
+
+        <span id="check-nickname-result"></span>
+        <div class="erroe-msg" th:errors="*{nickName}"></div>
+
+        <div class="error" id="nicknameError">닉네임은 2-20자 사이여야 합니다</div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password" required th:errorclass="erroe-msg"
+               th:field="*{password}"
+               minlength="8" placeholder="비밀번호 (8자 이상)">
+        <div class="requirements">
+          * 8자 이상<br>
+          * 영문, 숫자, 특수문자 조합
+        </div>
+        <div class="erroe-msg" th:errors="*{password}"></div>
+        <div class="error" id="passwordError">비밀번호 요구사항을 충족해주세요</div>
+      </div>
+
+      <div class="form-group">
+        <label for="passwordConfirm">비밀번호 확인</label>
+        <input type="password" id="passwordConfirm" name="passwordConfirm"
+               required placeholder="비밀번호 다시 입력">
+        <div class="error" id="passwordConfirmError">비밀번호가 일치하지 않습니다</div>
+      </div>
+
+      <button type="submit" class="btn btn-signup">가입하기</button>
+    </form>
+
+    <div class="login-link">
+      이미 계정이 있으신가요? <a href="/signin">로그인</a>
+    </div>
+  </div>
 </main>
 
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 <script th:inline="javascript">
-    // CSRF 토큰 설정
-    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-    const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+  // CSRF 토큰 설정
+  const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+  const csrfToken = document.querySelector('meta[name="_csrf"]').content;
 
-    // 폼 요소 선택
-    const formEl = document.getElementById('signupForm');
+  // 폼 요소 선택
+  const formEl = document.getElementById('signupForm');
 
-    // 오류 메시지 표시 함수
-    function showError(elementId, message) {
-        const errorElement = document.getElementById(elementId);
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
+  // 오류 메시지 표시 함수
+  function showError(elementId, message) {
+    const errorElement = document.getElementById(elementId);
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+  }
+
+  // 오류 메시지 숨김 함수
+  function hideError(elementId) {
+    document.getElementById(elementId).style.display = 'none';
+  }
+
+  // 이메일 중복 검사
+  async function checkEmail() {
+    const email = document.getElementById('email').value;
+    const checkResult = document.getElementById("check-result");
+
+    try {
+      const response = await fetch("/signup/duplicateCheckEmail", {
+        method: "POST",
+        headers: {
+          [csrfHeader]: csrfToken,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({email: email})
+      });
+      const data = await response.text();
+
+      if (data === "ok") {
+        checkResult.innerHTML = "사용 가능한 이메일";
+        checkResult.style.color = "green";
+      } else {
+        checkResult.innerHTML = "이미 사용중인 이메일";
+        checkResult.style.color = "red";
+      }
+      return data;
+    } catch (error) {
+      console.error("이메일 중복 검사 중 오류 발생:", error);
+      return "error";
+    }
+  }
+
+  // 닉네임 중복 검사
+  async function checkNickname() {
+    const nickname = document.getElementById('nickname').value;
+    const checkResult = document.getElementById("check-nickname-result");
+
+    try {
+      const response = await fetch("/signup/duplicateCheckNickName", {
+        method: "POST",
+        headers: {
+          [csrfHeader]: csrfToken,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({nickName: nickname})
+      });
+      const data = await response.text();
+
+      if (data === "ok") {
+        checkResult.innerHTML = "사용 가능한 닉네임";
+        checkResult.style.color = "green";
+      } else {
+        checkResult.innerHTML = "이미 사용중인 닉네임";
+        checkResult.style.color = "red";
+      }
+      return data;
+    } catch (error) {
+      console.error("닉네임 중복 검사 중 오류 발생:", error);
+      return "error";
+    }
+  }
+
+  // 폼 유효성 검사
+  async function validateForm(event) {
+    event.preventDefault();
+    let isValid = true;
+
+    const email = document.getElementById('email');
+    const nickname = document.getElementById('nickname');
+    const password = document.getElementById('password');
+    const passwordConfirm = document.getElementById('passwordConfirm');
+
+    // 이메일 검증
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value)) {
+      showError('emailError', '유효한 이메일 주소를 입력해주세요');
+      isValid = false;
+    } else {
+      hideError('emailError');
     }
 
-    // 오류 메시지 숨김 함수
-    function hideError(elementId) {
-        document.getElementById(elementId).style.display = 'none';
+    // 닉네임 검증
+    if (nickname.value.length < 2 || nickname.value.length > 20) {
+      showError('nicknameError', '닉네임은 2-20자 사이여야 합니다');
+      isValid = false;
+    } else {
+      hideError('nicknameError');
     }
 
-    // 이메일 중복 검사
-    async function checkEmail() {
-        const email = document.getElementById('email').value;
-        const checkResult = document.getElementById("check-result");
-
-        try {
-            const response = await fetch("/signup/duplicateCheckEmail", {
-                method: "POST",
-                headers: {
-                    [csrfHeader]: csrfToken,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email: email })
-            });
-            const data = await response.text();
-
-            if (data === "ok") {
-                checkResult.innerHTML = "사용 가능한 이메일";
-                checkResult.style.color = "green";
-            } else {
-                checkResult.innerHTML = "이미 사용중인 이메일";
-                checkResult.style.color = "red";
-            }
-            return data;
-        } catch (error) {
-            console.error("이메일 중복 검사 중 오류 발생:", error);
-            return "error";
-        }
+    // 비밀번호 검증
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (!passwordRegex.test(password.value)) {
+      showError('passwordError', '비밀번호 요구사항을 충족해주세요');
+      isValid = false;
+    } else {
+      hideError('passwordError');
     }
 
-    // 닉네임 중복 검사
-    async function checkNickname() {
-        const nickname = document.getElementById('nickname').value;
-        const checkResult = document.getElementById("check-nickname-result");
-
-        try {
-            const response = await fetch("/signup/duplicateCheckNickName", {
-                method: "POST",
-                headers: {
-                    [csrfHeader]: csrfToken,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ nickName: nickname })
-            });
-            const data = await response.text();
-
-            if (data === "ok") {
-                checkResult.innerHTML = "사용 가능한 닉네임";
-                checkResult.style.color = "green";
-            } else {
-                checkResult.innerHTML = "이미 사용중인 닉네임";
-                checkResult.style.color = "red";
-            }
-            return data;
-        } catch (error) {
-            console.error("닉네임 중복 검사 중 오류 발생:", error);
-            return "error";
-        }
+    // 비밀번호 확인 검증
+    if (password.value !== passwordConfirm.value) {
+      showError('passwordConfirmError', '비밀번호가 일치하지 않습니다');
+      isValid = false;
+    } else {
+      hideError('passwordConfirmError');
     }
 
-    // 폼 유효성 검사
-    async function validateForm(event) {
-        event.preventDefault();
-        let isValid = true;
+    if (isValid) {
+      const emailResult = await checkEmail();
+      const nicknameResult = await checkNickname();
 
-        const email = document.getElementById('email');
-        const nickname = document.getElementById('nickname');
-        const password = document.getElementById('password');
-        const passwordConfirm = document.getElementById('passwordConfirm');
-
-        // 이메일 검증
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email.value)) {
-            showError('emailError', '유효한 이메일 주소를 입력해주세요');
-            isValid = false;
-        } else {
-            hideError('emailError');
-        }
-
-        // 닉네임 검증
-        if (nickname.value.length < 2 || nickname.value.length > 20) {
-            showError('nicknameError', '닉네임은 2-20자 사이여야 합니다');
-            isValid = false;
-        } else {
-            hideError('nicknameError');
-        }
-
-        // 비밀번호 검증
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-        if (!passwordRegex.test(password.value)) {
-            showError('passwordError', '비밀번호 요구사항을 충족해주세요');
-            isValid = false;
-        } else {
-            hideError('passwordError');
-        }
-
-        // 비밀번호 확인 검증
-        if (password.value !== passwordConfirm.value) {
-            showError('passwordConfirmError', '비밀번호가 일치하지 않습니다');
-            isValid = false;
-        } else {
-            hideError('passwordConfirmError');
-        }
-
-        if (isValid) {
-            const emailResult = await checkEmail();
-            const nicknameResult = await checkNickname();
-
-            if (emailResult === "ok" && nicknameResult === "ok") {
-                alert('회원가입이 완료되었습니다!');
-                formEl.submit();
-            } else {
-                alert('이메일 또는 닉네임이 이미 사용 중입니다.');
-            }
-        } else {
-            alert('입력을 확인해주세요');
-        }
+      if (emailResult === "ok" && nicknameResult === "ok") {
+        alert('회원가입이 완료되었습니다!');
+        formEl.submit();
+      } else {
+        alert('이메일 또는 닉네임이 이미 사용 중입니다.');
+      }
+    } else {
+      alert('입력을 확인해주세요');
     }
+  }
 
-    // 이벤트 리스너 등록
-    formEl.addEventListener('focusout', (event) => {
-        if (event.target.id === 'email') {
-            checkEmail();
-        } else if (event.target.id === 'nickname') {
-            checkNickname();
-        }
-    });
+  // 이벤트 리스너 등록
+  formEl.addEventListener('focusout', (event) => {
+    if (event.target.id === 'email') {
+      checkEmail();
+    } else if (event.target.id === 'nickname') {
+      checkNickname();
+    }
+  });
 
-    formEl.addEventListener('submit', validateForm);
+  formEl.addEventListener('submit', validateForm);
 
 </script>
 

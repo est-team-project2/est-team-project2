@@ -1,36 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>백과 관리</title>
+  <title>백과 관리</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
 </head>
 <body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
 <h1>백과 관리</h1>
 <table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>제목</th>
-        <th>생성일</th>
-        <th>수정일</th>
-        <th>versions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="pedia : ${pedias}">
-        <td th:text="${pedia.id}"></td>
-        <td th:text="${pedia.title}"></td>
-        <td th:text="${pedia.updatedAt}"></td>
-        <td th:text="${pedia.createdAt}"></td>
-        <td>
-            <a th:href="@{'/admin/managePedia/' + ${pedia.id}}">View versions</a>
-        </td>
-    </tr>
-    </tbody>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>제목</th>
+    <th>생성일</th>
+    <th>수정일</th>
+    <th>versions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="pedia : ${pedias}">
+    <td th:text="${pedia.id}"></td>
+    <td th:text="${pedia.title}"></td>
+    <td th:text="${pedia.updatedAt}"></td>
+    <td th:text="${pedia.createdAt}"></td>
+    <td>
+      <a th:href="@{'/admin/managePedia/' + ${pedia.id}}">View versions</a>
+    </td>
+  </tr>
+  </tbody>
 </table>
 
 <div>
-    <button th:if="${posts.hasPrevious()}" th:onclick="location.href='?page=' + ${posts.number - 1}">Previous</button>
-    <button th:if="${posts.hasNext()}" th:onclick="location.href='?page=' + ${posts.number + 1}">Next</button>
+  <button th:if="${posts.hasPrevious()}" th:onclick="location.href='?page=' + ${posts.number - 1}">
+    Previous
+  </button>
+  <button th:if="${posts.hasNext()}" th:onclick="location.href='?page=' + ${posts.number + 1}">
+    Next
+  </button>
 </div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>

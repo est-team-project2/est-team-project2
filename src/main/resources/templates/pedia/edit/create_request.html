@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Version Request</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
 </head>
+
 <body>
+<div th:replace="~{fragments/header :: header}"></div>
 <h1>Create Version Request</h1>
 <form action="/create" method="post">
   <!-- VersionRequestDetails -->
@@ -91,5 +94,7 @@
   <br>
   <button type="submit">Submit</button>
 </form>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
