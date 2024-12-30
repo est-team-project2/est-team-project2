@@ -14,10 +14,8 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import org.example.est_team_project2.domain.member.Member;
 
 @Getter
@@ -66,6 +64,11 @@ public class Post {
     public void softDelete() {
         this.deleted = true;
         comments.forEach(Comment::softDelete);
+        this.deletedAt = LocalDateTime.now();
+    }
+
+    public void adminSoftDelete(boolean adminReq) {
+        this.deleted = adminReq;
         this.deletedAt = LocalDateTime.now();
     }
 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Post Detail</title>
+</head>
+<body>
+<h1>Post Details</h1>
+<form th:action="@{'/admin/managePost/' + ${post.id} + '/updateDeleted'}" method="post">
+  <div>
+    <p><strong>ID:</strong> <span th:text="${post.id}">1</span></p>
+    <p><strong>Title:</strong> <span th:text="${post.title}">Sample Post</span></p>
+    <p><strong>Content:</strong></p>
+    <div th:text="${post.contents}">This is the content of the post.</div>
+    <p><strong>Author:</strong> <span th:text="${post.member.nickName}">Author Name</span></p>
+    <p><strong>Created At:</strong> <span th:text="${post.createdAt}">2024-01-01 00:00:00</span></p>
+    <p><strong>Updated At:</strong> <span th:text="${post.updatedAt}">2024-01-01 00:00:00</span></p>
+  </div>
+
+  <div>
+    <label for="deleted">soft delete: </label>
+    <select name="deleted" id="deleted">
+      <option th:value="true" th:selected="${post.deleted} == true">True</option>
+      <option th:value="false" th:selected="${post.deleted} == false">False</option>
+    </select>
+  </div>
+
+  <div>
+    <button type="submit">Update</button>
+  </div>
+</form>
+
+
+<h1>Comments</h1>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>작성자</th>
+    <th>내용</th>
+    <th>작성일</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="comment : ${comments.content}">
+    <td th:text="${comment.id}">1</td>
+    <td th:text="${comment.member.nickName}">Author Name</td>
+    <td th:text="${comment.contents}">Sample Post</td>
+    <td th:text="${comment.createdAt}">2024-01-01 00:00:00</td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

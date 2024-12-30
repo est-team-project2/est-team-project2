@@ -30,7 +30,7 @@ public class SecurityConfig {
         return http
                 // 비활성화
                 .csrf(csrf -> csrf.disable())
-//                // CSRF 활성화
+                // CSRF 활성화
 //                .csrf(csrf -> csrf
 //                        .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
 //                        .ignoringRequestMatchers("/signin")
@@ -59,14 +59,7 @@ public class SecurityConfig {
                 .permitAll() // 로그인 페이지 접근 허용
             )
 
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/signin")
-                .permitAll() // 로그인 페이지 접근 허용
-                .requestMatchers("/profile")
-                .authenticated()
-                .anyRequest()
-                .permitAll() // 나머지 요청은 모두 허용
-            )
+
 
             .logout(logout -> logout
                 .logoutUrl("/logout")
