@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PediaFetchDto {
+    private String breed;
     private String code;
     private String memberEmail;
 }

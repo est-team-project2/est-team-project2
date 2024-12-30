@@ -1,5 +1,6 @@
 package org.example.est_team_project2.dao.pedia;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.example.est_team_project2.domain.board.Post;
@@ -13,4 +14,5 @@ public interface PediaRepository extends JpaRepository<Pedia, Long> {
     Optional<Pedia> findByTitle(String title);
 
     Page<Pedia> findAll(Pageable pageable);
+
 }

@@ -55,6 +55,8 @@ public class PediaContentService {
         return pediaContentRepository.findById(id).orElseThrow();
     }
 
+
+
 //    public PediaContent findByBeforeInfo(Long id) {
 //        PediaContent EditPediaContent = pediaContentRepository.findById(id).orElseThrow();
 //        Long Editid = EditPediaContent.getId(); //7

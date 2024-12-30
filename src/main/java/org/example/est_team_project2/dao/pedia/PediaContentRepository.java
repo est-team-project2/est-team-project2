@@ -18,4 +18,6 @@ public interface PediaContentRepository extends JpaRepository<PediaContent, Long
     @Query("select r from PediaContent r where r.status = 'ACTIVE' ")
     List<PediaContent> findAll();
 
+
+
 }

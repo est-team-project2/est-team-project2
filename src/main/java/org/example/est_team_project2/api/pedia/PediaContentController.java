@@ -25,16 +25,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class PediaContentController {
-
     private final PediaRepository pediaRepository;
     private final PediaContentService pediaContentService;
     private final PediaService pediaService;
@@ -118,8 +118,39 @@ public class PediaContentController {
 
         System.out.println(" 로직 수행후");
         return "redirect:/pedia";
+
+    //버전 리스트 조회
+    @GetMapping("/pedia/history/{breed}")
+    public String viewHistory (@PathVariable String breed,Model model) {
+
+        Pedia byTitle = pediaService.findByTitle(breed);
+        log.info("byTitle = {}", byTitle);
+
+        Long id = byTitle.getId();
+        log.info("id = {}", id);
+
+        List<PediaVersion> byPediaId = pediaVersionService.findByPediaId(id);
+        log.info("byPediaId = {}", byPediaId);
+
+        model.addAttribute("versions", byPediaId);
+
+        return "/pedia/pediaHistory";
     }
 
+
+    // 버전 상세 조회
+    @GetMapping("/pedia/version/{code}")
+    public String viewVersionDetail (@PathVariable String code,Model model) {
+        log.info("code = {}", code);
+
+        PediaVersion pediaVersionByCode = pediaVersionService.getPediaVersionByCode(code);
+        log.info("pediaVersionByCode = {}", pediaVersionByCode);
+
+        model.addAttribute("version", pediaVersionByCode);
+
+        return "/pedia/pediaHistoryDetail";
+
+    }
 
 
     // 관리자용 수정 요청 리스트 조회
@@ -133,6 +164,7 @@ public class PediaContentController {
         return "/pedia/viewEditRequest";  // 템플릿 파일을 반환
     }
 
+
     //관리자용 강아지 종류 삽입
     @GetMapping("/registerOnlyBreed")
     public String registerOnlyBreed(Model model) {
@@ -143,26 +175,18 @@ public class PediaContentController {
 
     //관리자용 강아지 종류 삽입 db 저장 페이지(버튼 이동)
     @PostMapping("/registerOnlyBreed")
-
     public String processRegisterOnlyBreed(PediaContentDto pediaContentDTO, Principal principal) {
 
         String breed = pediaContentDTO.getBreed();
-        log.info("breed = {}", breed);
-
         pediaContentService.registerOnlySaveBreed(pediaContentDTO);
-
         pediaService.save(breed);
-        // 이메일 가져오는 상황
+
 
         String name = principal.getName();
-        log.info("name = {}", name);
-
         Member memberByNickName = memberService.getMemberByNickName(name);
-        log.info("memberByNickName = {}", memberByNickName);
+
 
         String email = memberByNickName.getEmail();
-        log.info("email = {}", email);
-
         Member member = memberService.getMemberByEmail(email);
 
         // breed 로 콘텐츠 id 가져오기
@@ -197,11 +221,12 @@ public class PediaContentController {
                 .pediaVersionCode(code)
                 .build();
 
-        pediaVersionService.save(pediaVersion);
+       pediaVersionService.save(pediaVersion);
 
         // 관리자 페이지로 넘어가게 리턴 변경
         return "redirect:/pedia";
     }
+      
 
 //    @PostMapping("/createNewPedia")
 //    public String createNewPedia(@RequestParam String title) {
@@ -210,7 +235,8 @@ public class PediaContentController {
 //        return "redirect:/pedia";
 //    }
 
-    // 4번 수정 요청 승인  컨트롤러 작동O
+
+    // 관리자용 수정 요청 승인  컨트롤러 작동O
     @ResponseBody
     @PostMapping("/RequestAccept")
     public String processRequestAccept(
@@ -235,7 +261,8 @@ public class PediaContentController {
     }
 
 
-    // 5번 수정 요청 거절  컨트롤러 작동O
+
+    //관리자용 수정 요청 거절  컨트롤러 작동O
     @ResponseBody
     @PostMapping("/RequestDecline")
     public String processRequestDecline(@RequestBody PediaFetchDto req) {
@@ -251,7 +278,7 @@ public class PediaContentController {
         return "ok";// 거절 페이지 반환
     }
 
-    // 수정요청 상세 확인 이동 컨트롤러 작동 //컨트롤러 서비스 분리X
+    // 관리자용 수정요청 상세 확인 이동 컨트롤러 작동 //컨트롤러 서비스 분리X
     @GetMapping("/view-edit-request/detail/{id}")
     public String viewEditRequest(Model model, @PathVariable Long id,
         PediaContentDto pediaContentDto) {
@@ -299,6 +326,7 @@ public class PediaContentController {
         System.out.println("로직 수행 완료");
         return "/pedia/viewEditRequestDetail";
     }
+
 
 
     // 컨텐츠 조회 사용 X

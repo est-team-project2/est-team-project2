@@ -19,7 +19,7 @@ public class Pedia {
 
     @Column(unique = true, nullable = false)
     private String title;
-
+    @Column(unique = true)
     @Setter
     private String currentVersionCode = null;
 
@@ -30,8 +30,9 @@ public class Pedia {
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Builder
-    public Pedia(String title) {
+    public Pedia(String title, String currentVersionCode) {
         this.title = title;
+        this.currentVersionCode = currentVersionCode;
     }
 
     public static Pedia from(PediaDto pediaDto) {

@@ -98,7 +98,7 @@
 
         .board-header {
             padding: 1.5rem;
-            border-bottom: 1px solid #e5e7eb;
+
         }
 
         .board-title {
@@ -454,7 +454,7 @@
 
         /* 파일 입력 숨기기 */
         input[type="file"] {
-            display: none;
+            display: inline-block;
         }
 
         /* 반응형 디자인 */
@@ -490,6 +490,55 @@
                 padding: 0.75rem 1rem;
             }
         }
+
+        .container_1 {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            width: 100%; /* 화면에 꽉 차게 설정 */
+        }
+
+        .board-container_1 {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin: 2rem auto;
+            padding: 2rem; /* 추가된 여백 */
+            text-align: center; /* 중앙 정렬 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* input과 버튼을 중앙에 정렬 */
+            gap: 1rem; /* 요소 간의 간격 */
+        }
+
+        input[type="text"] {
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            width: 300px; /* input width 조정 */
+        }
+
+        button[type="submit"] {
+            padding: 0.75rem 1.5rem;
+            background-color: #f97316;
+            color: white;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #ea580c;
+        }
     </style>
 
 <header>
@@ -513,20 +562,16 @@
 
 
 
-<main class="container">
-    <div class="board-container">
+<main class="container_1">
+    <div class="board-container_1">
         <div class="board-header">
             <h1 class="board-title">피디아 백과</h1>
-
-            <div class="board-actions">
-            </div>
+       <!-- <div class="board-actions"></div>-->
         </div>
+         <table border="1">
 
-
-        <table border="1">
-
-            <form action="/registerOnlyBreed" method="post">
-                <h4>견종을 추가해주세요</h4>
+            <form action="/registerOnlyBreed" method="post" enctype="multipart/form-data">
+                <h4 style="padding-bottom: 30px">견종을 추가해주세요</h4>
                 <input type="text" name="breed" placeholder="품종"><br>
                 <button type="submit">등록</button>
             </form>
@@ -535,6 +580,7 @@
         </div>
 
 </main>
+
 
 </body>
 </html>

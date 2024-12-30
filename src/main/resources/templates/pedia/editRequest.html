@@ -492,6 +492,13 @@
         }
     </style>
 
+    <script>
+        function btn(){
+            alert('수정요청이 완료 되었습니다');
+        }
+    </script>
+
+
 <header>
     <div class="container header-content">
         <a th:href="@{/static}" class="logo-container">
@@ -539,7 +546,7 @@
             <h3>수정 할 내용</h3>
 
             <input type="text" name="imageUri" placeholder="이미지 URI"><br>
-            <input type="text" name="breed" placeholder="품종"><br>
+            <input type="hidden" name="breed" th:value="${content.breed}">
             <input type="text" name="origin" placeholder="원산지"><br>
             <input type="text" name="size" placeholder="크기"><br>
             <input type="text" name="detail" placeholder="상세 정보"><br>
@@ -547,7 +554,7 @@
             <input type="text" name="feature" placeholder="특징"><br>
 
             <br>
-            <button type="submit">수정</button>
+            <button type="submit" onclick="btn()">수정</button>
         </form>
 
         </div>

@@ -172,6 +172,19 @@ public class VersionRequestService {
         return pediaId + String.format("-%.1f", currentVersionCodeDouble);
     }
 
+
+    // 수정 요청 전달 페이지에서 받은 email과 breed로  객체 생성 후 반환
+    public VersionRequestDetails create(String email,String breed) {
+
+        VersionRequestDetails versionRequestDetails = VersionRequestDetails.builder()
+                .requestedMemberEmail(email)
+                .title(breed)
+                .build();
+
+        return versionRequestDetails;
+    }
+
+
     // REJ- 로 시작하는 코드를 생성
     public String genRejectedPediaVersionCode() {
         return "REJ-" + System.currentTimeMillis();

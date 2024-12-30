@@ -88,25 +88,120 @@
     }
 
     function handleShowDetail(id) {
+            .file-label {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+    <script>
 
-      fetch(`/viewEditRequestDetail?id=${encodeURIComponent(id)}`, {
-        redirect: 'follow'
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('네트워크 응답 오류');
+        function handleApprove(reqId, userEmail, reqBreed) {
+            // // 부모 요소에서 data-* 속성 읽기
+            // const postItem = button.closest('.post-item'); // 버튼의 부모 요소 찾기
+            // const code = postItem.getAttribute('data-board-id');
+            // const memberEmail = postItem.getAttribute('data-member-email');
+            //
+            // console.log('Board ID:', boardId);
+            // console.log('Member Email:', memberEmail);
+
+            // Fetch API를 통해 수정 승인 요청 보내기
+
+
+            console.log(reqId);
+            console.log(userEmail);
+            console.log(reqBreed)
+
+            fetch('/RequestAccept', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "code": reqId,
+                    "memberEmail": userEmail,
+                    "breed":reqBreed
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('네트워크 응답 오류');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    alert('수정 요청이 승인되었습니다.');
+                    // window.location.href = "/view-edit-request";
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('에러 발생:', error);
+                });
+
         }
         return response.json();
       })
       .then(data => {
+        
+        function handleDecline(reqId, userEmail) {
+            // // 부모 요소에서 data-* 속성 읽기
+            // const postItem = button.closest('.post-item'); // 버튼의 부모 요소 찾기
+            // const code = postItem.getAttribute('data-board-id');
+            // const memberEmail = postItem.getAttribute('data-member-email');
+            //
+            // console.log('Board ID:', boardId);
+            // console.log('Member Email:', memberEmail);
 
-        console.log(data)
-      })
-      .catch(error => {
-        console.error('에러 발생:', error);
-      });
-    }
-  </script>
+            // Fetch API를 통해 수정 승인 요청 보내기
+
+
+            console.log(reqId);
+            console.log(userEmail);
+
+
+            fetch('/RequestDecline', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "code": reqId,
+                    "memberEmail": userEmail,
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('네트워크 응답 오류');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    alert('수정 거절이 승인되었습니다.');
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('에러 발생:', error);
+                });
+        }
+        function handleShowDetail(id) {
+
+            fetch(`/viewEditRequestDetail?id=${encodeURIComponent(id)}`, {
+                redirect: 'follow'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('네트워크 응답 오류');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    console.log(data)
+                })
+                .catch(error => {
+                    console.error('에러 발생:', error);
+                });
+        }
+    </script>
 </head>
 <body>
 <header>
@@ -166,20 +261,48 @@
       </div>
     </form>
 
+        <!-- 게시글 목록 -->
+        <form id = "post-list">
+            <div class="post-item" th:each="board : ${editRequest}"
+                 data-board-id="${board.id}"
+                 data-member-email="${board.requestedMember.email}">
+                <div class="post-info">
+                    <label>
+                        <span th:text="'요청번호 : ' + ${board.id}">요청번호</span>
+                        <span th:text="'요청번호 : ' + ${board.pediaEditRequestCode}">요청코드</span>
+                        <span th:text="'확인용 : ' + ${board.pediaVersion.pediaContent.id}">확인용</span>
+                        <span th:text="'요청자 : ' + ${board.requestedMember.email}">요청자</span>
+                        <span th:text="'강아지 종류 : ' + ${board.pediaVersion.pediaContent.breed}">강아지 종류</span>
+                        <button type="button" th:onclick="handleApprove([[${board.pediaEditRequestCode}]], [[${board.requestedMember.email}]] , [[${board.pediaVersion.pediaContent.breed}]])">
+                            승인
+                        </button>
 
-    <!--        수정요청 이랑 엮어야함 , 상세확인 엮어야 하고, 인-->
+                        <button type="button" th:onclick="handleDecline([[${board.pediaEditRequestCode}]], [[${board.requestedMember.email}]]  )">
+                            거절
+                        </button>
+
+                        <a class="btn btn-submit" th:href="@{/view-edit-request/detail/{id}(id = ${board.pediaVersion.pediaContent.id})}">상세확인이동</a>
+                    </label>
+                </div>
+            </div>
+        </form>
 
 
-    <!--        &lt;!&ndash; 페이지네이션 &ndash;&gt;-->
-    <!--        <div class="pagination">-->
-    <!--            <a th:href="@{/community(page=1)}" th:class="${currentPage == 1 ? 'disabled' : ''}">&lt;&lt;</a>-->
-    <!--            <a th:each="pageNum : ${#numbers.sequence(startPage, endPage)}"-->
-    <!--               th:href="@{/community(page=${pageNum})}"-->
-    <!--               th:class="${pageNum == currentPage ? 'active' : ''}"-->
-    <!--               th:text="${pageNum}">1</a>-->
-    <!--            <a th:href="@{/community(page=${totalPages})}"-->
-    <!--               th:class="${currentPage == totalPages ? 'disabled' : ''}">&gt;&gt;</a></div>-->
-  </div>
+<!--        수정요청 이랑 엮어야함 , 상세확인 엮어야 하고, 인-->
+
+
+
+<!--        &lt;!&ndash; 페이지네이션 &ndash;&gt;-->
+<!--        <div class="pagination">-->
+<!--            <a th:href="@{/community(page=1)}" th:class="${currentPage == 1 ? 'disabled' : ''}">&lt;&lt;</a>-->
+<!--            <a th:each="pageNum : ${#numbers.sequence(startPage, endPage)}"-->
+<!--               th:href="@{/community(page=${pageNum})}"-->
+<!--               th:class="${pageNum == currentPage ? 'active' : ''}"-->
+<!--               th:text="${pageNum}">1</a>-->
+<!--            <a th:href="@{/community(page=${totalPages})}"-->
+<!--               th:class="${currentPage == totalPages ? 'disabled' : ''}">&gt;&gt;</a></div>-->
+          </div>
+
 
 
 </main>
