@@ -493,7 +493,7 @@
     </style>
     <script>
 
-        function handleApprove(reqId, userEmail) {
+        function handleApprove(reqId, userEmail, reqBreed) {
             // // 부모 요소에서 data-* 속성 읽기
             // const postItem = button.closest('.post-item'); // 버튼의 부모 요소 찾기
             // const code = postItem.getAttribute('data-board-id');
@@ -507,6 +507,7 @@
 
             console.log(reqId);
             console.log(userEmail);
+            console.log(reqBreed)
 
             fetch('/RequestAccept', {
                 method: 'POST',
@@ -515,18 +516,20 @@
                 },
                 body: JSON.stringify({
                     "code": reqId,
-                    "memberEmail": userEmail
+                    "memberEmail": userEmail,
+                    "breed":reqBreed
                 }),
             })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('네트워크 응답 오류');
                     }
-                    return response.json();
+                    return response.text();
                 })
                 .then(data => {
                     alert('수정 요청이 승인되었습니다.');
-                    window.location.reload(); // 필요시 페이지 리로드
+                    // window.location.href = "/view-edit-request";
+                    location.reload();
                 })
                 .catch(error => {
                     console.error('에러 발생:', error);
@@ -548,6 +551,7 @@
             console.log(reqId);
             console.log(userEmail);
 
+
             fetch('/RequestDecline', {
                 method: 'POST',
                 headers: {
@@ -555,18 +559,18 @@
                 },
                 body: JSON.stringify({
                     "code": reqId,
-                    "memberEmail": userEmail
+                    "memberEmail": userEmail,
                 }),
             })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('네트워크 응답 오류');
                     }
-                    return response.json();
+                    return response.text();
                 })
                 .then(data => {
-                    alert('수정 요청이 승인되었습니다.');
-                    window.location.reload(); // 필요시 페이지 리로드
+                    alert('수정 거절이 승인되었습니다.');
+                    location.reload();
                 })
                 .catch(error => {
                     console.error('에러 발생:', error);
@@ -634,11 +638,11 @@
                         <span th:text="'확인용 : ' + ${board.pediaVersion.pediaContent.id}">확인용</span>
                         <span th:text="'요청자 : ' + ${board.requestedMember.email}">요청자</span>
                         <span th:text="'강아지 종류 : ' + ${board.pediaVersion.pediaContent.breed}">강아지 종류</span>
-                        <button type="button" th:onclick="handleApprove([[${board.pediaEditRequestCode}]], [[${board.requestedMember.email}]])">
+                        <button type="button" th:onclick="handleApprove([[${board.pediaEditRequestCode}]], [[${board.requestedMember.email}]] , [[${board.pediaVersion.pediaContent.breed}]])">
                             승인
                         </button>
 
-                        <button type="button" th:onclick="handleDecline([[${board.pediaEditRequestCode}]], [[${board.requestedMember.email}]])">
+                        <button type="button" th:onclick="handleDecline([[${board.pediaEditRequestCode}]], [[${board.requestedMember.email}]]  )">
                             거절
                         </button>
 

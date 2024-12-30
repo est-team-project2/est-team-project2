@@ -30,7 +30,7 @@ public class SecurityConfig {
         return http
                 // 비활성화
                 .csrf(csrf -> csrf.disable())
-//                // CSRF 활성화
+//                 CSRF 활성화
 //                .csrf(csrf -> csrf
 //                        .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
 //                        .ignoringRequestMatchers("/signin")

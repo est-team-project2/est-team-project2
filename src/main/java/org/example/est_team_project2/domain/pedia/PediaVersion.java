@@ -39,13 +39,14 @@ public class PediaVersion {
 
     @Setter
     @Enumerated(EnumType.STRING)
-    private CommonStatus status = CommonStatus.DEACTIVE;
+    private CommonStatus status = CommonStatus.ACTIVE;
 
     @Builder
-    public PediaVersion(Pedia pedia, PediaContent pediaContent, Member editor) {
+    public PediaVersion(Pedia pedia, PediaContent pediaContent, Member editor,String pediaVersionCode) {
         this.pedia = pedia;
         this.pediaContent = pediaContent;
         this.editor = editor;
+        this.pediaVersionCode = pediaVersionCode;
     }
 
     public static PediaVersion from(PediaVersionDto pediaVersionDto) {

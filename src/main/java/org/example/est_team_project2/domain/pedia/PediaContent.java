@@ -21,6 +21,7 @@ public class PediaContent {
     public String imageUri;
 
     // 품종
+
     private String breed;
 
     // 원산지
