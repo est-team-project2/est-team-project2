@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>멍피디아 - 관리자</title>
+  <title>멍피디아 - 견종백과(상세)</title>
   <link rel="stylesheet" th:href="@{/styles/style.css}">
 </head>
 
@@ -19,13 +19,13 @@
       <div class="board-actions">
       </div>
     </div>
-
-
     <table border="1">
       <label>
         <h3>백과 내용</h3>
         <p th:text="'게시글 번호 : ' + ${content.id}">게시글 번호</p>
-        <p th:text="'이미지 : ' + ${content.imageUri}">이미지</p>
+        <p>이미지 경로: <span th:text="${content.imageUri}"></span></p>
+        <p>이미지:</p>
+        <img th:src="${content.imageUri}" alt="Breed Image">
         <p th:text="'견종명 : ' + ${content.breed}">견종명</p>
         <p th:text="'원산지 : ' + ${content.origin}">원산지</p>
         <p th:text="'크기 : ' + ${content.size}">크기</p>

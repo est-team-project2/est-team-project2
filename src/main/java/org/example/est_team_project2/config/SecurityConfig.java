@@ -54,48 +54,68 @@ public class SecurityConfig {
                 .loginPage("/signin") // 사용자 정의 로그인 페이지
                 .defaultSuccessUrl("/", true) // 성공 시 이동할 URL
                 .usernameParameter("email") // 사용자명 대신 이메일 필드를 사용하도록 설정
-                .failureUrl("/") // 실패 시 이동할 URL
+                .failureUrl("/signin") // 실패 시 이동할 URL
                 .permitAll() // 로그인 페이지 접근 허용
             )
-              //권한 미부여
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/signin")
-                .permitAll() // 로그인 페이지 접근 허용
-                .requestMatchers("/profile")
-                .authenticated()
-                .anyRequest()
-                .permitAll() // 나머지 요청은 모두 허용
-            )
+//              //권한 미부여
+//            .authorizeHttpRequests(auth -> auth
+//                .requestMatchers("/signin")
+//                .permitAll() // 로그인 페이지 접근 허용
+//                .requestMatchers("/profile")
+//                .authenticated()
+//                .anyRequest()
+//                .permitAll() // 나머지 요청은 모두 허용
+//            )
 
-//                //권한부여
-//                .authorizeHttpRequests(auth -> auth
-//                        // 모든
-//                        .requestMatchers("/", "/signin", "/signup/**", "/find-password", "/pedia", "/pedia/detail/**", "/pedia/history/**", "/map", "/dog-calculator")
-//                        .permitAll()
-//                        //회원, 전문가, 관리자
-//                        .requestMatchers("/my","/my/update-nickname","/my/update-password", "/pedia/edit-request/**", "/posts", "/posts/**")
-//                        .hasAnyAuthority("USER", "EXPERT", "ADMIN")
-//                        // 전문가,관리자
-//                        .requestMatchers("/view-edit-request", "/view-edit-request/detail/**")
-//                        .hasAnyAuthority("EXPERT", "ADMIN")
-//                        // 관리자
-//                        .requestMatchers("/admin/**", "/registerOnlyBreed")
-//                        .hasAnyAuthority("ADMIN")
-//
-//                        .anyRequest().denyAll()
-//                )
-//                .exceptionHandling(exception -> exception
-//                        .accessDeniedHandler((request, response, accessDeniedException) ->
-//                                response.sendRedirect("/")) // 접근 권한 없을 때 '/'로 리다이렉트
-//                )
+                //권한부여
+                .authorizeHttpRequests(auth -> auth
+                        // 모든 사용자
+                        .requestMatchers(
+                                //CSS, JS, Fragments
+                                "/CSS/**", "/JS/**", "/styles/**", "/images/**", "/uploads/**","/fragments/**",
+                                //로그인 관련
+                                "/", "/signin", "/signup/**", "/find-password", "/logout",
+                                //백과 관련
+                                "/pedia", "/pedia/detail/**", "/pedia/history/**", "/pedia/version/**",
+                                //도구 관련
+                                "/tools/**")
+                        .permitAll()
 
-            .logout(logout -> logout
+                        //회원, 전문가, 관리자
+                        .requestMatchers(
+                                //회원 정보 관련
+                                "/my","/my/update-nickname","/my/update-password",
+                                //백과 수정 요청 관련
+                                "/pedia/edit-request/**", "/sendEditInfo/**",
+                                //게시판 관련
+                                "/posts/**", "/comments/**")
+                        .hasAnyAuthority("USER", "EXPERT", "ADMIN")
+
+                        // 전문가,관리자
+                        .requestMatchers(
+                                //백과 수정 요청 검토 관련
+                                "/view-edit-request", "/view-edit-request/detail/**", "/RequestAccept", "/RequestDecline")
+                        .hasAnyAuthority("EXPERT", "ADMIN")
+
+                        // 관리자
+                        .requestMatchers(
+                                //관리자
+                                "/admin/**", "/registerOnlyBreed")
+                        .hasAnyAuthority("ADMIN")
+
+                        .anyRequest().denyAll()
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler((request, response, accessDeniedException) ->
+                                response.sendRedirect("/"))
+                )
+
+                .logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
             )
-
             .build();
     }
 

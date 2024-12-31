@@ -76,7 +76,7 @@ public class LoginController {
         } else {
             // 위의 조건에 해당하지 않으면 db에 멤버 정보를 저장 후 index 페이지로
             memberService.save(memberDto);
-            return "index";
+            return "member/signin";
         }
 
     }

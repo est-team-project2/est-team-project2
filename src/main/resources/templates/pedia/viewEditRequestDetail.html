@@ -27,6 +27,8 @@
             <h3>수정 전</h3>
             <p th:text="'게시글 번호 : ' + ${beforinfo.id}">게시글 번호</p>
             <p th:text="'견종명 : ' + ${beforinfo.breed}">견종명</p>
+            <p>이미지:</p>
+            <img th:src="${beforinfo.imageUri}" alt="Breed Image">
             <p th:text="'원산지 : ' + ${beforinfo.origin}">원산지</p>
             <p th:text="'크기 : ' + ${beforinfo.size}">크기</p>
             <p th:text="'상세정보 : ' + ${beforinfo.detail}">상세정보</p>
@@ -38,6 +40,8 @@
             <h3>수정 후</h3>
             <p th:text="'게시글 번호 : ' + ${editRequest.id}">게시글 번호</p>
             <p th:text="'견종명 : ' + ${editRequest.breed}">견종명</p>
+            <p>이미지:</p>
+            <img th:src="${beforinfo.imageUri}" alt="Breed Image">
             <p th:text="'원산지 : ' + ${editRequest.origin}">원산지</p>
             <p th:text="'크기 : ' + ${editRequest.size}">크기</p>
             <p th:text="'상세정보 : ' + ${editRequest.detail}">상세정보</p>

@@ -3,6 +3,7 @@ package org.example.est_team_project2.api.pedia;
 import java.security.Principal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.example.est_team_project2.dao.pedia.PediaRepository;
 import org.example.est_team_project2.domain.member.Member;
@@ -16,20 +17,13 @@ import org.example.est_team_project2.dto.pedia.PediaContentDto;
 import org.example.est_team_project2.dto.pedia.PediaFetchDto;
 import org.example.est_team_project2.dto.pedia.VersionRequestDetails;
 import org.example.est_team_project2.service.member.MemberService;
-import org.example.est_team_project2.service.pedia.PediaContentService;
-import org.example.est_team_project2.service.pedia.PediaEditRequestService;
-import org.example.est_team_project2.service.pedia.PediaService;
-import org.example.est_team_project2.service.pedia.PediaVersionService;
-import org.example.est_team_project2.service.pedia.VersionRequestService;
+import org.example.est_team_project2.service.pedia.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Controller
@@ -43,6 +37,7 @@ public class PediaContentController {
     private final PediaEditRequestService pediaEditRequestService;
     private final MemberService memberService;
     private final PediaVersionService pediaVersionService;
+    private final FileUploadService fileUploadService;
 
     //백과 리스트 조회 페이지
     @GetMapping("/pedia")
@@ -89,35 +84,38 @@ public class PediaContentController {
 
     //  수정 요청 전달 페이지(버튼) / 컨트롤러 분리 작업 필요
     @PostMapping("/sendEditInfo/{id}")
-    public String processPediaContentEdit(@PathVariable Long id, PediaContentDto pediaContentDto,
-        Principal principal) {
+    public String processPediaContentEdit(
+            @PathVariable Long id,
+            @RequestParam("image") MultipartFile imageFile,
+            PediaContentDto pediaContentDto,
+            Principal principal
+    ) {
+        // 이미지 저장 처리
+        String imageUri = fileUploadService.storeFile(imageFile);
 
-        System.out.println("수정페이지 컨트롤러 도착");
+        // DTO에 이미지 경로 설정
+        pediaContentDto.setImageUri(imageUri.replace("\\","/"));
 
+        // 기존 로직 실행
         PediaContent byId = pediaContentService.findById(id);
-        log.info("byId = {}", byId);
 
         String breed = byId.getBreed();
 
         Pedia pediaByTitle = pediaService.getPediaByTitle(byId.getBreed());
-        log.info("pediaByTitle = {}", pediaByTitle);
 
         String name = principal.getName();
-        log.info("name = {}", name);
 
         Member memberByNickName = memberService.getMemberByNickName(name);
-        log.info("memberByNickName = {}", memberByNickName);
 
         String email = memberByNickName.getEmail();
-        log.info("email = {}", email);
 
         VersionRequestDetails versionRequestDetails = versionRequestService.create(email, breed);
 
         versionRequestService.createNewEditRequest(versionRequestDetails, pediaContentDto);
 
-        System.out.println(" 로직 수행후");
         return "redirect:/pedia";
     }
+
 
     //버전 리스트 조회
     @GetMapping("/pedia/history/{breed}")
