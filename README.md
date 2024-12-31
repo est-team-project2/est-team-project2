@@ -48,11 +48,6 @@
 ## 📌 SW 유스케이스
 ![SW 유스케이스]
 
-## 📌 서비스 흐름도
-![서비스 흐름도]
-
-## 플로우차트
-
 ### 회원가입
 
 <img width="500" alt="signin" src="https://github.com/user-attachments/assets/85f3cf3f-373d-48b4-8800-fe1cf8453328">
@@ -66,6 +61,9 @@
 ### 초기 화면 설계 (메인 페이지)
 
 ![화면설계 ui](https://github.com/user-attachments/assets/0383632e-bf0f-4de5-ab83-811ce4fd26cd)
+
+## 📌 서비스 흐름도
+![서비스 흐름도]
 
 ## API 명세서
 
