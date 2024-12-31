@@ -1,64 +1,65 @@
 ### 📎 프로젝트팀: 내 이름은 손목터미널 2조 
-<br>
+
 ### 멍피디아 **강아지 백과사전 멍피디아**
-<br>
+
 ### 👀 서비스 소개
 **설명:** 회원이 조회, 수정할 수 있는 강아지 백과와 반려견 관련 다양한 서비스를 제공하는 웹 서비스
-<br>
+
 ### 📅 프로젝트 기간
 **기간:** 2024년 12월 13일 ~ 2024년 12월 30일 (3주)
-<br>
+
 ## 개발 일정
-<br>
+
 - 2024.12.11 ~ 2024.12.13 : 기능 명세, 플로우차트, ERD 작성
 - 2024.12.16 ~ 2024.12.26 : 기능 개발
 - 2024.12.27 ~ 2024.12.30 : 최종 통합 및 디버깅
-<br>
+- 
 ### ⭐ 주요 기능
-<br>
+
 ### 백과 서비스
-<br>
+
 - 회원들이 참여하여 강아지에 대한 백과를 조회하거나 수정할 수 있는 서비스
 - 전문가나 관리자는 백과를 추가하거나, 회원들이 보낸 수정 요청을 검토하고 승인/거절 가능
-<br>
+
 ### 게시판 서비스
-<br>
+
 - 반려견 관련 정보를 자유롭게 나누는 게시판 서비스
-<br>
+
 ### 반려견 서비스
-<br>
+
 - 지도 api를 활용한 주변 서비스 조회 (반려 동물 용품, 애견 동반, 애견 호텔, 애견 샵, 동물 병원)
 - 건강 계산기(예방 접종 일자 계산기, 나이 계산기)
-<br>
+
+
 ### ⛏ 기술 스택
-| 구분 | 내용 |
+| 구분          | 내용 |
 |---------------|---------|
-| 기본 사용언어 | <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> |
-| Frontend 사용언어 | <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/> |
-| Backend 프레임워크 | <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> |
-| 라이브러리 | <img src="https://img.shields.io/badge/bootstrap-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> <img src="https://img.shields.io/badge/Kakao Map Api-007CE2?style=for-the-badge&logo=KaKao Map Api&logoColor=white"> <img src="https://img.shields.io/badge/thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> |
-| 개발 도구 | <img src="https://img.shields.io/badge/intelliJ-084CCF?style=for-the-badge&logo=intellijidea&logoColor=white"> |
-| 서버 환경 | <img src="https://img.shields.io/badge/Live Server-000000?style=for-the-badge&logo=server&logoColor=white"> |
-| 데이터베이스 | <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"> |
-| 협업 도구 | <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/> |
-<br>
+| 기본 사용언어     | <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> |
+| Frontend 사용언어     | <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/> |
+|  Backend 프레임워크     | <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> |
+| 라이브러리     | <img src="https://img.shields.io/badge/bootstrap-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> <img src="https://img.shields.io/badge/Kakao Map Api-007CE2?style=for-the-badge&logo=KaKao Map Api&logoColor=white"> <img src="https://img.shields.io/badge/thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> |
+| 개발 도구     | <img src="https://img.shields.io/badge/intelliJ-084CCF?style=for-the-badge&logo=intellijidea&logoColor=white"> |
+| 서버 환경     | <img src="https://img.shields.io/badge/Live Server-000000?style=for-the-badge&logo=server&logoColor=white"> |
+| 데이터베이스   | <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"> |
+| 협업 도구     | <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/> |
+
 ### ⚙ 시스템 아키텍처
 ![시스템 아키텍처]
-<br>
+
 ### 📌 SW 유스케이스
 ![SW 유스케이스]
-<br>
+
 ### 📌 서비스 흐름도
 ![서비스 흐름도]
-<br>
+
 ### 📌 ER 다이어그램
 ![ER 다이어그램]
-<br>
+
 ### 🖥 화면 구성
 ![화면 구성]
-<br>
+
 ### 👨‍👩‍👦‍👦 팀원 역할
-<br>
+
 <table>
   <tr>
     <td align="center"><img src="https://item.kakaocdn.net/do/fd49574de6581aa2a91d82ff6adb6c0115b3f4e3c2033bfd702a321ec6eda72c" width="100" height="100"/></td>
@@ -97,41 +98,40 @@
   </td>
  </tr>
 </table>
-<br>
+
 ### 🤾‍♂️ 트러블슈팅
-<br>
+
 ## 1. 
 ---
-<br>
+
 ## 해결방안
-<br>
+
 1. 
  <p>
  예시) 미소, 찡그림. <p>
-<br>
+
 ## 선택한 해결 방안
-<br>
+
 1. <p>
  <p>
-<br>
  <p>
 설명 및 해결방안
-<br>
+
 ## 필요한 방안
 1. 
-<br>
+
 ---
-<br>
+
 ※ reverse proxy
 리버스 프록시는 인터넷과 서버 사이에 존재하는 프록시 서버로 실제 서버를 대신하여 클라이언트의 요청을 받아서 동작한다. 리버스 프록시를 이해하기 위해서는 먼저 포워드 프록시를 이해하고 이와 비교하는 것이 편리
 *개념:* 문제 해결을 위해 문제의 원인을 논리적이고 체계적으로 찾는 일이며, 제품이나 프로세스의 운영을 재개하는 과정입니다. 프로젝트 진행 중 발생했던 이슈 중 기억에 남는 문제와 해결 과정을 나열합니다 (2~5가지).
-<br>
+
 **문제 1**  
 설명 및 해결방안
-<br>
+
 **문제 2**  
 설명 및 해결방안
-<br>
+
 <!--  
 ### 기본 사용 언어
 <img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=Kotlin&logoColor=white"/>
