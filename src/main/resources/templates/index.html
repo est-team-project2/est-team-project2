@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>멍피디아 - 백과사전</title>
+  <title>강아지 백과사전 - 멍피디아</title>
   <!-- 카카오맵 API -->
   <script type="text/javascript"
           src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d7685767a15f68342aeab49f3273718"></script>
@@ -16,6 +16,7 @@
 
 <main class="container">
   <section class="encyclopedia-section">
+    <img th:src="@{/images/bg_withdog.jpg}" alt="bg_withdog" class="bg_withdog">
     <div class="section-header">
       <h2 class="section-title">견종 백과</h2>
       <a href="/pedia" class="more-btn">
@@ -24,11 +25,9 @@
       </a>
     </div>
         <div class="breed-container">
-
             <div class="breed-card" onclick="@{/pedia/detail/{id}(id=${content.id})}" th:each="content : ${pediaContents}">
-
-              <span class="breed-name" th:text="${content.breed}"></span>
-              <span th:text="${content.origin}"></span>
+              <img th:src="${content.imageUri}" alt="Breed Image" style="width: 180px; height: 130px;">
+              <h3 class="breed-name" th:text="${content.breed}">품종</h3>
               <a th:href="@{/pedia/detail/{id}(id=${content.id})}">
                 상세보기
               </a>
