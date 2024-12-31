@@ -33,16 +33,16 @@
 - 건강 계산기(예방 접종 일자 계산기, 나이 계산기)
 
 ### ⛏ 기술 스택
-| 구분          | 내용 |
+| 구분 | 내용 |
 |---------------|---------|
-| 기본 사용언어     | <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> |
-| Frontend 사용언어     |  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/> |
-|  Backend 프레임워크     |  <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> |
-| 라이브러리     | <img src="https://img.shields.io/badge/bootstrap-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> <img src="https://img.shields.io/badge/Kakao Map Api-007CE2?style=for-the-badge&logo=KaKao Map Api&logoColor=white"> |
-| 개발 도구     | <img src="https://img.shields.io/badge/intelliJ-084CCF?style=for-the-badge&logo=intellijidea&logoColor=white"> |
-| 서버 환경     | <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> |
-| 데이터베이스   | <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"> |
-| 협업 도구     | <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/> |
+| 기본 사용언어 | <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> |
+| Frontend 사용언어 | <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/> |
+| Backend 프레임워크 | <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> |
+| 라이브러리 | <img src="https://img.shields.io/badge/bootstrap-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> <img src="https://img.shields.io/badge/Kakao Map Api-007CE2?style=for-the-badge&logo=KaKao Map Api&logoColor=white"> <img src="https://img.shields.io/badge/thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> |
+| 개발 도구 | <img src="https://img.shields.io/badge/intelliJ-084CCF?style=for-the-badge&logo=intellijidea&logoColor=white"> |
+| 서버 환경 | <img src="https://img.shields.io/badge/Live Server-000000?style=for-the-badge&logo=server&logoColor=white"> |
+| 데이터베이스 | <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"> |
+| 협업 도구 | <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/> |
 
 ### ⚙ 시스템 아키텍처
 ![시스템 아키텍처]
@@ -56,19 +56,10 @@
 ### 📌 ER 다이어그램
 ![ER 다이어그램]
 
-
 ### 🖥 화면 구성
 ![화면 구성]
 
 ### 👨‍👩‍👦‍👦 팀원 역할
-
-| 이름  | 역할 | 개발                  |
-|-----|----|---------------------|
-| 조경천 | 팀장 | 로그인, 관리자 기능 개발      |
-| 양성희 | 팀원 | 백과 기능 개발            |
-| 오상훈 | 팀원 | 프론트, 지도 및 계산기 기능 개발 |
-| 정석환 | 팀원 | 로그인, 백과 기능 개발       |
-| 이경돈 | 팀원 | 백과, 게시판 기능 개발       |
 
 <table>
   <tr>
@@ -82,34 +73,29 @@
     <td align="center"><strong>조경천</strong></td>
     <td align="center"><strong>이경돈</strong></td>
     <td align="center"><strong>양성희</strong></td>
-    <td align="center"><strong>정선환</strong></td>
+    <td align="center"><strong>정석환</strong></td>
     <td align="center"><strong>오상훈</strong></td>
   </tr>
 
   <tr>
    <td align="center"><b>PM/Back</b>
-    <br>ㅁㅁ
-    <br>ㅁㅁ
+    <br>로그인, 관리자 기능 개발
   </td>
 
    <td align="center"><b>front/Back</b>
-    <br>ㅁㅁ
-    <br>ㅁㅁ
+    <br>백과, 게시판 기능 개발
   </td>
   
   <td align="center"><b>Front/Back</b>
-    <br>ㅁ
-    <br>ㅁ
+    <br>백과 기능 개발
   </td>
 
   <td align="center"><b>DB/Front</b>
-    <br>ㅁ
-    <br>ㅁ
+    <br>로그인, 백과 기능 개발 
   </td>
   
   <td align="center"><b>front/Back</b>
-   <br>ㅁ
-   <br>ㅁ
+   <br>프론트, 지도 및 계산기 기능 개발
   </td>
  </tr>
 </table>
@@ -166,9 +152,11 @@
 <img src="https://img.shields.io/badge/Jwt-000000?style=for-the-badge&logo=JSONWebTokens&logoColor=white">
 <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=Flask&logoColor=white"/> 
 <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=Django&logoColor=white"/> 
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+<img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
   
 ### 인프라 구조
-<img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white" > 
+<img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=Amazon-aws&logoColor=white" > 
 <img src="https://img.shields.io/badge/AWS amplify-CA4245?style=for-the-badge&logo=Amazon AWS&logoColor=white">
 <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white">
 <img src="https://img.shields.io/badge/AWS S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
