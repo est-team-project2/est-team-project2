@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>멍피디아 - 수정요청확인</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container">
+  <div class="board-container">
+    <div class="board-header">
+      <h1 class="board-title">수정 요청 확인 페이지</h1>
+      <div class="board-actions">
+      </div>
+    </div>
+
+
+    <!-- 게시글 목록 -->
+    <form id="post-list">
+      <div class="post-item" th:each="board : ${editRequest}"
+           data-board-id="${board.id}"
+           data-member-email="${board.requestedMember.email}">
+        <div class="post-info">
+          <label>
+            <span th:text="'요청번호 : ' + ${board.id}">요청번호</span>
+            <span th:text="'요청번호 : ' + ${board.pediaEditRequestCode}">요청코드</span>
+            <span th:text="'확인용 : ' + ${board.pediaVersion.pediaContent.id}">확인용</span>
+            <span th:text="'요청자 : ' + ${board.requestedMember.email}">요청자</span>
+            <span th:text="'강아지 종류 : ' + ${board.pediaVersion.pediaContent.breed}">강아지 종류</span>
+            <button type="button"
+                    th:onclick="handleApprove([[${board.pediaEditRequestCode}]], [[${board.requestedMember.email}]] , [[${board.pediaVersion.pediaContent.breed}]])">
+              승인
+            </button>
+
+            <button type="button"
+                    th:onclick="handleDecline([[${board.pediaEditRequestCode}]], [[${board.requestedMember.email}]]  )">
+              거절
+            </button>
+
+            <a class="btn btn-submit"
+               th:href="@{/view-edit-request/detail/{id}(id = ${board.pediaVersion.pediaContent.id})}">상세확인이동</a>
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script th:src="@{/JS/viewEditRequest.js}"></script>
+</body>
+</html>

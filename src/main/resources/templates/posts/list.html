@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시글 목록</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
+</head>
+
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container">
+  <div class="board-container">
+    <div class="board-header">
+      <h1 class="board-title">커뮤니티</h1>
+      <div class="board-actions">
+        <button class="write-btn" onclick="location.href='/posts/new'">글쓰기</button>
+
+        <form class="search-form" action="/posts" method="get">
+          <label for="sortType">정렬 기준:</label>
+          <select class="search-select" id="sortType" name="sortType" onchange="this.form.submit()">
+            <option value="createdAt" th:selected="${selectedSort == 'createdAt'}">날짜</option>
+            <option value="views" th:selected="${selectedSort == 'views'}">조회수</option>
+          </select>
+        </form>
+      </div>
+    </div>
+
+    <!-- 게시글 목록 -->
+    <div class="post-list">
+      <div class="post-item" th:each="post : ${posts}">
+        <div class="post-info">
+          <a class="post-title" th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}"></a>
+          <div class="post-meta">
+            <span th:text="${post.memberNickName}"></span>
+            <span th:text="${post.formattedCreatedAt}"></span>
+          </div>
+        </div>
+        <div class="post-stats">
+          <span>조회 <th:block th:text="${post.views}"></th:block></span>
+          <span>댓글 <th:block th:text="${post.commentCount}"></th:block></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page">
+      <!-- 페이징처리 시작 -->
+      <div th:if="${!posts.isEmpty()}">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" th:classappend="${!posts.hasPrevious} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{|?page=${posts.number-1}&sortType=${selectedSort}|}"
+               th:classappend="${posts.number == 0} ? 'disabled'">
+              <span>이전</span>
+            </a>
+          </li>
+          <li th:each="page: ${#numbers.sequence(0, posts.totalPages-1)}"
+              th:if="${page >= posts.number-5 and page <= posts.number+5}"
+              th:classappend="${page == posts.number} ? 'active current-page'"
+              class="page-item">
+            <a th:text="${page}" class="page-link"
+               th:href="@{|?page=${page}&sortType=${selectedSort}|}"></a>
+          </li>
+          <li class="page-item" th:classappend="${!posts.hasNext} ? 'disabled'">
+            <a class="page-link" th:href="@{|?page=${posts.number+1}&sortType=${selectedSort}|}"
+               th:classappend="${posts.number == posts.totalPages - 1} ? 'disabled'">
+              <span>다음</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- 페이징처리 끝 -->
+    </div>
+  </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

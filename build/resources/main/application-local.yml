@@ -1,0 +1,79 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  session:
+    timeout: 30m
+
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3307/est_form_sec
+    username: root
+    password: rudcjs
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rudcjs40@gmail.com
+    password: than cabg qvkq kzsd
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls: #TLS or SSL 프로토콜
+            enable: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1068707518231-6l58kl77u7d13vfd68fk97lb1i6oj2cg.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
+
+          naver:
+            client-name: Naver
+            client-id: 7r5_uupRwzDEer9d_N_i
+            client-secret: AAVcwvf6Rw
+            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            client-authentication-method: client_secret_post
+            scope:
+              - name
+              - email
+
+          kakao:
+            client-name: Kakao
+            client-id: 1770bd4b40e4e3e4e536520af52c8b6d
+            client-secret: vcw8ydzncGJEbOwAPVtaGLWhnB94S1Wu
+            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
+            authorization-grant-type: authorization_code
+            client-authentication-method: client_secret_post
+            scope:
+              - profile_nickname
+              - account_email
+
+        provider:
+          naver:
+            authorization-uri: https://nid.naver.com/oauth2.0/authorize
+            user-name-attribute: response
+            token-uri: https://nid.naver.com/oauth2.0/token
+            user-info-uri: https://openapi.naver.com/v1/nid/me
+
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            user-name-attribute: id
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me

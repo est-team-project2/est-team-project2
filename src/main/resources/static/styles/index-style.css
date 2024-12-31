@@ -1,0 +1,532 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f9fafb;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+header {
+  background-color: #fff3e0;
+  padding: 1rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.logo-text {
+  height: 35px;
+  width: auto;
+}
+
+.logo-paw {
+  height: 20px;
+  width: auto;
+}
+
+nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: #4b5563;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-login {
+  background-color: white;
+}
+
+.btn-signup {
+  background-color: #f97316;
+  color: white;
+}
+
+.btn-logout {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-logout:hover {
+  background-color: #dc2626;
+}
+
+.user-email {
+  color: #4b5563;
+  font-size: 0.875rem;
+  margin-right: 1rem;
+}
+
+/* Search Bar */
+.search-container {
+  padding: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.search-bar {
+  flex: 1;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+}
+
+.search-button {
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  border: none;
+  background-color: #f97316;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.search-button:hover {
+  background-color: #ea580c;
+  transform: translateY(-1px);
+}
+
+.search-button:active {
+  transform: translateY(1px);
+}
+
+.map-container {
+  width: 100%;
+  height: 400px;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  display: none;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(to bottom, #fff3e0, #fff);
+}
+
+.logo-mascot {
+  height: 100px;
+  width: auto;
+  margin: 0 auto;
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.more-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #f97316;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.more-btn:hover {
+  background-color: #fff3e0;
+  transform: translateX(5px);
+}
+
+/* Encyclopedia Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.breed-card {
+  background-color: #fff7ed;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.breed-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.breed-image {
+  width: 4rem;
+  height: 4rem;
+  background-color: #fed7aa;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.breed-name {
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.updated {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Community Section */
+.community-section {
+  margin-top: 3rem;
+}
+
+.posts-container {
+  margin: 0 1rem;
+}
+
+.post-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.post-image img {
+  width: 150px;
+  height: 150px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.post-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.post-content h4 {
+  font-size: 1.1rem;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.post-content p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.25rem;
+  margin: 2rem 1rem;
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.875rem;
+}
+
+.pagination a.disabled {
+  color: #999;
+  background-color: #f5f5f5;
+  pointer-events: none;
+}
+
+.pagination a:hover {
+  background-color: #f5f5f5;
+}
+
+.pagination a.active {
+  background-color: #fff;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.info-group {
+  margin-bottom: 1rem;
+}
+
+.info-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+}
+
+.info-group input,
+.info-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.info-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.btn-modal {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-edit {
+  background-color: #f97316;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+.edit-mode .view-content {
+  display: none;
+}
+
+.view-mode .edit-content {
+  display: none;
+}
+
+/* 게시글 목록 */
+.post-list {
+  width: 100%;
+}
+
+.post-item {
+  display: flex;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s;
+}
+
+.post-item:hover {
+  background-color: #f9fafb;
+}
+
+.post-info {
+  flex-grow: 1;
+}
+
+.post-title {
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.post-meta {
+  font-size: 0.875rem;
+  color: #6b7280;
+  display: flex;
+  gap: 1rem;
+}
+
+.post-stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.posts-container {
+  margin-bottom: 10rem;
+}
+
+/* footer */
+footer {
+  background-color: #fff3e0;
+  padding: 1rem 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.footer-content {
+  margin: 0 auto;
+}
+
+.footer-contact {
+  margin: 0.313rem 0;
+}
+
+.footer-contact p {
+  margin: 0.313rem 0;
+}
+
+.footer-copyright {
+  margin-top: 1.25rem;
+  font-size: 0.9em;
+  color: #6c757d;
+}
+
+.hero-bottom {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(to top, #fff3e0, #fff);
+}
+
+.breed-container {
+  display: flex; /* 플렉스 박스를 사용 */
+  flex-wrap: wrap; /* 줄바꿈 허용 */
+  gap: 20px; /* 카드 사이 간격 */
+  justify-content: center; /* 카드 가운데 정렬 */
+}
+
+.breed-card {
+  margin: 20px;
+  border: 1px solid #ccc; /* 카드 테두리 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  padding: 16px; /* 내부 여백 */
+  width: 200px; /* 카드 고정 너비 */
+  height: 200px; /*카드 높이 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  background-color: #fff3e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.breed-card img {
+  width: 100%;
+  height: auto; /* 비율 유지 */
+  border-radius: 4px; /* 이미지 둥글게 */
+}
+
+
+.breed-card p {
+  margin: 8px 0; /* 텍스트 간격 */
+}
+
+.ditails {
+  margin-top: 0;
+  padding: 0;
+
+}
+.breed-name {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.encyclopedia-section{
+
+}

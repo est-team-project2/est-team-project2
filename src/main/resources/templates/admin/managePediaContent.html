@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Version Detail</title>
+    <link rel="stylesheet" th:href="@{/styles/style.css}">
+</head>
+<body>
+<h1>Version Details</h1>
+    <div>
+        <p><strong>ID:</strong> <span th:text="${content.id}">1</span></p>
+        <p><strong>Image Url:</strong> <span th:text="${content.imageUri}">Sample Post</span></p>
+       <p><strong>Breed:</strong> <span th:text="${content.breed}">Author Name</span></p>
+       <p><strong>Origin:</strong> <span th:text="${content.origin}">Author Name</span></p>
+       <p><strong>Size:</strong> <span th:text="${content.size}">Author Name</span></p>
+       <p><strong>Detial:</strong> <span th:text="${content.detail}">Author Name</span></p>
+       <p><strong>GeneticDisease:</strong> <span th:text="${content.geneticDisease}">Author Name</span></p>
+       <p><strong>Feature:</strong> <span th:text="${content.feature}">Author Name</span></p>
+
+        <form th:action="@{/admin/managePedia/update-status}" method="post">
+            <input type="hidden" name="id" th:value="${content.id}"/>
+            <label for="status">Change Status:</label>
+            <select id="status" name="status">
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="DEACTIVE">DEACTIVE</option>
+            </select>
+            <button type="submit">Change Status</button>
+        </form>
+    </div>
+</body>
+</html>

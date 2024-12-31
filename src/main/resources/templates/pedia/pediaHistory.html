@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>멍피디아 - 버전목록</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
+</head>
+
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container">
+  <table border="1">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>수정일</th>
+      <th>버전명</th>
+      <th>id</th>
+      <th>바로가기</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!-- Loop through the versions list -->
+    <tr th:each="version, iterStat : ${versions}">
+      <td th:text="${iterStat.count}">1</td>
+      <td th:text="${#temporals.format(version.createdAt, 'yyyy-MM-dd')}">2024-12-28</td>
+      <td th:text="${version.pediaVersionCode}">1-0.1</td>
+      <td th:text="${version.editor.nickName}">수정자</td>
+      <td>
+        <a th:href="@{'/pedia/version/' + ${version.pediaVersionCode}}">View Details</a>
+      </td>
+    </tr>
+    </tbody>
+
+  </table>
+
+  <button onclick="history.back()">뒤로가기</button>
+
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>멍피디아 - 버전상세</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
+</head>
+
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container">
+  <div class="board-container">
+    <div class="board-header">
+
+
+      <h2 th:text="'버전 :' +${version.pediaVersionCode}"></h2>
+      <div class="board-actions">
+      </div>
+    </div>
+
+    <table border="1">
+      <label>
+        <h3>백과 내용</h3>
+        <p th:text="'게시글 번호 : ' + ${version.pediaContent.id}">게시글 번호</p>
+        <p th:text="'이미지 : ' + ${version.pediaContent.imageUri}">이미지</p>
+        <p th:text="'견종명 : ' + ${version.pediaContent.breed}">견종명</p>
+        <p th:text="'원산지 : ' + ${version.pediaContent.origin}">원산지</p>
+        <p th:text="'크기 : ' + ${version.pediaContent.size}">크기</p>
+        <p th:text="'상세정보 : ' + ${version.pediaContent.detail}">상세정보</p>
+        <p th:text="'유전병 : ' + ${version.pediaContent.geneticDisease}">유전병</p>
+        <p th:text="'특징 : ' + ${version.pediaContent.feature}">특징</p>
+        <br>
+
+
+      </label>
+    </table>
+    <button class="btn-submit" onclick="history.back()">뒤로가기</button>
+
+  </div>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<header th:fragment="header" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  <div class="container header-content">
+    <a href="/" class="logo-container">
+      <img th:src="@{/images/Logo-Text.png}" alt="Mungpedia" class="logo-text">
+      <img th:src="@{/images/Logo-.png}" alt="Paw" class="logo-paw">
+    </a>
+    <nav>
+      <a href="/pedia">견종 백과</a>
+      <a href="/view-edit-request">수정 요청</a>
+      <a href="/posts">커뮤니티</a>
+      <a href="/tools/map">주변시설</a>
+      <a href="/tools/dog-calculator">건강계산기</a>
+      <th:block sec:authorize="isAnonymous()">
+        <button class="btn btn-login" onclick="location.href='/signin'">로그인</button>
+        <button class="btn btn-signup" onclick="location.href='/signup'">회원가입</button>
+      </th:block>
+      <th:block sec:authorize="isAuthenticated()">
+        <button class="btn" onclick="location.href='/my'">내정보</button>
+      </th:block>
+    </nav>
+  </div>
+</header>
+
+</body>
+</html>

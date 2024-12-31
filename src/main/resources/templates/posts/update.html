@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>게시글 작성</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
+</head>
+
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container">
+  <div class="board-container">
+    <div class="board-header">
+      <h1 class="board-title">게시글 수정</h1>
+      <div class="board-actions">
+        <button class="write-btn" th:onclick="'location.href=\''+ '/posts/' + @{${postId}} + '\''">
+          게시글로 돌아가기
+        </button>
+      </div>
+    </div>
+
+    <!-- 게시글 수정 폼 -->
+    <div class="post-create-input">
+      <form th:action="@{/posts/{postId}/update(postId=${post.id})}" method="post">
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" th:value="${post.title}" required>
+        <br>
+        <label for="contents">내용</label>
+        <textarea id="contents" name="contents" th:text="${post.contents}"
+                  required></textarea>
+        <br>
+        <button class=write-btn type="submit">수정</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

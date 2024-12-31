@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>강아지 백과사전 - 멍피디아</title>
+  <!-- 카카오맵 API -->
+  <script type="text/javascript"
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2d7685767a15f68342aeab49f3273718"></script>
+  <link rel="stylesheet" th:href="@{/styles/index-style.css}">
+</head>
+
+<body>
+<div th:replace="~{fragments/header :: header}"></div> <!-- 헤더 포함 -->
+
+<main class="container">
+  <section class="encyclopedia-section">
+    <img th:src="@{/images/bg_withdog.jpg}" alt="bg_withdog" class="bg_withdog">
+    <div class="section-header">
+      <h2 class="section-title">견종 백과</h2>
+      <a href="/pedia" class="more-btn">
+        <span>더 보기</span>
+        <span>&gt;</span>
+      </a>
+    </div>
+        <div class="breed-container">
+            <div class="breed-card" onclick="@{/pedia/detail/{id}(id=${content.id})}" th:each="content : ${pediaContents}">
+              <img th:src="${content.imageUri}" alt="Breed Image" style="width: 180px; height: 130px;">
+              <h3 class="breed-name" th:text="${content.breed}">품종</h3>
+              <a th:href="@{/pedia/detail/{id}(id=${content.id})}">
+                상세보기
+              </a>
+            </div>
+        </div>
+
+
+    <div class="section-header">
+      <h2 class="section-title">커뮤니티</h2>
+      <a href="/posts" class="more-btn">
+        <span>더 보기</span>
+        <span>&gt;</span>
+      </a>
+    </div>
+    <div class="posts-container">
+      <div class="post-list">
+        <div class="post-item" th:each="post : ${topPosts}">
+          <div class="post-info">
+            <a class="post-title" th:href="@{/posts/{id}(id=${post.id})}"
+               th:text="${post.title}"></a>
+            <div class="post-meta">
+              <span th:text="${post.memberNickName}"></span>
+              <span th:text="${post.formattedCreatedAt}"></span>
+            </div>
+          </div>
+          <div class="post-stats">
+            <span>조회 <th:block th:text="${post.views}"></th:block></span>
+            <span>댓글 <th:block th:text="${post.commentCount}"></th:block></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div> <!-- 푸터 포함 -->
+
+<script th:src="@{/JS/index-js.js}"></script>
+
+</body>
+</html>

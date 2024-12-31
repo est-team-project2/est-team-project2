@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>멍피디아 - 견종백과</title>
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
+</head>
+
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main class="container">
+  <div class="board-container">
+    <div class="board-header">
+      <h1 class="board-title">견종 백과</h1>
+      <div class="board-actions"></div>
+    </div>
+
+    <div class="breed-container"> <!-- breed-container 추가 -->
+      <div th:each="content : ${pediaContents}" class="breed-card">
+        <img th:src="${content.imageUri}" alt="Breed Image">
+        <h3 class="breed-name" th:text="${content.breed}">품종</h3>
+        <p class="ditails">
+          <a th:href="@{/pedia/detail/{id}(id=${content.id})}">상세보기</a>
+        </p>
+      </div>
+    </div> <!-- breed-container 닫기 -->
+  </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>
