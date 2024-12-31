@@ -45,21 +45,49 @@
 | 협업 도구     | <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/> |
 | 인프라 구조     |  <img src="https://img.shields.io/badge/AWS S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">|
 
+## 개발 환경 및 기술
+
+### 개발 환경
+
+<img src="https://img.shields.io/badge/intelliJ-084CCF?style=for-the-badge&logo=intellijidea&logoColor=white">  
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+
+### 개발 기술
+
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+<img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<br>
+
+<img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white">
+<br>
+
+<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+<img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
+<br>
+
+<img src="https://img.shields.io/badge/bootstrap-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white">
+
+<br>
+
+
 ### ⚙ 시스템 아키텍처
-![시스템 아키텍처](https://github.com/user-attachments/assets/7170da39-c31b-4a94-8ec6-217e7b054041)
+![시스템 아키텍처]
 
 ### 📌 SW 유스케이스
-![SW 유스케이스](https://github.com/user-attachments/assets/41e451bc-ec1e-4f30-a6fa-6edeec57559f)
+![SW 유스케이스]
 
 ### 📌 서비스 흐름도
-![서비스 흐름도](https://github.com/user-attachments/assets/e279e867-1c01-4a6c-8f9b-ecdcbeee84e6)
+![서비스 흐름도]
 
 ### 📌 ER 다이어그램
-![ER 다이어그램](https://github.com/user-attachments/assets/578b7c43-0aaf-4871-9bad-94b7827edbc3)
+![ER 다이어그램]
 
 
 ### 🖥 화면 구성
-![화면 구성](https://github.com/user-attachments/assets/1a17a8c2-fa65-4c14-bf12-b34bab86b0a7)
+![화면 구성]
 
 ### 👨‍👩‍👦‍👦 팀원 역할
 
@@ -97,7 +125,6 @@
     <br>ㅁ
   </td>
 
-  <tr>
    <td align="center"><b>front/Back</b>
     <br>ㅁㅁ
     <br>ㅁㅁ
