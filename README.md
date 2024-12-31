@@ -1,5 +1,7 @@
-## 📎 프로젝트: 
-<br> 멍피디아 **강아지 백과사전 멍피디아**
+### 📎 프로젝트팀: 내 이름은 손목터미널 2조 
+<br>
+
+### 멍피디아 **강아지 백과사전 멍피디아**
 
 ### 👀 서비스 소개
 **설명:** 회원이 조회, 수정할 수 있는 강아지 백과와 반려견 관련 다양한 서비스를 제공하는 웹 서비스
@@ -13,7 +15,6 @@
 - 2024.12.11 ~ 2024.12.13 : 기능 명세, 플로우차트, ERD 작성
 - 2024.12.16 ~ 2024.12.26 : 기능 개발
 - 2024.12.27 ~ 2024.12.30 : 최종 통합 및 디버깅
-
 
 ### ⭐ 주요 기능
 
@@ -31,32 +32,18 @@
 - 지도 api를 활용한 주변 서비스 조회 (반려 동물 용품, 애견 동반, 애견 호텔, 애견 샵, 동물 병원)
 - 건강 계산기(예방 접종 일자 계산기, 나이 계산기)
 
-
 ### ⛏ 기술 스택
 | 구분          | 내용 |
 |---------------|---------|
 | 기본 사용언어     | <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> |
 | Frontend 사용언어     |  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/> |
-|  Backend 프레임워크     |  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=Flask&logoColor=white"/> |
-| 라이브러리     | <img src="https://img.shields.io/badge/BootStrap-7952B3?style=for-the-badge&logo=BootStrap&logoColor=white"/> <img src="https://img.shields.io/badge/AWS Rekognition-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white" > <img src="https://img.shields.io/badge/OpenCV-FF61F6?style=for-the-badge&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/Dlib-31A8FF?style=for-the-badge&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/Media Pipe-007CE2?style=for-the-badge&logo=java&logoColor=white"/>|
+|  Backend 프레임워크     |  <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
+<img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> |
+| 라이브러리     | <img src="https://img.shields.io/badge/bootstrap-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> <img src="https://img.shields.io/badge/Kakao Map Api-007CE2?style=for-the-badge&logo=KaKao Map Api&logoColor=white"> |
 | 개발 도구     | <img src="https://img.shields.io/badge/intelliJ-084CCF?style=for-the-badge&logo=intellijidea&logoColor=white"> |
-| 서버 환경     | <img src="https://img.shields.io/badge/Apache Tomcat-D22128?style=for-the-badge&logo=Apache Tomcat&logoColor=white"/> |
-| 데이터베이스   | <img src="https://img.shields.io/badge/Oracle 11g-F80000?style=for-the-badge&logo=Oracle&logoColor=white"/> |
+| 서버 환경     | <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> |
+| 데이터베이스   | <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"> |
 | 협업 도구     | <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/> |
-| 인프라 구조     | <img src="https://img.shields.io/badge/AWS S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">|
-
-### 개발 기술
-
-<img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white">
-
-<img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
-<img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white">
-<br>
-
-<img src="https://img.shields.io/badge/bootstrap-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white">
-
-<br>
-
 
 ### ⚙ 시스템 아키텍처
 ![시스템 아키텍처]
@@ -104,27 +91,14 @@
    <td align="center"><b>PM/Back</b>
     <br>ㅁㅁ
     <br>ㅁㅁ
-    <br>ㅁ
-    <br>ㅁ
-    <br>ㅁ
-    <br>ㅁ
   </td>
 
    <td align="center"><b>front/Back</b>
     <br>ㅁㅁ
     <br>ㅁㅁ
-    <br>ㅁ
-    <br>ㅁ
-    <br>ㅁ
-    <br>ㅁ
   </td>
   
   <td align="center"><b>Front/Back</b>
-    <br>ㅁ
-    <br>ㅁ
-    <br>ㅁ
-    <br>ㅁ
-    <br>ㅁ
     <br>ㅁ
     <br>ㅁ
   </td>
@@ -132,17 +106,9 @@
   <td align="center"><b>DB/Front</b>
     <br>ㅁ
     <br>ㅁ
-    <br>ㅁ
-    <br>ㅁ
-    <br>ㅁ
-    <br>ㅁ
   </td>
   
   <td align="center"><b>front/Back</b>
-   <br>ㅁ
-   <br>ㅁ
-   <br>ㅁ
-   <br>ㅁ
    <br>ㅁ
    <br>ㅁ
   </td>
