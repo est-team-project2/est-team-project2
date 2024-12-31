@@ -77,23 +77,23 @@
   </tr>
 
   <tr>
-   <td align="center"><b>PM/Back</b>
+   <td align="center"><b>PM/Front/Back/DB</b>
     <br>로그인, 관리자 기능 개발
   </td>
 
-   <td align="center"><b>front/Back</b>
+   <td align="center"><b>Front/Back/DB</b>
     <br>백과, 게시판 기능 개발
   </td>
   
-  <td align="center"><b>Front/Back</b>
+  <td align="center"><b>Front/Back/DB</b>
     <br>백과 기능 개발
   </td>
 
-  <td align="center"><b>DB/Front</b>
+  <td align="center"><b>Front/Back/DB</b>
     <br>로그인, 백과 기능 개발 
   </td>
   
-  <td align="center"><b>front/Back</b>
+  <td align="center"><b>Front/Back</b>
    <br>프론트, 지도 및 계산기 기능 개발
   </td>
  </tr>
