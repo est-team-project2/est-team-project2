@@ -34,12 +34,12 @@
 ### ⛏ 기술 스택
 | 구분          | 내용 |
 |---------------|---------|
-| 기본 사용언어     | <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> |
+| 기본 사용언어     | <img src="https://img.shields.io/badge/java-f89820?style=for-the-badge&logo=java&logoColor=white"> |
 | Frontend 사용언어     | <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/> |
 |  Backend 프레임워크     | <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"> <img src="https://img.shields.io/badge/springsecurity-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"> |
 | 라이브러리     | <img src="https://img.shields.io/badge/bootstrap-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> <img src="https://img.shields.io/badge/Kakao Map Api-F7DF1E?style=for-the-badge&logo=KaKao Map Api&logoColor=black"> <img src="https://img.shields.io/badge/thymeleaf-005F0F?style=for-the-badge&logo=thymeleaf&logoColor=white"> |
 | 개발 도구     | <img src="https://img.shields.io/badge/intelliJ-084CCF?style=for-the-badge&logo=intellijidea&logoColor=white"> |
-| 서버 환경     | <img src="https://img.shields.io/badge/Live Server-005F0F?style=for-the-badge&logo=server&logoColor=white"> |
+| 서버 환경     | <img src="https://img.shields.io/badge/Live Server-084CCF?style=for-the-badge&logo=server&logoColor=white"> |
 | 데이터베이스   | <img src="https://img.shields.io/badge/mariaDB-003545?style=for-the-badge&logo=mariaDB&logoColor=white"> |
 | 협업 도구     | <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/> |
 
