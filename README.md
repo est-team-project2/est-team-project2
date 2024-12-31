@@ -51,11 +51,122 @@
 ## 📌 서비스 흐름도
 ![서비스 흐름도]
 
+## 플로우차트
+
+### 회원가입
+
+<img width="500" alt="signin" src="https://github.com/user-attachments/assets/85f3cf3f-373d-48b4-8800-fe1cf8453328">
+
+### 비밀번호 찾기
+
+<img width="500" alt="findPW" src="https://github.com/user-attachments/assets/96dd236a-de06-4129-bb8c-0bd4e5169280">
+
+## 화면 설계
+
+### 초기 화면 설계 (메인 페이지)
+
+![화면설계 ui](https://github.com/user-attachments/assets/0383632e-bf0f-4de5-ab83-811ce4fd26cd)
+
+## API 명세서
+
+### 로그인 및 회원 정보 기능
+
+| 주소               | 기능      | 비회원 | 회원 | 전문가 | 관리자 |
+|------------------|---------|-----|----|-----|-----|
+| `/`              | 홈       | O   | O  | O   | O   |
+| `/signin`        | 로그인     | O   | O  | O   | O   |
+| `/signup`        | 회원가입    | O   | O  | O   | O   |
+| `/find-password` | 비밀번호 찾기 | O   | O  | O   | O   |
+
+| 주소                    | 기능       | 비회원 | 회원 | 전문가 | 관리자 |
+|-----------------------|----------|-----|----|-----|-----|
+| `/my`                 | 회원정보(자신) | X   | O  | O   | O   |
+| `/my/update-password` | 비밀번호 변경  | X   | O  | O   | O   |
+
+### 관리자 기능
+
+| 주소                               | 기능                | 비회원 | 회원 | 전문가 | 관리자 |
+|----------------------------------|-------------------|-----|----|-----|-----|
+| `/admin`                         | 관리자 페이지           | X   | X  | X   | O   |
+| `/admin/manageMember`            | (관리자) 회원 목록       | X   | X  | X   | O   |
+| `/admin/manageMember{member_id}` | (관리자) 회원 상세 및 관리  | X   | X  | X   | O   |
+| `/admin/managePedia`             | (관리자) 백과 목록       | X   | X  | X   | O   |
+| `/admin/managePedia/{pedia_id}`  | (관리자) 백과 상세 및 관리  | X   | X  | X   | O   |
+| `/admin/managePost`              | (관리자) 게시글 목록      | X   | X  | X   | O   |
+| `/admin/managePost/{post_id}`    | (관리자) 게시글 상세 및 관리 | X   | X  | X   | O   |
+
+### 백과 기능
+
+| 주소                                     | 기능           | 비회원 | 회원 | 전문가 | 관리자 |
+|----------------------------------------|--------------|-----|----|-----|-----|
+| `/pedia`                               | 견종백과 목록      | O   | O  | O   | O   |
+| `/pedia/detail/{pedia_id}`             | 견종백과 상세      | O   | O  | O   | O   |
+| `/pedia/edit-request/{pedia_id}`       | 견종백과 수정 요청   | X   | O  | O   | O   |
+| `/pedia/history/{pedia_id}`            | 견종백과 버전 목록   | O   | O  | O   | O   |
+| `/pedia/history/detail/{pedia_id}`     | 견종백과 버전 상세   | O   | O  | O   | O   |
+| `/view-edit-request`                   | 백과 수정 요청 조회  | X   | X  | O   | O   |
+| `/view-edit-request/detail/{pedia_id}` | 백과 수정 요청 상세  | X   | X  | O   | O   |
+| `/registerOnlyBreed`                   | 견종백과 새 견종 등록 | X   | X  | X   | O   |
+
+### 게시판 기능
+
+| 주소                        | 기능         | 비회원 | 회원 | 전문가 | 관리자 |
+|---------------------------|------------|-----|----|-----|-----|
+| `/posts`                  | 게시글 목록(기본) | X   | O  | O   | O   |
+| `/posts/{post_id}`        | 게시글 조회     | X   | O  | O   | O   |
+| `/posts/new`              | 게시글 작성     | X   | O  | O   | O   |
+| `/posts/{post_id}/update` | 게시글 수정     | X   | O  | O   | O   |
+
+### 반려견 서비스 기능
+
+| 주소                | 기능     | 비회원 | 회원 | 전문가 | 관리자 |
+|-------------------|--------|-----|----|-----|-----|
+| `/map`            | 지도 api | O   | O  | O   | O   |
+| `/dog-calculator` | 건강 계산기 | O   | O  | O   | O   |
+
 ## 📌 ER 다이어그램
 ![ER 다이어그램]
 
+![2팀 erd](https://github.com/user-attachments/assets/22faefc8-255f-47a6-9ebf-df3b73f106f3)
+
 ## 🖥 화면 구성
 ![화면 구성]
+
+### 메인 페이지
+
+<img width="500" alt="index-로그인-전" src="https://github.com/user-attachments/assets/b44cbb00-8edc-4482-9a83-eaf1a0631986" />
+
+### 로그인 및 회원 정보 페이지
+
+<img width="500" alt="my" src="https://github.com/user-attachments/assets/144def44-4791-4a2f-8af2-19082a082d6d" />
+<img width="500" alt="signin" src="https://github.com/user-attachments/assets/140da092-bec6-4699-8a74-1a52d54bc74b" />
+<img width="500" alt="changePass" src="https://github.com/user-attachments/assets/d0953430-a9cb-49a3-ba3e-169ec1180463" />
+
+### 관리자 페이지
+
+<img width="500" alt="manageMember" src="https://github.com/user-attachments/assets/b7e37b6f-d80b-4cd4-b147-ca2209f48211" />
+<img width="500" alt="managePedia" src="https://github.com/user-attachments/assets/a0947e3a-10df-4d96-af49-6b4dffa12bb3" />
+<img width="500" alt="managePost" src="https://github.com/user-attachments/assets/a81f0d9f-1f6c-49da-ae22-40320dde6023" />
+
+### 백과 페이지
+
+<img width="500" alt="pedia" src="https://github.com/user-attachments/assets/1133f47f-9ac7-4458-8246-f26b5ae99146" />
+<img width="500" alt="pediaDetail" src="https://github.com/user-attachments/assets/ba1e424a-c73a-4e00-b2b3-5c8a20d3f672" />
+<img width="500" alt="pediaHistory" src="https://github.com/user-attachments/assets/a62f212f-82c8-4cc0-b495-81c4991a2b08" />
+<img width="500" alt="pediaHistoryDetail" src="https://github.com/user-attachments/assets/b4eb4ce5-e0b1-44e8-b74d-49389150674a" />
+<img width="500" alt="editRequest" src="https://github.com/user-attachments/assets/2c4a80e4-342a-462b-bf49-a4cf7f8d7a66" />
+
+### 게시판 페이지
+
+<img width="500" alt="community" src="https://github.com/user-attachments/assets/fd266cc1-86e5-4080-9ad1-a4e09cb8390d" />
+<img width="500" alt="postDetail" src="https://github.com/user-attachments/assets/a63a6951-9d6f-413a-9512-4c23d5760f36" />
+
+## 반려견 서비스 페이지
+
+<img width="500" alt="map" src="https://github.com/user-attachments/assets/e6352b79-dd5a-4756-8814-4f56cc230e45" />
+<img width="500" alt="dog-calculator" src="https://github.com/user-attachments/assets/e6bf2426-08b2-46e4-b37a-0914cf34a9b2" />
+
+
 
 ## 👨‍👩‍👦‍👦 팀원 역할
 
@@ -193,4 +304,9 @@
 <img src="https://img.shields.io/badge/Redux-toolkit-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white" >
 <img src="https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white">
 <img src="https://img.shields.io/badge/Axios-007CE2?style=for-the-badge&logo=axios&logoColor=white" >
+
+BE	<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=for-the-badge&logo=SpringBoot&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"/> <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"/> <img src="https://img.shields.io/badge/Alan AI-007396?style=for-the-badge&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/AWS S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"/> <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=Redis&logoColor=white"/>
+DevOps	<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=Docker&logoColor=white"/> <img src="https://img.shields.io/badge/Docker Compose-2496ED?style=for-the-badge&logo=Docker&logoColor=white"/> <img src="https://img.shields.io/badge/Github Actions-2088FF?style=for-the-badge&logo=Github Actions&logoColor=white"/> <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white"/> <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"/> <img src="https://img.shields.io/badge/AWS RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white"/>
+FE	<img src="https://img.shields.io/badge/Vue.js-4FC08D?style=for-the-badge&logo=Vue.js&logoColor=white"/>
+개발 도구	<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white"/> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"/>
 -->
